@@ -1,25 +1,27 @@
-/* Glassmorphism Header */
+/* Font Manrope & Inter */
+body { font-family: 'Inter', sans-serif; }
+h1, h2, h3, h4, .font-headline { 
+    font-family: 'Manrope', sans-serif; 
+    letter-spacing: -0.02em; /* Tight letter spacing for premium feel */
+}
+
+/* Glassmorphism Navigation */
 .glass-header {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
-/* Custom Cards */
-.bento-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Typography Scale */
+h1 { font-weight: 800; }
+.tracking-widest { letter-spacing: 0.2em; }
+
+/* Custom Inputs */
+input:focus, select:focus {
+    outline: none;
+    background-color: white !important;
 }
 
-.bento-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(22, 59, 24, 0.08);
-}
-
-/* Form Input Focus */
-input::placeholder, textarea::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-input:focus::placeholder, textarea:focus::placeholder {
-    color: rgba(22, 59, 24, 0.4);
-}
+/* Animations */
+[data-aos] { pointer-events: none; }
+.aos-animate { pointer-events: auto; }
