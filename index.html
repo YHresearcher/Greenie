@@ -3,28 +3,20 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>The Sovereign Harvest - Export & Private Label Solutions</title>
+    <title>The Sovereign Harvest - Export & Product Hub</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="css/style.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        primary: "#163b18",
-                        secondary: "#545e76",
-                        surface: "#f8f9fa",
-                    },
-                    fontFamily: {
-                        headline: ["Manrope", "sans-serif"],
-                        body: ["Inter", "sans-serif"],
-                    }
+                    colors: { primary: "#163b18", secondary: "#545e76", surface: "#f8f9fa" },
+                    fontFamily: { headline: ["Manrope", "sans-serif"], body: ["Inter", "sans-serif"] }
                 }
             }
         }
@@ -32,135 +24,90 @@
 </head>
 <body class="bg-surface text-slate-900 font-body antialiased">
 
-    <header class="fixed top-0 w-full z-50 glass-header border-b border-slate-100">
+    <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100">
         <div class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto">
-            <div class="text-2xl font-black text-primary tracking-tighter uppercase font-headline">
-                The Sovereign Harvest
-            </div>
+            <div class="text-2xl font-black text-primary tracking-tighter uppercase font-headline">The Sovereign Harvest</div>
             <nav class="hidden md:flex gap-8 font-bold text-[13px] uppercase tracking-tight">
-                <a href="#hero" class="hover:text-emerald-700">Trang chủ</a>
-                <a href="#product-hub" class="hover:text-emerald-700">Sản phẩm</a>
-                <a href="#oem" class="hover:text-emerald-700">OEM / Label</a>
-                <a href="#contact" class="hover:text-emerald-700">Liên hệ</a>
+                <a href="#hero" class="hover:text-emerald-700 transition-colors">Trang chủ</a>
+                <a href="#product-hub" class="hover:text-emerald-700 transition-colors">Sản phẩm</a>
+                <a href="#oem" class="hover:text-emerald-700 transition-colors">OEM / Label</a>
+                <a href="#contact" class="hover:text-emerald-700 transition-colors">Liên hệ</a>
             </nav>
-            <a href="#contact" class="bg-primary text-white px-6 py-2.5 text-[11px] font-bold uppercase tracking-widest rounded shadow-lg">
-                Get Wholesale Quote
-            </a>
+            <a href="#contact" class="bg-primary text-white px-6 py-2.5 text-[11px] font-bold uppercase tracking-widest rounded shadow-lg">Báo giá sỉ</a>
         </div>
     </header>
 
     <main class="pt-20">
         <section id="hero" class="py-20 lg:py-32 max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center">
             <div data-aos="fade-right">
-                <h1 class="font-headline font-extrabold text-5xl lg:text-7xl leading-tight text-primary mb-8">
-                    Sovereign-Grade Agricultural Exports.
-                </h1>
-                <p class="text-xl text-secondary mb-10 leading-relaxed">
-                    Cung ứng nông sản tiêu chuẩn xuất khẩu với giải pháp đóng gói Private Label toàn diện.
-                </p>
-                <a href="#product-hub" class="bg-primary text-white px-8 py-4 text-sm font-bold uppercase tracking-widest rounded shadow-xl inline-block">Explore Products</a>
+                <h1 class="font-headline font-extrabold text-5xl lg:text-7xl leading-tight text-primary mb-8">Nông Sản Xuất Khẩu Tiêu Chuẩn Quốc Tế.</h1>
+                <p class="text-xl text-secondary mb-10 leading-relaxed">Cung ứng hạt điều và đường mía chất lượng cao cho thị trường toàn cầu.</p>
+                <a href="#product-hub" class="bg-primary text-white px-8 py-4 text-sm font-bold uppercase tracking-widest rounded shadow-xl inline-block transition-transform hover:scale-105">Khám phá sản phẩm</a>
             </div>
-            <div data-aos="zoom-in" class="aspect-square bg-slate-200 rounded-3xl overflow-hidden shadow-2xl">
+            <div data-aos="zoom-in" class="aspect-square rounded-3xl overflow-hidden shadow-2xl">
                 <img src="https://images.unsplash.com/photo-1590505660500-1c6f78f8958c?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover">
             </div>
         </section>
 
         <section id="product-hub" class="py-24 bg-white border-y border-slate-100">
-    <div class="max-w-7xl mx-auto px-8">
-        <div class="flex flex-col lg:flex-row gap-16">
-            
-            <aside class="w-full lg:w-64 flex-shrink-0">
-                <div class="bg-slate-50 rounded-2xl p-8 sticky top-32 border border-slate-100">
-                    <h3 class="font-headline font-bold text-lg text-primary mb-6 uppercase">Bộ lọc</h3>
-                    <div class="space-y-8">
-                        <div>
-                            <h4 class="font-bold text-[10px] text-slate-400 mb-4 uppercase tracking-widest">Phân loại</h4>
-                            <div class="space-y-3 text-sm">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="flex flex-col lg:flex-row gap-16">
+                    <aside class="w-full lg:w-64 flex-shrink-0">
+                        <div class="bg-slate-50 rounded-2xl p-8 sticky top-32 border border-slate-100">
+                            <h3 class="font-headline font-bold text-lg text-primary mb-6 uppercase">Danh mục</h3>
+                            <div class="space-y-4 text-sm">
                                 <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked class="rounded text-primary"> Hạt Điều Nhân</label>
                                 <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked class="rounded text-primary"> Đường Mía</label>
                             </div>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-[10px] text-slate-400 mb-4 uppercase tracking-widest">Tiêu chuẩn</h4>
-                            <div class="space-y-3 text-sm">
-                                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="rounded text-primary"> ISO 22000</label>
-                                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="rounded text-primary"> HACCP / Halal</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
+                    </aside>
 
-            <div class="flex-grow space-y-20">
-                <div data-aos="fade-up">
-                    <div class="flex items-center gap-4 mb-8">
-                        <h2 class="text-3xl font-headline font-black text-primary uppercase">Hạt Điều Nhân</h2>
-                        <div class="h-px bg-slate-100 flex-grow"></div>
-                    </div>
-                    <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row">
-                        <div class="md:w-1/3 h-64 md:h-auto overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
-                        </div>
-                        <div class="md:w-2/3 p-10">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 mb-2 block">Xuất khẩu chủ lực</span>
-                            <h3 class="text-2xl font-bold mb-4">Sovereign White Whole (WW)</h3>
-                            <p class="text-secondary mb-8 text-sm leading-relaxed">
-                                Hạt điều nhân trắng tiêu chuẩn AFI, độ ẩm <5%, tỉ lệ vỡ cực thấp. Phù hợp cho đóng gói bán lẻ cao cấp hoặc nguyên liệu chế biến.
-                            </p>
-                            <div class="grid grid-cols-3 gap-4 mb-8 text-[11px] font-bold uppercase text-slate-400">
-                                <div><p>Grades</p><p class="text-primary mt-1">W180, W240, W320</p></div>
-                                <div><p>Đóng gói</p><p class="text-primary mt-1">Hút chân không</p></div>
-                                <div><p>MOQ</p><p class="text-primary mt-1">1 Tấn (MT)</p></div>
-                            </div>
-                            <div class="flex gap-4">
-                                <a href="#contact" class="bg-primary text-white px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest shadow-lg">Báo giá sỉ</a>
-                                <a href="#specs" class="border border-slate-200 px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest hover:bg-slate-50 transition-all">Chi tiết kỹ thuật</a>
+                    <div class="flex-grow space-y-20">
+                        <div data-aos="fade-up">
+                            <h2 class="text-3xl font-headline font-black text-primary uppercase mb-8 border-b pb-4">Hạt Điều Nhân</h2>
+                            <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row">
+                                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=600" class="md:w-1/3 object-cover h-64 md:h-auto">
+                                <div class="p-10 md:w-2/3">
+                                    <h3 class="text-2xl font-bold mb-4">Sovereign White Whole (WW)</h3>
+                                    <p class="text-secondary mb-6 text-sm">Hạt điều nhân trắng tiêu chuẩn AFI, độ ẩm <5%, tỉ lệ vỡ thấp. Đạt chuẩn ISO/HACCP.</p>
+                                    <div class="grid grid-cols-2 gap-4 mb-8 text-[11px] font-bold uppercase text-slate-400">
+                                        <div><p>Phân loại</p><p class="text-primary mt-1">W180, W240, W320</p></div>
+                                        <div><p>MOQ</p><p class="text-primary mt-1">1 Tấn (MT)</p></div>
+                                    </div>
+                                    <a href="#contact" class="bg-primary text-white px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest inline-block shadow-md">Nhận báo giá</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div data-aos="fade-up">
-                    <div class="flex items-center gap-4 mb-8">
-                        <h2 class="text-3xl font-headline font-black text-primary uppercase">Đường Mía Thủ Công</h2>
-                        <div class="h-px bg-slate-100 flex-grow"></div>
-                    </div>
-                    <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row">
-                        <div class="md:w-1/3 h-64 md:h-auto overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1605333396915-47ed6b68a00e?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
-                        </div>
-                        <div class="md:w-2/3 p-10">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-600 mb-2 block">100% Tự nhiên</span>
-                            <h3 class="text-2xl font-bold mb-4">Artisan Golden Cane Sugar</h3>
-                            <p class="text-secondary mb-8 text-sm leading-relaxed">
-                                Đường mía giữ nguyên mật rỉ, vị ngọt thanh tự nhiên. Quy trình sản xuất không sử dụng hóa chất tẩy trắng, đạt chuẩn xuất khẩu EU/Middle East.
-                            </p>
-                            <div class="grid grid-cols-3 gap-4 mb-8 text-[11px] font-bold uppercase text-slate-400">
-                                <div><p>Độ Pol</p><p class="text-primary mt-1">99.0% Min</p></div>
-                                <div><p>Màu sắc</p><p class="text-primary mt-1">600 - 1200 ICUMSA</p></div>
-                                <div><p>Đóng gói</p><p class="text-primary mt-1">Túi Kraft / OEM</p></div>
-                            </div>
-                            <div class="flex gap-4">
-                                <a href="#contact" class="bg-primary text-white px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest shadow-lg">Báo giá sỉ</a>
-                                <a href="#contact" class="border border-slate-200 px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest hover:bg-slate-50 transition-all">Đặt mẫu thử</a>
+                        <div data-aos="fade-up">
+                            <h2 class="text-3xl font-headline font-black text-primary uppercase mb-8 border-b pb-4">Đường Mía</h2>
+                            <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row">
+                                <img src="https://images.unsplash.com/photo-1605333396915-47ed6b68a00e?auto=format&fit=crop&q=80&w=600" class="md:w-1/3 object-cover h-64 md:h-auto">
+                                <div class="p-10 md:w-2/3">
+                                    <h3 class="text-2xl font-bold mb-4">Artisan Golden Cane Sugar</h3>
+                                    <p class="text-secondary mb-6 text-sm">Đường mía thủ công nguyên chất, giữ trọn hương vị mật mía tự nhiên.</p>
+                                    <div class="grid grid-cols-2 gap-4 mb-8 text-[11px] font-bold uppercase text-slate-400">
+                                        <div><p>Độ Pol</p><p class="text-primary mt-1">99.0% Min</p></div>
+                                        <div><p>Đóng gói</p><p class="text-primary mt-1">Túi Kraft / OEM</p></div>
+                                    </div>
+                                    <a href="#contact" class="bg-primary text-white px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest inline-block shadow-md">Nhận báo giá</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-        <section id="contact" class="py-24 bg-surface-container-low">
+        <section id="contact" class="py-24 bg-slate-50">
             <div class="max-w-4xl mx-auto px-8">
-                <div class="bg-primary rounded-[2.5rem] p-12 text-white shadow-2xl overflow-hidden relative" data-aos="zoom-in">
-                    <h2 class="font-headline text-3xl font-bold mb-8 text-center">Liên Hệ & OEM Brief</h2>
+                <div class="bg-primary rounded-[2.5rem] p-12 text-white shadow-2xl" data-aos="zoom-in">
+                    <h2 class="font-headline text-3xl font-bold mb-8 text-center">Liên Hệ Báo Giá</h2>
                     <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <input type="text" name="user_name" placeholder="Họ và Tên" required class="bg-white/10 border border-white/20 p-4 rounded-xl outline-none focus:bg-white focus:text-primary transition-all">
                         <input type="email" name="user_email" placeholder="Email" required class="bg-white/10 border border-white/20 p-4 rounded-xl outline-none focus:bg-white focus:text-primary transition-all">
-                        <textarea name="message" placeholder="Yêu cầu chi tiết..." rows="4" class="col-span-full bg-white/10 border border-white/20 p-4 rounded-xl outline-none focus:bg-white focus:text-primary transition-all"></textarea>
-                        <button type="submit" class="col-span-full bg-white text-primary font-black uppercase tracking-widest py-5 rounded-xl hover:bg-emerald-50 transition-all">Gửi Yêu Cầu</button>
+                        <textarea name="message" placeholder="Yêu cầu sỉ hoặc OEM..." rows="4" class="col-span-full bg-white/10 border border-white/20 p-4 rounded-xl outline-none focus:bg-white focus:text-primary transition-all"></textarea>
+                        <button type="submit" class="col-span-full bg-white text-primary font-black uppercase tracking-widest py-5 rounded-xl hover:scale-[1.02] transition-transform">Gửi yêu cầu ngay</button>
                     </form>
                     <p id="form-status" class="mt-4 text-center font-bold hidden"></p>
                 </div>
@@ -168,8 +115,8 @@
         </section>
     </main>
 
-    <footer class="bg-emerald-950 text-white/50 py-16 px-8 text-center">
-        <p class="text-sm">© 2024 Sovereign Harvest Agricultural Exports. All Rights Reserved.</p>
+    <footer class="bg-emerald-950 text-white/50 py-12 text-center text-sm">
+        <p>© 2024 Sovereign Harvest Agricultural Exports.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
