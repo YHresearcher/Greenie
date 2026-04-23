@@ -1,27 +1,43 @@
-/* Font Manrope & Inter */
-body { font-family: 'Inter', sans-serif; }
-h1, h2, h3, h4, .font-headline { 
-    font-family: 'Manrope', sans-serif; 
-    letter-spacing: -0.02em; /* Tight letter spacing for premium feel */
+/* Typography Scale & Editorial System */
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-headline {
+    font-family: 'Manrope', sans-serif;
+    letter-spacing: -0.03em; /* Premium tight kerning */
 }
 
 /* Glassmorphism Navigation */
 .glass-header {
     background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
 }
 
-/* Typography Scale */
-h1 { font-weight: 800; }
-.tracking-widest { letter-spacing: 0.2em; }
-
-/* Custom Inputs */
-input:focus, select:focus {
-    outline: none;
-    background-color: white !important;
+/* Editorial No-Line Rule */
+.border-b, .border-t, .border-l, .border-r {
+    border-color: rgba(0, 0, 0, 0.05); /* Very subtle lines only when necessary */
 }
 
-/* Animations */
-[data-aos] { pointer-events: none; }
-.aos-animate { pointer-events: auto; }
+/* Custom Selection Color */
+::selection {
+    background: #163b18;
+    color: #ffffff;
+}
+
+/* Form Styles */
+input::placeholder {
+    font-size: 12px;
+    font-weight: 500;
+    color: #cbd5e1;
+}
+
+/* Responsive Padding Fixes */
+@media (max-width: 768px) {
+    section {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
