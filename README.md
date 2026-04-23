@@ -1,10 +1,10 @@
 # Greenie Vietnam Landing Page
 
-One-page B2B landing page for Greenie Vietnam, focused on wholesale export and OEM/private label inquiries from international buyers.
+One-page B2B landing page for Greenie Vietnam, focused on global wholesale export and OEM/private label inquiries from international buyers.
 
 ## Positioning
 
-Greenie Vietnam supplies export-ready Vietnamese cashew kernels and artisan cane sugar for importers, wholesalers, distributors, and private label brands.
+Greenie Vietnam supplies export-ready Vietnamese cashew kernels and artisan cane sugar for importers, wholesalers, distributors, manufacturers, and private label brands worldwide.
 
 Core commercial messaging:
 
@@ -15,6 +15,16 @@ Core commercial messaging:
 - HALAL certificate available
 - SGS/Eurofins testing available on request
 - Reply within 24-48 hours
+
+## Languages
+
+The page includes a client-side language switcher in the header:
+
+- English (`EN`)
+- Chinese (`中文`)
+- Hindi (`हिन्दी`) as the South Asia language option
+
+Translations live in `js/main.js` and are applied through `data-i18n` attributes in `index.html`.
 
 ## Structure
 
