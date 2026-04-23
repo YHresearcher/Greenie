@@ -1,0 +1,25 @@
+/* Glassmorphism Header */
+.glass-header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Custom Cards */
+.bento-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bento-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(22, 59, 24, 0.08);
+}
+
+/* Form Input Focus */
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input:focus::placeholder, textarea:focus::placeholder {
+    color: rgba(22, 59, 24, 0.4);
+}
