@@ -42,12 +42,8 @@ function applyTranslations() {
         if (translations[key]) {
             el.textContent = translations[key];
         }
+        // ❗ KHÔNG có key → giữ nguyên text HTML
     });
-
-    // update meta title nếu có
-    if (translations.metaTitle) {
-        document.title = translations.metaTitle;
-    }
 }
 
 // ===== SET LANGUAGE =====
