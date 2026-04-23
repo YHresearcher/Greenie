@@ -13,7 +13,7 @@ let translations = {};
 // ===== LOAD TRANSLATIONS =====
 async function loadTranslations(lang) {
     try {
-        const res = await fetch(`./locales/${lang}.json`);
+        const res = await fetch(`./locale/${lang}.json`);
         translations = await res.json();
     } catch (err) {
         console.error("Load language failed:", err);
