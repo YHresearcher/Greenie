@@ -1,4 +1,4 @@
-/* Typography Scale & Editorial System */
+/* Typography: Manrope & Inter */
 body {
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -6,38 +6,48 @@ body {
 
 h1, h2, h3, h4, .font-headline {
     font-family: 'Manrope', sans-serif;
-    letter-spacing: -0.03em; /* Premium tight kerning */
+    letter-spacing: -0.02em; /* Premium density */
 }
 
-/* Glassmorphism Navigation */
+/* Glassmorphism Rule */
 .glass-header {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    background: rgba(248, 249, 250, 0.85); /* surface @ 85% */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: none !important; /* No-Line Rule */
+    box-shadow: 0 40px 40px rgba(0, 0, 0, 0.04);
 }
 
-/* Editorial No-Line Rule */
-.border-b, .border-t, .border-l, .border-r {
-    border-color: rgba(0, 0, 0, 0.05); /* Very subtle lines only when necessary */
+/* Elevation: Ambient Shadows */
+.shadow-editorial {
+    box-shadow: 0 40px 40px rgba(25, 28, 29, 0.04); /* Tinted on-surface */
 }
 
-/* Custom Selection Color */
-::selection {
-    background: #163b18;
-    color: #ffffff;
+/* Signature Gradients */
+.shadow-btn {
+    background: linear-gradient(135deg, #163b18 0%, #2d522d 100%); /* primary to primary-container */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Form Styles */
-input::placeholder {
-    font-size: 12px;
-    font-weight: 500;
-    color: #cbd5e1;
+.shadow-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(22, 59, 24, 0.2);
 }
 
-/* Responsive Padding Fixes */
-@media (max-width: 768px) {
+/* Accessibility: Professional Inputs */
+input[type="checkbox"] {
+    @apply rounded-sm border-slate-200 text-primary focus:ring-primary;
+}
+
+/* Spacing & Crowding Rule */
+section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+@media (min-width: 1024px) {
     section {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 5rem;
+        padding-right: 5rem;
     }
 }
