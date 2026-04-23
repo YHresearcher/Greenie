@@ -1,52 +1,103 @@
-// 1. Initialize AOS (Animate on Scroll)
-AOS.init({
-    duration: 1000,
-    once: true,
-    offset: 120,
-    easing: 'ease-out-cubic'
-});
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 
-// 2. Initialize EmailJS
-(function() {
-    // THAY THẾ 'YOUR_PUBLIC_KEY' bằng mã thực tế từ EmailJS của bạn
-    emailjs.init("YOUR_PUBLIC_KEY");
-})();
-
-const contactForm = document.getElementById('contact-form');
-const statusText = document.getElementById('form-status');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        statusText.innerText = "Đang xử lý hồ sơ...";
-        statusText.classList.remove('hidden', 'text-emerald-600', 'text-red-600');
-        statusText.classList.add('text-primary');
-
-        // THAY THẾ 'YOUR_SERVICE_ID' và 'YOUR_TEMPLATE_ID'
-        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-            .then(function() {
-                statusText.innerText = "Gửi hồ sơ thành công! Greenie Vietnam sẽ liên hệ lại sớm nhất.";
-                statusText.classList.replace('text-primary', 'text-emerald-600');
-                contactForm.reset();
-            }, function(error) {
-                statusText.innerText = "Lỗi hệ thống. Vui lòng thử lại sau hoặc liên hệ trực tiếp qua email.";
-                statusText.classList.replace('text-primary', 'text-red-600');
-                console.error('FAILED...', error);
-            });
+if (window.AOS) {
+    AOS.init({
+        duration: 850,
+        easing: "ease-out-cubic",
+        once: true,
+        offset: 90
     });
 }
 
-// 3. Smooth Scrolling for Navigation
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            window.scrollTo({
-                top: target.offsetTop - 80, // Offset for fixed header
-                behavior: 'smooth'
-            });
+const mobileMenuButton = document.getElementById("mobile-menu-button");
+const mobileMenu = document.getElementById("mobile-menu");
+
+if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener("click", () => {
+        const isOpen = !mobileMenu.classList.contains("hidden");
+        mobileMenu.classList.toggle("hidden", isOpen);
+        mobileMenuButton.setAttribute("aria-expanded", String(!isOpen));
+    });
+}
+
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (event) => {
+        const targetId = anchor.getAttribute("href");
+        const target = targetId ? document.querySelector(targetId) : null;
+
+        if (!target) {
+            return;
         }
+
+        event.preventDefault();
+
+        if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+            mobileMenu.classList.add("hidden");
+            mobileMenuButton?.setAttribute("aria-expanded", "false");
+        }
+
+        window.scrollTo({
+            top: target.getBoundingClientRect().top + window.scrollY - 88,
+            behavior: "smooth"
+        });
     });
 });
+
+const contactForm = document.getElementById("contact-form");
+const statusText = document.getElementById("form-status");
+
+function setStatus(message, className) {
+    if (!statusText) {
+        return;
+    }
+
+    statusText.textContent = message;
+    statusText.className = `text-sm font-semibold ${className}`;
+}
+
+function isEmailJsConfigured() {
+    return (
+        EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY" &&
+        EMAILJS_SERVICE_ID !== "YOUR_SERVICE_ID" &&
+        EMAILJS_TEMPLATE_ID !== "YOUR_TEMPLATE_ID" &&
+        window.emailjs
+    );
+}
+
+if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+if (contactForm) {
+    contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+        }
+
+        if (!isEmailJsConfigured()) {
+            setStatus(
+                "EmailJS is not configured yet. Replace the EmailJS keys in js/main.js before going live.",
+                "text-amber-700"
+            );
+            return;
+        }
+
+        setStatus("Sending inquiry...", "text-primary");
+
+        emailjs
+            .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
+            .then(() => {
+                setStatus("Inquiry sent. Greenie Vietnam will reply within 24-48 hours.", "text-emerald-700");
+                contactForm.reset();
+            })
+            .catch((error) => {
+                console.error("EmailJS failed", error);
+                setStatus("The inquiry could not be sent. Please try again or contact Greenie Vietnam directly.", "text-red-700");
+            });
+    });
+}

@@ -1,184 +1,340 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="vi">
+<html class="scroll-smooth" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Greenie Vietnam - Premium Agricultural Exports</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="description" content="Greenie Vietnam supplies export-ready Vietnamese cashew kernels and artisan cane sugar for Middle East importers, wholesalers, distributors, and private label brands."/>
+    <title>Greenie Vietnam - Wholesale Export & Private Label</title>
 
     <script id="tailwind-config">
+        window.tailwind = window.tailwind || {};
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: "#163b18",
-                        'primary-container': "#2d522d",
+                        "primary-container": "#2d522d",
                         secondary: "#545e76",
                         surface: "#f8f9fa",
-                        'surface-container-low': "#f3f4f5",
-                        'surface-container-lowest': "#ffffff",
-                        'tertiary-fixed': "#ffdea5",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary-fixed": "#ffdea5",
+                        harvest: "#604503"
                     },
                     fontFamily: {
                         headline: ["Manrope", "sans-serif"],
-                        body: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        ambient: "0 40px 40px rgba(25, 28, 29, 0.04)"
                     }
                 }
             }
         }
     </script>
-    <style>
-        .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); }
-        .no-line { border: none !important; }
-        .shadow-ambient { box-shadow: 0 40px 40px rgba(25, 28, 29, 0.04); }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body class="bg-surface text-slate-900 font-body antialiased">
+    <header class="fixed top-0 w-full z-50 glass-header">
+        <div class="flex h-20 max-w-screen-2xl items-center justify-between px-5 sm:px-8 mx-auto">
+            <a href="#hero" class="font-headline text-xl sm:text-2xl font-black uppercase tracking-tight text-primary">
+                Greenie <span class="font-light">Vietnam</span>
+            </a>
 
-<header class="fixed top-0 w-full z-50 glass-header border-b border-slate-100">
-    <div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto">
-        <div class="text-2xl font-black text-primary tracking-tighter uppercase font-headline">
-            Greenie <span class="font-light">Vietnam</span>
+            <nav class="hidden lg:flex items-center gap-8 font-headline text-[11px] font-bold uppercase tracking-[0.18em] text-secondary">
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#quality" class="nav-link">Quality</a>
+                <a href="#oem" class="nav-link">OEM</a>
+                <a href="#samples" class="nav-link">Samples</a>
+                <a href="#quote" class="nav-link">Quote</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center gap-3">
+                <a href="#samples" class="btn-secondary">Request Samples</a>
+                <a href="#quote" class="btn-primary">Get Wholesale Quote</a>
+            </div>
+
+            <button id="mobile-menu-button" class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-sm bg-surface-container-low text-primary" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
         </div>
-        <nav class="hidden md:flex gap-10 font-headline font-bold text-[11px] uppercase tracking-[0.2em] text-secondary">
-            <a href="#product-hub" class="hover:text-primary transition-colors">Products</a>
-            <a href="#oem" class="hover:text-primary transition-colors">OEM/Label</a>
-            <a href="#request-sample-pack" class="hover:text-primary transition-colors">Samples</a>
-            <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+        <nav id="mobile-menu" class="hidden border-t border-slate-200/60 bg-white/95 px-5 py-5 lg:hidden">
+            <div class="grid gap-4 font-headline text-xs font-bold uppercase tracking-[0.18em] text-secondary">
+                <a href="#products" class="mobile-link">Products</a>
+                <a href="#quality" class="mobile-link">Quality</a>
+                <a href="#oem" class="mobile-link">OEM</a>
+                <a href="#samples" class="mobile-link">Samples</a>
+                <a href="#quote" class="mobile-link">Get Quote</a>
+            </div>
         </nav>
-        <div class="flex gap-4">
-            <a href="#oem" class="bg-primary text-white text-[10px] font-bold uppercase tracking-[0.1em] px-6 py-3 rounded-sm shadow-xl">Get Wholesale Quote</a>
-        </div>
-    </div>
-</header>
+    </header>
 
-<main>
-    <section id="hero" class="pt-48 pb-20 px-8 max-w-7xl mx-auto">
-        <h1 class="font-headline font-extrabold text-5xl lg:text-7xl leading-tight text-primary tracking-tighter mb-6">
-            The Sovereign Harvest.
-        </h1>
-        <p class="text-xl text-secondary mb-12 max-w-lg leading-relaxed font-light">
-            Positioning your brand as a premier architectural force in agricultural export.
-        </p>
-    </section>
-
-    <section id="product-hub" class="py-32 bg-surface-container-low">
-        <div class="max-w-7xl mx-auto px-8">
-            <header class="mb-20 max-w-3xl">
-                <h2 class="text-5xl font-headline font-extrabold text-primary tracking-tight mb-6">Premium Export Categories</h2>
-                <p class="text-lg text-secondary font-light">Discover our meticulously curated selection of sovereign-grade agricultural commodities.</p>
-            </header>
-
-            <div class="bg-white shadow-ambient flex flex-col xl:flex-row group overflow-hidden mb-32">
-                <div class="xl:w-2/5 h-80 xl:h-auto relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute top-6 left-6 bg-tertiary-fixed text-primary px-4 py-1.5 rounded-full font-headline text-[10px] font-bold uppercase tracking-widest">Premium Grade</div>
-                </div>
-                <div class="xl:w-3/5 p-12">
-                    <h3 class="text-3xl font-headline font-bold text-primary mb-4 tracking-tight">Sovereign White Whole (WW)</h3>
-                    <p class="text-secondary text-sm mb-10 leading-relaxed font-light">Sourced from select plantations for uncompromised size and creamy color.</p>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8 text-[10px] font-bold uppercase text-slate-400 tracking-widest">
-                        <div><p>Available Grades</p><p class="text-primary mt-1 font-black">W240, W320, W450</p></div>
-                        <div><p>Moisture Max</p><p class="text-primary mt-1 font-black">5%</p></div>
-                        <div><p>Packaging</p><p class="text-primary mt-1 font-black">22.68kg Vacuum Tins</p></div>
-                    </div>
-
-                    <div class="bg-surface-container-low p-6 rounded-sm mb-10 flex flex-wrap gap-12 border-l-4 border-primary/20" data-aos="fade-in">
-                        <div>
-                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Kernel Count</p>
-                            <p class="text-xs font-bold text-primary">220 - 240 / lb (W240)</p>
-                        </div>
-                        <div>
-                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Broken Rate</p>
-                            <p class="text-xs font-bold text-primary">Max 5%</p>
-                        </div>
-                        <div>
-                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">General Defects</p>
-                            <p class="text-xs font-bold text-primary">Max 8%</p>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap gap-6 items-center">
-                        <a href="#oem" class="bg-primary text-white px-8 py-4 font-bold text-[10px] uppercase tracking-[0.2em] shadow-xl hover:opacity-90 transition-all">Get Wholesale Quote</a>
-                        <a href="#request-sample-pack" class="bg-slate-100 text-secondary px-8 py-4 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-slate-200 transition-all">Request Samples</a>
-                    </div>
-                </div>
+    <main>
+        <section id="hero" class="relative overflow-hidden pt-32 lg:pt-40">
+            <div class="absolute inset-0 -z-10">
+                <img class="h-full w-full object-cover opacity-[0.08]" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1800" alt="Agricultural fields representing Vietnamese sourcing regions"/>
             </div>
-        </section>
-
-        <section id="oem" class="py-32 bg-white">
-            <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-24 items-start">
-                <div data-aos="fade-right">
-                    <h2 class="text-4xl font-headline font-extrabold text-primary mb-12 tracking-tighter">Private Label & OEM Packaging for Your Market</h2>
-                    <p class="text-lg text-secondary mb-12 font-light">Quy trình đóng gói chuyên nghiệp, tuân thủ tiêu chuẩn ISO 22000.</p>
-                    <div class="space-y-12 relative border-l border-slate-100 pl-12 ml-4">
-                        <div class="relative">
-                            <div class="absolute -left-[53px] top-0 bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm">1</div>
-                            <h4 class="font-bold text-lg mb-2">Requirements Brief</h4>
-                            <p class="text-secondary text-sm">Xác định các thông số sản phẩm và khối lượng dự kiến (MOQ 1 MT).</p>
-                        </div>
-                        </div>
-                </div>
-                <div class="bg-surface-container-low p-12 shadow-ambient">
-                    <h3 class="text-2xl font-bold text-primary mb-8 tracking-tight">OEM Brief Submission</h3>
-                    <form class="space-y-6">
-                        <input type="text" placeholder="Company Name" class="w-full bg-transparent border-b border-slate-300 py-3 outline-none focus:border-primary">
-                        <button class="w-full bg-primary text-white font-bold uppercase tracking-widest py-5 mt-4">Submit Brief</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <section id="request-sample-pack" class="py-32 bg-emerald-950 text-white overflow-hidden relative">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-tertiary-fixed/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
-            
-            <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-12 gap-16 items-center">
-                <div class="lg:col-span-7" data-aos="fade-right">
-                    <h2 class="text-4xl lg:text-5xl font-headline font-extrabold mb-8 tracking-tight leading-tight">
-                        Experience Premium Quality Firsthand. <br/>Request Your Sample Pack.
-                    </h2>
-                    <p class="text-emerald-100/60 text-lg mb-10 font-light leading-relaxed">
-                        Chúng tôi hiểu rằng chất lượng cần được trực tiếp xác thực. Nhận ngay bộ mẫu thử tiêu chuẩn (250g–500g) bao gồm các Grade hạt điều chủ lực và đường mía thủ công để đánh giá trước khi tiến hành đơn hàng lớn.
+            <div class="max-w-screen-2xl mx-auto grid min-h-[760px] items-center gap-12 px-5 pb-20 sm:px-8 lg:grid-cols-12">
+                <div class="lg:col-span-7" data-aos="fade-up">
+                    <p class="mb-5 font-headline text-xs font-extrabold uppercase tracking-[0.24em] text-secondary">Wholesale export + private label</p>
+                    <h1 class="mb-8 max-w-5xl font-headline text-5xl font-extrabold leading-[1.05] tracking-tight text-primary md:text-6xl xl:text-7xl">
+                        Export-ready Vietnamese cashew kernels and artisan cane sugar.
+                    </h1>
+                    <p class="mb-10 max-w-2xl text-lg leading-relaxed text-secondary md:text-xl">
+                        Greenie Vietnam supplies Middle East importers, wholesalers, distributors, and private label brands with clear commercial terms, documented quality control, and fast quote-ready support.
                     </p>
-                    <div class="flex flex-wrap gap-8 text-[11px] font-bold uppercase tracking-widest opacity-80 mb-10">
-                        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-emerald-400 text-sm">rocket_launch</span> Global Courier Delivery</div>
-                        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-emerald-400 text-sm">science</span> Technical COA Included</div>
+                    <div class="flex flex-col gap-4 sm:flex-row">
+                        <a href="#quote" class="btn-primary btn-large">Get Wholesale Quote</a>
+                        <a href="#samples" class="btn-secondary btn-large">Request Samples</a>
                     </div>
                 </div>
-                
-                <div class="lg:col-span-5" data-aos="fade-left">
-                    <div class="bg-white/5 backdrop-blur-xl p-10 border border-white/10 rounded-sm">
-                        <form class="space-y-6">
-                            <div class="space-y-1">
-                                <label class="text-[9px] font-black uppercase tracking-widest text-emerald-400/60">Product Sample Interest</label>
-                                <select class="w-full bg-emerald-900/50 border-0 border-b border-white/20 p-3 outline-none text-white focus:border-emerald-400">
-                                    <option>Cashew Kernels (W240/W320)</option>
-                                    <option>Artisan Cane Sugar</option>
-                                    <option>Full Mixed Pack</option>
-                                </select>
-                            </div>
-                            <input type="text" placeholder="Your Name / WhatsApp" class="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-emerald-400">
-                            <input type="email" placeholder="Business Email" class="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-emerald-400">
-                            <button type="submit" class="w-full bg-emerald-500 text-emerald-950 font-bold uppercase tracking-[0.2em] py-5 mt-6 hover:bg-emerald-400 transition-all">Request Samples Now</button>
-                        </form>
+
+                <div class="relative hidden lg:col-span-5 lg:block" data-aos="fade-left">
+                    <div class="relative z-10 aspect-[4/5] overflow-hidden rounded-sm bg-surface-container-lowest shadow-ambient">
+                        <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=1000" alt="Premium whole cashew kernels prepared for wholesale export"/>
+                    </div>
+                    <div class="absolute -bottom-8 -left-8 z-20 max-w-xs bg-white/80 p-6 backdrop-blur-xl shadow-ambient">
+                        <p class="font-headline text-[10px] font-black uppercase tracking-[0.22em] text-secondary">Export terms</p>
+                        <p class="mt-3 text-2xl font-black text-primary">MOQ from 1 MT</p>
+                        <p class="mt-2 text-sm leading-relaxed text-secondary">FOB/CIF via Saigon Port, with SGS/Eurofins testing available on request.</p>
                     </div>
                 </div>
             </div>
         </section>
-</main>
 
-<footer class="bg-black text-white/30 py-20 px-8 text-center text-[10px] font-bold uppercase tracking-widest">
-    © 2026 Greenie Vietnam Agricultural Exports.
-</footer>
+        <section aria-label="Buyer trust facts" class="bg-surface-container-low py-8">
+            <div class="max-w-screen-2xl mx-auto grid gap-4 px-5 sm:px-8 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+                <div class="proof-pill"><span>MOQ</span>1 MT</div>
+                <div class="proof-pill"><span>Lead time</span>7-15 days</div>
+                <div class="proof-pill"><span>Compliance</span>HALAL available</div>
+                <div class="proof-pill"><span>Testing</span>SGS/Eurofins</div>
+                <div class="proof-pill"><span>Incoterms</span>FOB/CIF</div>
+                <div class="proof-pill"><span>Port</span>Saigon Port</div>
+                <div class="proof-pill"><span>Payment</span>T/T & L/C</div>
+                <div class="proof-pill"><span>Response</span>24-48h</div>
+            </div>
+        </section>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    AOS.init({ duration: 1200, once: true });
-</script>
+        <section id="products" class="section-space bg-surface">
+            <div class="max-w-screen-2xl mx-auto px-5 sm:px-8">
+                <div class="mb-16 max-w-3xl" data-aos="fade-up">
+                    <p class="eyebrow">Strategic products</p>
+                    <h2 class="section-title">Premium export categories for wholesale and private label.</h2>
+                    <p class="section-copy">Focused product lines help buyers request the right specification sheets, samples, packaging options, and compliance documents faster.</p>
+                </div>
+
+                <div class="grid gap-8 lg:grid-cols-2">
+                    <article class="product-card" data-aos="fade-up">
+                        <div class="h-80 overflow-hidden">
+                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src="https://images.unsplash.com/photo-1608797178974-15b35a64ede9?auto=format&fit=crop&q=80&w=1200" alt="White whole cashew kernels for B2B export"/>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <p class="eyebrow">Binh Phuoc, Vietnam</p>
+                            <h3 class="mb-4 font-headline text-3xl font-extrabold tracking-tight text-primary">Vietnamese Cashew Kernels</h3>
+                            <p class="mb-8 leading-relaxed text-secondary">White whole cashew kernels for wholesale buyers, distributors, roasters, foodservice, and private label brands.</p>
+                            <div class="spec-grid">
+                                <div><span>Grades</span>W240 / W320 / W450</div>
+                                <div><span>Packaging</span>Bulk, vacuum, carton options</div>
+                                <div><span>Documents</span>Spec sheet, COA on request</div>
+                                <div><span>Allergen</span>Tree nut statement</div>
+                            </div>
+                            <div class="mt-8 flex flex-wrap gap-3">
+                                <a href="#quote" class="btn-primary">Get Quote</a>
+                                <a href="#samples" class="btn-secondary">Request Samples</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="h-80 overflow-hidden">
+                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src="https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&q=80&w=1200" alt="Natural cane sugar crystals for artisan product supply"/>
+                        </div>
+                        <div class="p-8 md:p-10">
+                            <p class="eyebrow">Quang Ngai, Vietnam</p>
+                            <h3 class="mb-4 font-headline text-3xl font-extrabold tracking-tight text-primary">Artisan Cane Sugar "Duong Phoi"</h3>
+                            <p class="mb-8 leading-relaxed text-secondary">Traditional Vietnamese cane sugar prepared for wholesale supply and private label packaging for regional retail markets.</p>
+                            <div class="spec-grid">
+                                <div><span>Statement</span>No preservatives</div>
+                                <div><span>Packaging</span>Jar, pouch, vacuum options</div>
+                                <div><span>Documents</span>Spec sheet, COA on request</div>
+                                <div><span>Origin</span>Vietnam country of origin</div>
+                            </div>
+                            <div class="mt-8 flex flex-wrap gap-3">
+                                <a href="#quote" class="btn-primary">Get Quote</a>
+                                <a href="#oem" class="btn-secondary">Start OEM</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-space bg-surface-container-low">
+            <div class="max-w-screen-2xl mx-auto grid gap-12 px-5 sm:px-8 lg:grid-cols-2">
+                <div class="lg:col-span-5" data-aos="fade-right">
+                    <p class="eyebrow">Why Greenie</p>
+                    <h2 class="section-title">Built for buyers who need clarity before price.</h2>
+                    <p class="section-copy">Greenie keeps procurement conversations practical: commercial terms, documents, packaging, testing, and shipping expectations are surfaced before the first quote.</p>
+                </div>
+                <div class="grid gap-6 md:grid-cols-2 lg:col-span-7">
+                    <div class="info-panel"><span class="material-symbols-outlined">contract</span><h3>Clear terms</h3><p>MOQ from 1 MT, lead time 7-15 days, FOB/CIF, Saigon Port, T/T and L/C.</p></div>
+                    <div class="info-panel"><span class="material-symbols-outlined">verified</span><h3>Compliance-ready</h3><p>HALAL certificate available and third-party testing from SGS/Eurofins available on request.</p></div>
+                    <div class="info-panel"><span class="material-symbols-outlined">inventory_2</span><h3>Flexible supply</h3><p>Wholesale export, bulk packaging, and private label options for buyer brands.</p></div>
+                    <div class="info-panel"><span class="material-symbols-outlined">route</span><h3>Traceable sourcing</h3><p>Cashew from Binh Phuoc and cane sugar from Quang Ngai, with batch/lot traceability approach available.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quality" class="section-space bg-surface">
+            <div class="max-w-screen-2xl mx-auto grid gap-12 px-5 sm:px-8 lg:grid-cols-2">
+                <div data-aos="fade-up">
+                    <p class="eyebrow">Quality & compliance</p>
+                    <h2 class="section-title">A buyer pack that shortens the sales cycle.</h2>
+                    <p class="section-copy">Only documented claims should be used in final export materials. The landing page positions certification and test reports as available on request unless documents are ready to publish.</p>
+                </div>
+                <div class="document-list" data-aos="fade-up" data-aos-delay="100">
+                    <div><span>01</span>Product specification sheets</div>
+                    <div><span>02</span>COA and SGS/Eurofins testing on request</div>
+                    <div><span>03</span>Country of Origin documentation</div>
+                    <div><span>04</span>HALAL certificate available</div>
+                    <div><span>05</span>Shelf life and storage statements</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="terms" class="section-space bg-surface">
+            <div class="max-w-screen-2xl mx-auto px-5 sm:px-8">
+                <div data-aos="fade-up">
+                    <p class="eyebrow">Commercial terms</p>
+                    <h2 class="section-title">Quote conversations start with the facts buyers ask for first.</h2>
+                </div>
+                <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+                    <div class="term-card"><span>MOQ</span>From 1 metric ton</div>
+                    <div class="term-card"><span>Lead time</span>7-15 days depending on product and packaging</div>
+                    <div class="term-card"><span>Shipping</span>FOB or CIF from Saigon Port</div>
+                    <div class="term-card"><span>Payment</span>T/T and L/C based on buyer requirements</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="oem" class="section-space bg-surface-container-low">
+            <div class="max-w-screen-2xl mx-auto grid gap-14 px-5 sm:px-8 lg:grid-cols-12">
+                <div class="lg:col-span-5" data-aos="fade-right">
+                    <p class="eyebrow">OEM / private label</p>
+                    <h2 class="section-title">Private label packaging for your target market.</h2>
+                    <p class="section-copy">Greenie supports buyer-brand packaging discussions for jars, kraft pouches, vacuum packs, label language requirements, and export documentation.</p>
+                    <a href="#quote" class="btn-primary mt-4 inline-flex">Submit OEM Brief</a>
+                </div>
+                <div class="lg:col-span-7" data-aos="fade-left">
+                    <div class="workflow">
+                        <div><span>1</span><h3>Requirements brief</h3><p>Product, target market, packaging format, pack size, documents, and estimated volume.</p></div>
+                        <div><span>2</span><h3>Packaging confirmation</h3><p>Buyer brand, label language, carton or pouch format, and compliance requirements.</p></div>
+                        <div><span>3</span><h3>Sample approval</h3><p>Samples can be arranged before production when buyer evaluation is required.</p></div>
+                        <div><span>4</span><h3>Production</h3><p>Lead time depends on product, stock status, and packaging complexity.</p></div>
+                        <div><span>5</span><h3>Inspection & shipment</h3><p>Optional third-party testing, final documents, and FOB/CIF shipment support.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="samples" class="section-space bg-slate-950 text-white">
+            <div class="max-w-screen-2xl mx-auto grid items-center gap-12 px-5 sm:px-8 lg:grid-cols-12">
+                <div class="lg:col-span-7" data-aos="fade-right">
+                    <p class="eyebrow text-tertiary-fixed">Request samples</p>
+                    <h2 class="section-title text-white">Evaluate product quality before a wholesale order.</h2>
+                    <p class="max-w-2xl text-lg leading-relaxed text-emerald-100/70">Request cashew kernels, artisan cane sugar, or a mixed sample pack. Technical documents can be included when available.</p>
+                    <div class="mt-8 flex flex-wrap gap-4 text-xs font-bold uppercase tracking-[0.14em] text-emerald-100/80">
+                        <span class="sample-badge">Courier-ready samples</span>
+                        <span class="sample-badge">COA on request</span>
+                        <span class="sample-badge">Buyer evaluation support</span>
+                    </div>
+                </div>
+                <div class="lg:col-span-5" data-aos="fade-left">
+                    <div class="bg-white/5 p-8 backdrop-blur-xl">
+                        <a href="#quote" class="btn-light w-full">Request Samples via Quote Form</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quote" class="section-space bg-surface">
+            <div class="max-w-screen-2xl mx-auto grid gap-12 px-5 sm:px-8 lg:grid-cols-12">
+                <div class="lg:col-span-4" data-aos="fade-right">
+                    <p class="eyebrow">Get wholesale quote</p>
+                    <h2 class="section-title">Send a quote-ready inquiry.</h2>
+                    <p class="section-copy">Greenie Vietnam replies within 24-48 hours. Include volume, destination, documents, and packaging details so the sales team can respond quickly.</p>
+                    <div class="mt-8 bg-surface-container-low p-6">
+                        <p class="font-headline text-sm font-black uppercase tracking-[0.18em] text-primary">Need in your request</p>
+                        <p class="mt-3 text-sm leading-relaxed text-secondary">Product, estimated quantity in MT, packaging preference, incoterm, destination, and required documents.</p>
+                    </div>
+                </div>
+                <form id="contact-form" class="quote-form lg:col-span-8" data-aos="fade-left">
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <label>Company name *<input required name="company" type="text" placeholder="Company Ltd."/></label>
+                        <label>Country *<input required name="country" type="text" placeholder="United Arab Emirates"/></label>
+                        <label>Contact person *<input required name="contact_person" type="text" placeholder="Full name"/></label>
+                        <label>Role<input name="role" type="text" placeholder="Purchasing manager"/></label>
+                        <label>Email *<input required name="email" type="email" placeholder="name@company.com"/></label>
+                        <label>WhatsApp / phone<input name="whatsapp" type="text" placeholder="+971 ..."/></label>
+                        <label>Product interest *
+                            <select required name="product_interest">
+                                <option value="">Select product</option>
+                                <option>Cashew Kernels</option>
+                                <option>Artisan Cane Sugar</option>
+                                <option>Cashew + Cane Sugar</option>
+                                <option>OEM / Private Label</option>
+                            </select>
+                        </label>
+                        <label>Estimated quantity (MT) *<input required name="estimated_quantity" type="number" min="1" step="1" placeholder="1"/></label>
+                        <label>Packaging preference<input name="packaging_preference" type="text" placeholder="Bulk, jar, pouch, vacuum pack"/></label>
+                        <label>Incoterms
+                            <select name="incoterms">
+                                <option>FOB</option>
+                                <option>CIF</option>
+                                <option>Not sure yet</option>
+                            </select>
+                        </label>
+                        <label class="md:col-span-2">Destination<input name="destination" type="text" placeholder="Destination port / city"/></label>
+                        <label class="md:col-span-2">Required documents or notes<textarea name="required_documents" rows="5" placeholder="HALAL, SGS/Eurofins, COA, packaging language, target market..."></textarea></label>
+                    </div>
+                    <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                        <button class="btn-primary btn-large" type="submit">Submit Inquiry</button>
+                        <p id="form-status" class="hidden text-sm font-semibold" role="status"></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-950 px-5 py-16 text-white sm:px-8">
+        <div class="max-w-screen-2xl mx-auto grid gap-10 md:grid-cols-4">
+            <div class="md:col-span-2">
+                <p class="font-headline text-xl font-black uppercase tracking-tight text-emerald-100">Greenie Vietnam</p>
+                <p class="mt-4 max-w-md text-sm leading-relaxed text-white/55">Export-ready Vietnamese agricultural products for wholesale buyers and private label brands.</p>
+            </div>
+            <div>
+                <p class="footer-title">Products</p>
+                <a href="#products">Cashew Kernels</a>
+                <a href="#products">Artisan Cane Sugar</a>
+            </div>
+            <div>
+                <p class="footer-title">Sales</p>
+                <a href="#quote">Get Wholesale Quote</a>
+                <a href="#samples">Request Samples</a>
+            </div>
+        </div>
+        <p class="max-w-screen-2xl mx-auto mt-12 text-xs font-bold uppercase tracking-[0.18em] text-white/30">© 2026 Greenie Vietnam Agricultural Exports.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
