@@ -15,18 +15,22 @@ async function loadTranslations(lang) {
     try {
         const res = await fetch(`./locale/${lang}.json`);
 
-        if (!res.ok) throw new Error("File not found");
+        if (!res.ok) {
+            throw new Error("File not found");
+        }
 
-        translations = await res.json();
+        const text = await res.text();
+
+        try {
+            translations = JSON.parse(text);
+        } catch (jsonError) {
+            console.error("JSON format error:", jsonError);
+            translations = {};
+        }
 
     } catch (err) {
-        console.error("Translation load failed:", err);
-
-        // fallback về EN
-        translations = {
-            "hero.title": "Fallback text",
-            "hero.copy": "Translation failed"
-        };
+        console.error("Load failed:", err);
+        translations = {};
     }
 }
 
