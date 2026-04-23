@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Greenie Vietnam - Kiến trúc Xuất khẩu Nông sản Cao cấp</title>
+    <title>Greenie Vietnam - The Sovereign Harvest Design System</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -11,152 +11,114 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 
-    <script>
+    <script id="tailwind-config">
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: "#163b18",
+                        primary: "#163b18", // Lush Forest Green
                         'primary-container': "#2d522d",
-                        secondary: "#545e76",
-                        surface: "#f8f9fa",
-                        'surface-container-low': "#f3f4f5",
-                        'tertiary-fixed': "#ffdea5",
+                        secondary: "#545e76", // Professional Slate
+                        surface: "#f8f9fa", // Base Level
+                        'surface-container-low': "#f3f4f5", // Content Blocks
+                        'surface-container-lowest': "#ffffff", // Interactive Cards
+                        'on-surface': "#191c1d",
+                        'tertiary-fixed': "#ffdea5", // Gold Accents
                     },
                     fontFamily: {
-                        headline: ["Manrope", "sans-serif"],
+                        headline: ["Manrope", "sans-serif"], // Editorial Anchors
                         body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        'sm': '0.125rem', // Sharp Professional Edge
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-surface text-slate-900 font-body antialiased">
+<body class="bg-surface text-on-surface font-body antialiased">
 
-<header class="fixed top-0 w-full z-50 glass-header border-b border-slate-100">
-    <div class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto">
+<header class="fixed top-0 w-full z-50 glass-header">
+    <div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto">
         <div class="text-2xl font-black text-primary tracking-tighter uppercase font-headline">
             Greenie <span class="font-light">Vietnam</span>
         </div>
-        <nav class="hidden md:flex gap-8 font-bold text-[11px] uppercase tracking-[0.2em] text-secondary">
-            <a href="#hero" class="hover:text-primary transition-colors">Products</a>
-            <a href="#oem" class="hover:text-primary transition-colors">OEM/Label</a>
-            <a href="#quality" class="hover:text-primary transition-colors">Quality</a>
-            <a href="#logistics" class="hover:text-primary transition-colors">Logistics</a>
+        <nav class="hidden md:flex gap-10 font-headline font-bold text-[11px] uppercase tracking-[0.2em] text-secondary">
+            <a href="#hero" class="hover:text-primary transition-colors">Home</a>
+            <a href="#product-hub" class="hover:text-primary transition-colors">Catalog</a>
+            <a href="#specs" class="hover:text-primary transition-colors">Technical</a>
+            <a href="#oem" class="hover:text-primary transition-colors">Private Label</a>
         </nav>
         <div class="flex gap-4">
-            <button class="hidden lg:block text-[10px] font-extrabold uppercase tracking-widest px-6 py-2.5 bg-slate-200 rounded-sm">Samples</button>
-            <a href="#oem-form" class="text-[10px] font-extrabold uppercase tracking-widest px-6 py-2.5 bg-primary text-white rounded-sm shadow-xl hover:bg-emerald-900 transition-all">Get Quote</a>
+            <button class="bg-primary text-white text-[10px] font-bold uppercase tracking-[0.1em] px-6 py-3 rounded-sm shadow-btn hover:opacity-90 transition-all">
+                Get Wholesale Quote
+            </button>
         </div>
     </div>
 </header>
 
 <main>
-    <section id="hero" class="pt-48 pb-24 px-8 max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
+    <section id="hero" class="pt-48 pb-32 px-8 max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
         <div class="lg:col-span-7" data-aos="fade-right">
-            <span class="inline-block bg-emerald-100 text-primary font-bold text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-8">Global Export Ready</span>
-            <h1 class="font-headline font-extrabold text-5xl lg:text-7xl leading-[1.1] text-primary tracking-tighter mb-8">
-                Private Label & OEM Packaging for Your Market.
+            <h1 class="font-headline font-extrabold text-5xl lg:text-8xl leading-[1.05] text-primary tracking-[-0.02em] mb-10">
+                The Sovereign <br/>Harvest.
             </h1>
-            <p class="text-lg text-secondary mb-10 max-w-lg leading-relaxed">
-                Nâng tầm thương hiệu của bạn với nguồn nông sản cao cấp từ Việt Nam. Quy trình đóng gói tùy chỉnh, tuân thủ tiêu chuẩn quốc tế.
+            <p class="text-xl text-secondary mb-12 max-w-lg leading-relaxed font-light">
+                Positioning your brand as a premier architectural force in agricultural export. Scalable, globally compliant solutions.
             </p>
-            <div class="flex gap-4">
-                <a href="#oem-form" class="bg-primary text-white px-10 py-5 font-bold text-[11px] uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-transform">Start Your OEM Brief</a>
+            <div class="flex gap-6">
+                <a href="#oem" class="bg-primary text-white px-10 py-5 font-bold text-[11px] uppercase tracking-[0.2em] rounded-sm shadow-btn">Start OEM Brief</a>
             </div>
         </div>
         <div class="lg:col-span-5 relative" data-aos="zoom-in">
-            <div class="aspect-square bg-white p-4 rounded-sm shadow-2xl overflow-hidden border-[12px] border-white">
-                <img src="https://images.unsplash.com/photo-1590505660500-1c6f78f8958c?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover">
+            <div class="aspect-[4/5] bg-white p-4 shadow-editorial overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1590505660500-1c6f78f8958c?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover grayscale-[20%]">
             </div>
-            <div class="absolute -bottom-10 -left-10 bg-white/90 backdrop-blur-xl p-8 rounded-sm shadow-2xl flex items-center gap-4 max-w-xs border border-slate-100">
-                <div class="bg-tertiary-fixed p-3 rounded-full text-primary shadow-inner">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+            <div class="absolute -bottom-10 -left-10 bg-surface/80 backdrop-blur-xl p-8 shadow-editorial border border-white/20 max-w-xs">
+                <div class="bg-tertiary-fixed w-12 h-12 rounded-full flex items-center justify-center text-primary mb-4">
+                    <span class="material-symbols-outlined font-fill">verified</span>
                 </div>
-                <div>
-                    <p class="font-headline font-bold text-sm">ISO 22000 Certified</p>
-                    <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-widest font-black">Export Standards</p>
-                </div>
+                <p class="font-headline font-bold text-sm tracking-tight">ISO 22000 Certified</p>
+                <p class="text-[10px] text-secondary uppercase tracking-widest mt-1 font-black">Export Standards</p>
             </div>
         </div>
     </section>
 
-    <section class="bg-white border-y border-slate-100 py-12">
-        <div class="max-w-7xl mx-auto px-8 flex flex-wrap justify-between gap-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">inventory_2</span> MOQ 1 MT</div>
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">schedule</span> Lead Time 7-15 Days</div>
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">verified</span> Halal Available</div>
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">science</span> SGS/Eurofins</div>
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">directions_boat</span> FOB/CIF • Saigon Port</div>
-        </div>
-    </section>
-
-    <section id="product-hub" class="py-32 bg-surface">
+    <section id="product-hub" class="py-32 bg-surface-container-low">
         <div class="max-w-7xl mx-auto px-8">
-            <h2 class="text-4xl font-headline font-black text-primary mb-20 uppercase tracking-tight">Premium Export Categories</h2>
-            <div class="grid lg:grid-cols-12 gap-16">
-                <aside class="lg:col-span-3 space-y-12">
-                    <div class="bg-white p-10 shadow-sm border border-slate-50 sticky top-32">
-                        <h3 class="font-bold text-[11px] uppercase tracking-[0.2em] mb-8 text-primary">Refine Selection</h3>
-                        <div class="space-y-8">
-                            <div>
-                                <p class="text-[9px] font-black text-slate-400 uppercase mb-4 tracking-widest">Product Type</p>
-                                <div class="space-y-3">
-                                    <label class="flex items-center gap-3 text-sm font-medium"><input type="checkbox" checked class="accent-primary w-4 h-4"> Cashew Kernels</label>
-                                    <label class="flex items-center gap-3 text-sm font-medium"><input type="checkbox" checked class="accent-primary w-4 h-4"> Artisan Sugar</label>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-[9px] font-black text-slate-400 uppercase mb-4 tracking-widest">Certificates</p>
-                                <div class="space-y-3 text-sm font-medium">
-                                    <label class="flex items-center gap-3"><input type="checkbox" checked class="accent-primary w-4 h-4"> ISO 22000</label>
-                                    <label class="flex items-center gap-3"><input type="checkbox" class="accent-primary w-4 h-4"> HACCP</label>
-                                </div>
-                            </div>
+            <h2 class="text-[10px] font-black text-secondary uppercase tracking-[0.4em] mb-16">01 — Export Catalog</h2>
+            <div class="grid lg:grid-cols-12 gap-12">
+                <aside class="lg:col-span-3">
+                    <div class="bg-surface-container-lowest p-10 sticky top-32 shadow-editorial">
+                        <h3 class="font-bold text-[11px] uppercase tracking-[0.2em] mb-8 text-primary">Refine</h3>
+                        <div class="space-y-6">
+                            <label class="flex items-center gap-4 text-xs font-bold text-secondary uppercase tracking-widest">
+                                <input type="checkbox" checked class="accent-primary w-4 h-4"> Cashew Kernels
+                            </label>
+                            <label class="flex items-center gap-4 text-xs font-bold text-secondary uppercase tracking-widest">
+                                <input type="checkbox" checked class="accent-primary w-4 h-4"> Artisan Sugar
+                            </label>
                         </div>
                     </div>
                 </aside>
 
-                <div class="lg:col-span-9 space-y-20">
-                    <div class="bg-white flex flex-col md:flex-row shadow-[0_40px_60px_-15px_rgba(0,0,0,0.05)] overflow-hidden group" data-aos="fade-up">
-                        <div class="md:w-2/5 h-80 md:h-auto overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="lg:col-span-9 space-y-12">
+                    <div class="bg-surface-container-lowest flex flex-col md:flex-row shadow-editorial group transition-all duration-500">
+                        <div class="md:w-2/5 h-80 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
                         </div>
-                        <div class="md:w-3/5 p-12 flex flex-col justify-center">
+                        <div class="md:w-3/5 p-16 flex flex-col justify-center">
                             <div class="flex justify-between items-start mb-6">
-                                <h3 class="text-2xl font-bold text-primary">Sovereign White Whole (WW)</h3>
-                                <span class="bg-tertiary-fixed text-primary font-bold text-[9px] uppercase px-3 py-1">Grade A+</span>
+                                <h3 class="text-3xl font-headline font-bold text-primary tracking-tight">Sovereign White Whole</h3>
+                                <span class="bg-tertiary-fixed text-primary font-bold text-[9px] uppercase px-3 py-1">Premium</span>
                             </div>
-                            <p class="text-secondary text-sm mb-10 leading-relaxed">Hạt điều nhân trắng được tuyển chọn từ các vùng nguyên liệu trù phú, đảm bảo kích thước đồng nhất và vị béo tự nhiên.</p>
-                            <div class="grid grid-cols-3 gap-6 mb-10 text-[10px] font-bold uppercase text-slate-400">
-                                <div><p>Grades</p><p class="text-primary mt-1 font-black">W180, W240, W320</p></div>
-                                <div><p>Moisture</p><p class="text-primary mt-1 font-black">Max 5%</p></div>
-                                <div><p>Packaging</p><p class="text-primary mt-1 font-black">Vacuum Packs</p></div>
+                            <p class="text-secondary text-sm mb-12 leading-relaxed">Meticulously curated selection of sovereign-grade kernels, tailored for high-volume international trade.</p>
+                            <div class="grid grid-cols-3 gap-8 text-[10px] font-bold uppercase text-slate-400 tracking-widest">
+                                <div><p>Grades</p><p class="text-primary mt-2 font-black text-xs">W240, W320</p></div>
+                                <div><p>Moisture</p><p class="text-primary mt-2 font-black text-xs">Max 5%</p></div>
+                                <div><p>Origin</p><p class="text-primary mt-2 font-black text-xs">Vietnam</p></div>
                             </div>
-                            <div class="flex gap-8 items-center">
-                                <a href="#oem-form" class="bg-primary text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest shadow-xl">Get Quote</a>
-                                <a href="#specs" class="text-[10px] font-bold uppercase tracking-widest text-primary hover:translate-x-2 transition-transform">Specifications →</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white flex flex-col md:flex-row shadow-[0_40px_60px_-15px_rgba(0,0,0,0.05)] overflow-hidden group" data-aos="fade-up">
-                        <div class="md:w-2/5 h-80 md:h-auto overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1605333396915-47ed6b68a00e?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="md:w-3/5 p-12 flex flex-col justify-center">
-                            <div class="flex justify-between items-start mb-6">
-                                <h3 class="text-2xl font-bold text-primary">Artisan Golden Demerara</h3>
-                                <span class="bg-tertiary-fixed text-primary font-bold text-[9px] uppercase px-3 py-1">100% Natural</span>
-                            </div>
-                            <p class="text-secondary text-sm mb-10 leading-relaxed">Đường mía thủ công giữ trọn lớp mật rỉ tự nhiên, mang đến hương vị caramel đặc trưng và độ giòn tinh khiết.</p>
-                            <div class="grid grid-cols-3 gap-6 mb-10 text-[10px] font-bold uppercase text-slate-400">
-                                <div><p>Polarization</p><p class="text-primary mt-1 font-black">99.0% Min</p></div>
-                                <div><p>Color</p><p class="text-primary mt-1 font-black">600-1200 ICUMSA</p></div>
-                                <div><p>Origin</p><p class="text-primary mt-1 font-black">Central Vietnam</p></div>
-                            </div>
-                            <a href="#oem-form" class="bg-primary text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-center shadow-xl">Get Quote</a>
                         </div>
                     </div>
                 </div>
@@ -164,157 +126,42 @@
         </div>
     </section>
 
-    <section id="specs" class="py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="text-3xl font-headline font-black text-primary mb-16 uppercase tracking-tight text-center">Technical Specifications</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="p-10 bg-surface-container-low rounded-sm" data-aos="fade-up">
-                    <div class="flex justify-between items-center mb-8">
-                        <h4 class="text-xl font-bold">Grade W180</h4>
-                        <span class="text-[9px] font-bold text-primary uppercase bg-tertiary-fixed px-2 py-1">King Size</span>
-                    </div>
-                    <ul class="space-y-4 text-xs font-medium">
-                        <li class="flex justify-between border-b border-slate-200 pb-2"><span>Kernel Count</span><span class="font-bold">170 - 180 / lb</span></li>
-                        <li class="flex justify-between border-b border-slate-200 pb-2"><span>Broken Rate</span><span class="font-bold">Max 5%</span></li>
-                        <li class="flex justify-between"><span>Moisture</span><span class="font-bold">Max 5%</span></li>
-                    </ul>
-                </div>
-                <div class="p-10 bg-surface-container-low rounded-sm" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex justify-between items-center mb-8">
-                        <h4 class="text-xl font-bold">Grade W240</h4>
-                        <span class="text-[9px] font-bold text-primary uppercase bg-slate-200 px-2 py-1">Premium</span>
-                    </div>
-                    <ul class="space-y-4 text-xs font-medium">
-                        <li class="flex justify-between border-b border-slate-200 pb-2"><span>Kernel Count</span><span class="font-bold">220 - 240 / lb</span></li>
-                        <li class="flex justify-between border-b border-slate-200 pb-2"><span>Broken Rate</span><span class="font-bold">Max 5%</span></li>
-                        <li class="flex justify-between"><span>Moisture</span><span class="font-bold">Max 5%</span></li>
-                    </ul>
-                </div>
-                <div class="p-10 bg-surface-container-low rounded-sm" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex justify-between items-center mb-8">
-                        <h4 class="text-xl font-bold">Grade W320</h4>
-                        <span class="text-[9px] font-bold text-primary uppercase bg-slate-200 px-2 py-1">Standard</span>
-                    </div>
-                    <ul class="space-y-4 text-xs font-medium">
-                        <li class="flex justify-between border-b border-slate-200 pb-2"><span>Kernel Count</span><span class="font-bold">300 - 320 / lb</span></li>
-                        <li class="flex justify-between border-b border-slate-200 pb-2"><span>Broken Rate</span><span class="font-bold">Max 5%</span></li>
-                        <li class="flex justify-between"><span>Moisture</span><span class="font-bold">Max 5%</span></li>
-                    </ul>
-                </div>
-                <div class="p-10 bg-primary text-white rounded-sm shadow-2xl" data-aos="fade-up" data-aos-delay="300">
-                    <h4 class="text-lg font-bold mb-8">Global Standards</h4>
-                    <ul class="space-y-4 text-xs opacity-90">
-                        <li class="flex justify-between border-b border-white/20 pb-2"><span>Defects</span><span class="font-bold">Max 8%</span></li>
-                        <li class="flex justify-between border-b border-white/20 pb-2"><span>Aflatoxin</span><span class="font-bold">&lt; 10 ppb</span></li>
-                        <li class="flex justify-between"><span>Shelf Life</span><span class="font-bold">24 Months</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="oem" class="py-32 bg-surface-container-low">
-        <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-12 gap-24">
-            <div class="lg:col-span-7" data-aos="fade-right">
-                <h2 class="text-4xl font-headline font-black text-primary mb-16 uppercase tracking-tight">The Integration Process</h2>
-                <div class="space-y-16 relative border-l-2 border-slate-200 pl-12 ml-4">
-                    <div class="relative">
-                        <div class="absolute -left-[61px] top-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm shadow-xl">1</div>
-                        <h4 class="font-bold text-xl mb-3">Requirements Brief</h4>
-                        <p class="text-secondary text-sm leading-relaxed">Xác định các thông số sản phẩm, khối lượng (MOQ 1 MT) và các tiêu chuẩn chứng nhận bắt buộc.</p>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute -left-[61px] top-0 w-12 h-12 bg-white text-slate-400 rounded-full flex items-center justify-center font-bold text-sm border border-slate-200 shadow-sm">2</div>
-                        <h4 class="font-bold text-xl mb-3">Packaging Architecture</h4>
-                        <p class="text-secondary text-sm leading-relaxed">Lựa chọn vật liệu, thiết kế khuôn bế và phương pháp in ấn. Đội ngũ Greenie đảm bảo sự tuân thủ quy định tại quốc gia đích.</p>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute -left-[61px] top-0 w-12 h-12 bg-white text-slate-400 rounded-full flex items-center justify-center font-bold text-sm border border-slate-200 shadow-sm">3</div>
-                        <h4 class="font-bold text-xl mb-3">Sampling & Production</h4>
-                        <p class="text-secondary text-sm leading-relaxed">Gửi mẫu thực tế và tiến hành sản xuất hàng loạt dưới sự giám sát QC nghiêm ngặt.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:col-span-5" id="oem-form" data-aos="fade-left">
-                <div class="bg-white p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-50">
-                    <h3 class="text-2xl font-bold text-primary mb-10 uppercase tracking-tight">OEM Brief Submission</h3>
-                    <form class="space-y-8" id="contact-form">
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Company Name</label>
-                            <input type="text" name="company" required class="w-full bg-slate-50 border-0 border-b-2 border-slate-200 p-4 focus:ring-0 focus:border-primary transition-all outline-none">
-                        </div>
-                        <div class="grid grid-cols-2 gap-8">
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Target Market</label>
-                                <input type="text" name="market" required class="w-full bg-slate-50 border-0 border-b-2 border-slate-200 p-4 focus:ring-0 focus:border-primary outline-none">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Volume (MT)</label>
-                                <input type="number" name="volume" required class="w-full bg-slate-50 border-0 border-b-2 border-slate-200 p-4 focus:ring-0 focus:border-primary outline-none">
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Email Address</label>
-                            <input type="email" name="user_email" required class="w-full bg-slate-50 border-0 border-b-2 border-slate-200 p-4 focus:ring-0 focus:border-primary outline-none">
-                        </div>
-                        <button type="submit" class="w-full bg-primary text-white font-bold uppercase tracking-[0.3em] py-6 shadow-2xl hover:bg-emerald-900 transition-all">Submit Brief</button>
-                    </form>
-                    <p id="form-status" class="mt-6 text-center font-bold text-xs hidden"></p>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer class="bg-emerald-950 text-emerald-100/50 py-24 px-8">
-    <div class="max-w-screen-2xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 border-b border-emerald-900/50 pb-20">
-            <div class="md:col-span-5 space-y-8">
+    <footer class="bg-emerald-950 text-emerald-100/40 py-24 px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-12 gap-16">
+            <div class="md:col-span-6 space-y-8">
                 <div class="text-3xl font-black text-white tracking-tighter uppercase font-headline">
                     Greenie <span class="font-light">Vietnam</span>
                 </div>
                 <p class="max-w-sm text-sm leading-relaxed font-body">
-                    Premier architectural force in agricultural export. Kết hợp tinh hoa đất Việt với tiêu chuẩn thương mại toàn cầu.
+                    A premier architectural force in agricultural export. Blending organic growth with executive sophistication.
                 </p>
-                <div class="flex gap-4 pt-4">
-                    <span class="text-[9px] font-bold border border-emerald-800 px-3 py-1 uppercase text-emerald-500">ISO 22000</span>
-                    <span class="text-[9px] font-bold border border-emerald-800 px-3 py-1 uppercase text-emerald-500">HALAL</span>
-                    <span class="text-[9px] font-bold border border-emerald-800 px-3 py-1 uppercase text-emerald-500">HACCP</span>
-                </div>
             </div>
-            <div class="md:col-span-2 space-y-6">
-                <h4 class="font-headline font-bold text-[10px] uppercase tracking-[0.2em] text-emerald-200">Navigation</h4>
+            <div class="md:col-span-3 space-y-6">
+                <h4 class="font-headline font-bold text-[10px] uppercase tracking-[0.3em] text-emerald-500">Navigation</h4>
                 <ul class="space-y-4 text-[11px] font-bold uppercase tracking-widest">
-                    <li><a href="#hero" class="hover:text-white transition-colors">Products</a></li>
-                    <li><a href="#oem" class="hover:text-white transition-colors">OEM / Label</a></li>
-                    <li><a href="#quality" class="hover:text-white transition-colors">Quality</a></li>
-                </ul>
-            </div>
-            <div class="md:col-span-2 space-y-6">
-                <h4 class="font-headline font-bold text-[10px] uppercase tracking-[0.2em] text-emerald-200">Legal</h4>
-                <ul class="space-y-4 text-[11px] font-bold uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white transition-colors">Trade Terms</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Certifications</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Products</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">OEM Solutions</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Compliance</a></li>
                 </ul>
             </div>
             <div class="md:col-span-3 space-y-6">
-                <h4 class="font-headline font-bold text-[10px] uppercase tracking-[0.2em] text-emerald-200">Global Hub</h4>
+                <h4 class="font-headline font-bold text-[10px] uppercase tracking-[0.3em] text-emerald-500">Hub</h4>
                 <p class="text-sm font-body">Ho Chi Minh City, Vietnam<br/><span class="text-white font-bold">info@greenievietnam.com</span></p>
             </div>
         </div>
-        <div class="mt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-widest">
+        <div class="max-w-7xl mx-auto mt-24 pt-12 border-t border-emerald-900/50 flex flex-col md:flex-row justify-between gap-8 text-[10px] font-bold uppercase tracking-[0.2em]">
             <p>© 2024 Greenie Vietnam Agricultural Exports. All Rights Reserved.</p>
             <div class="flex gap-8">
                 <a href="#" class="hover:text-white">LinkedIn</a>
                 <a href="#" class="hover:text-white">Instagram</a>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+</main>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script src="js/main.js"></script>
+<script>
+    AOS.init({ duration: 1200, once: true, easing: 'ease-out-expo' });
+</script>
 </body>
 </html>
