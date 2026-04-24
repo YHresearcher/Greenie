@@ -465,45 +465,40 @@
                         <p class="mt-3 text-sm leading-relaxed text-secondary" data-i18n="quote.needCopy">Product, estimated quantity in MT, packaging preference, incoterm, destination, and required documents.</p>
                     </div>
                 </div>
-                <form id="<form id="contact-form" class="quote-form rounded-xl">
-                  <div id="form-status" class="text-sm font-semibold mb-4"></div>
-                  
-                  <!-- Honeypot (ẩn, dùng chống spam bot) -->
-                  <input type="text" name="website_hidden" class="hidden" tabindex="-1" autocomplete="off">
-                
-                  <div class="grid sm:grid-cols-2 gap-4 mb-4">
-                    <label><span data-i18n="form.company">Company name *</span><input type="text" name="company" required></label>
-                    <label><span>VAT / Tax ID (B2B)</span><input type="text" name="vat_id"></label>
-                    <label><span data-i18n="form.person">Contact person *</span><input type="text" name="person" required></label>
-                    <label><span>Annual Volume (MT/year)</span><input type="number" name="annual_volume" min="0"></label>
-                    <label><span data-i18n="form.email">Email *</span><input type="email" name="email" required></label>
-                    <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input type="text" name="whatsapp"></label>
-                    <label class="sm:col-span-2"><span data-i18n="form.website">Company website / social</span><input type="text" name="website"></label>
-                  </div>
-                  <div class="grid sm:grid-cols-2 gap-4 mb-4">
-                    <label><span data-i18n="form.product">Product interest *</span>
-                      <select name="product" required>
-                        <option value="" disabled selected data-i18n="form.selectProduct">Select product</option>
-                        <option value="Cashew Kernels">Cashew Kernels</option>
-                        <option value="Artisan Cane Sugar">Artisan Cane Sugar</option>
-                        <option value="Cashew + Cane Sugar">Cashew + Cane Sugar</option>
-                        <option value="OEM / Private Label">OEM / Private Label</option>
-                      </select>
-                    </label>
-                    <label><span data-i18n="form.quantity">Estimated quantity (MT) *</span><input type="number" name="quantity" required min="1"></label>
-                    <label><span data-i18n="form.packaging">Packaging preference</span><input type="text" name="packaging"></label>
-                    <label><span data-i18n="form.incoterms">Incoterms</span>
-                      <select name="incoterms">
-                        <option value="FOB">FOB</option>
-                        <option value="CIF">CIF</option>
-                        <option value="EXW">EXW</option>
-                        <option value="Not sure yet">Not sure yet</option>
-                      </select>
-                    </label>
-                    <label class="sm:col-span-2"><span data-i18n="form.destination">Destination</span><input type="text" name="destination"></label>
-                    <label class="sm:col-span-2"><span data-i18n="form.notes">Required documents or notes</span><textarea name="notes"></textarea></label>
-                  </div>
-                  <button type="submit" class="btn-primary btn-large w-full" data-i18n="form.submit">Submit Inquiry</button>
+                <form id="contact-form" class="quote-form lg:col-span-8" data-aos="fade-left">
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <label><span data-i18n="form.company">Company name *</span><input required name="company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
+                        <label><span data-i18n="form.country">Country *</span><input required name="country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
+                        <label><span data-i18n="form.person">Contact person *</span><input required name="contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
+                        <label><span data-i18n="form.role">Role</span><input name="role" type="text" placeholder="Purchasing manager" data-i18n-placeholder="ph.role"/></label>
+                        <label><span data-i18n="form.email">Email *</span><input required name="email" type="email" placeholder="name@company.com" data-i18n-placeholder="ph.email"/></label>
+                        <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input name="whatsapp" type="text" placeholder="+84 ..." data-i18n-placeholder="ph.whatsapp"/></label>
+                        <label class="md:col-span-2"><span data-i18n="form.website">Company website / social</span><input name="company_website" type="text" placeholder="https://..." data-i18n-placeholder="ph.website"/></label>
+                        <label><span data-i18n="form.product">Product interest *</span>
+                            <select required name="product_interest">
+                                <option value="" data-i18n="form.selectProduct">Select product</option>
+                                <option data-i18n="form.cashew">Cashew Kernels</option>
+                                <option data-i18n="form.sugar">Artisan Cane Sugar</option>
+                                <option data-i18n="form.both">Cashew + Cane Sugar</option>
+                                <option data-i18n="form.oem">OEM / Private Label</option>
+                            </select>
+                        </label>
+                        <label><span data-i18n="form.quantity">Estimated quantity (MT) *</span><input required name="estimated_quantity" type="number" min="1" step="1" placeholder="1"/></label>
+                        <label><span data-i18n="form.packaging">Packaging preference</span><input name="packaging_preference" type="text" placeholder="Bulk, jar, pouch, vacuum pack" data-i18n-placeholder="ph.packaging"/></label>
+                        <label><span data-i18n="form.incoterms">Incoterms</span>
+                            <select name="incoterms">
+                                <option>FOB</option>
+                                <option>CIF</option>
+                                <option data-i18n="form.notSure">Not sure yet</option>
+                            </select>
+                        </label>
+                        <label class="md:col-span-2"><span data-i18n="form.destination">Destination</span><input name="destination" type="text" placeholder="Destination port / city" data-i18n-placeholder="ph.destination"/></label>
+                        <label class="md:col-span-2"><span data-i18n="form.notes">Required documents or notes</span><textarea name="required_documents" rows="5" placeholder="HALAL, SGS/Eurofins, COA, packaging language, target market..." data-i18n-placeholder="ph.notes"></textarea></label>
+                    </div>
+                    <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                        <button class="btn-primary btn-large" type="submit" data-i18n="form.submit">Submit Inquiry</button>
+                        <p id="form-status" class="hidden text-sm font-semibold" role="status"></p>
+                    </div>
                 </form>
             </div>
         </section>
