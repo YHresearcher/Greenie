@@ -425,7 +425,12 @@
                                     <option data-i18n="form.both">Mixed sample pack</option>
                                 </select>
                             </label>
-                            <label><span data-i18n="form.pack">Sample size / pack</span><input name="sample_pack" type="text" placeholder="250g, 500g, trial pack" data-i18n-placeholder="ph.samplePack"/></label>
+                            <label><span data-i18n="form.pack">Sample size / pack</span>
+                                <select name="sample_pack">
+                                <option value="100g">100g</option>
+                                <option value="200g">200g</option>
+                                </select>
+                            </label>
                             <label><span data-i18n="form.quantity">Estimated quantity</span><input name="sample_quantity" type="text" placeholder="1-2 sets" data-i18n-placeholder="ph.sampleQty"/></label>
                             <label class="md:col-span-2"><span data-i18n="form.destination">Destination</span><input name="sample_destination" type="text" placeholder="Destination city / port" data-i18n-placeholder="ph.destination"/></label>
                             <label class="md:col-span-2"><span data-i18n="form.notes">Notes</span><textarea name="sample_notes" rows="4" placeholder="Sampling purpose, target market, document needs..." data-i18n-placeholder="ph.sampleNotes"></textarea></label>
