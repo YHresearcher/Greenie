@@ -677,8 +677,9 @@ function setStatus(target, message, className) {
 }
 
 
-if (window.emailjs && EMAILJS_PUBLIC_KEY= "_Gx8cHW_R8bomgG5c") {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+if (window.emailjs) {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    console.log("EmailJS initialized");
 }
 
 function bindEmailForm(form, statusElement) {
