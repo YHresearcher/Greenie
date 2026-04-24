@@ -1,3 +1,7 @@
+﻿const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
+const EMAILJS_SERVICE_ID = "service_6joc3eq";
+const EMAILJS_TEMPLATE_ID = "template_vknoy18";
+
 const translations = {
     en: {
         metaTitle: "Greenie Vietnam - Global Wholesale Export & Private Label",
@@ -147,7 +151,6 @@ const translations = {
         "form.whatsapp": "WhatsApp / phone",
         "form.website": "Company website / social",
         "form.website": "Company website / social",
-        "form.SamplePack": "Sample size / pack",
         "form.product": "Product interest *",
         "form.selectProduct": "Select product",
         "form.cashew": "Cashew Kernels",
@@ -651,14 +654,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         });
     });
 });
-const data = {
-    company: formData.get("sample_company"),
-    email: formData.get("sample_email"),
-    product: formData.get("sample_pack"),
-    quantity: formData.get("sample_set"),
-    message: formData.get("sample_notes"),
-    type: "Sample Request"
-};
+
 const contactForm = document.getElementById("contact-form");
 const sampleForm = document.getElementById("sample-form");
 const statusText = document.getElementById("form-status");
@@ -679,97 +675,43 @@ function setStatus(target, message, className) {
     target.textContent = message;
     target.className = `text-sm font-semibold ${className}`;
 }
-// ===== EMAILJS CONFIG =====
-const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
-const EMAILJS_SERVICE_ID = "service_6joc3eq";
-const EMAILJS_TEMPLATE_ID = "template_vknoy18";
 
-// ===== LANGUAGE (GIỮ TỐI THIỂU, KHÔNG LỖI) =====
-const translations = {
-    en: {
-        "status.sending": "Sending...",
-        "status.sent": "Sent successfully!",
-        "status.failed": "Failed to send. Please try again."
-    }
-};
 
-let currentLanguage = "en";
-
-function translate(key) {
-    return translations[currentLanguage]?.[key] || key;
+if (window.emailjs) {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    console.log("EmailJS initialized");
 }
 
-// ===== STATUS HELPER =====
-function setStatus(el, message, className = "") {
-    if (!el) return;
-    el.textContent = message;
-    el.className = className;
-}
-
-// ===== INIT =====
-document.addEventListener("DOMContentLoaded", function () {
-
-    // ❗ CHECK EMAILJS
-    if (!window.emailjs) {
-        console.error("EmailJS not loaded");
+function bindEmailForm(form, statusElement) {
+    if (!form) {
         return;
     }
 
-    // ✅ INIT (QUAN TRỌNG)
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-    console.log("EmailJS initialized");
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    // ===== CONTACT FORM =====
-    const contactForm = document.getElementById("contact-form");
-    const contactStatus = document.getElementById("form-status");
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
 
-    if (contactForm) {
-        contactForm.addEventListener("submit", function (e) {
-            e.preventDefault();
+        setStatus(statusElement, translate("status.sending"), "text-primary");
 
-            setStatus(contactStatus, translate("status.sending"));
-
-            emailjs.sendForm(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_TEMPLATE_ID,
-                contactForm
-            )
-            .then(function () {
-                setStatus(contactStatus, translate("status.sent"), "text-green-600");
-                contactForm.reset();
+        emailjs
+            .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+            .then(() => {
+                setStatus(statusElement, translate("status.sent"), "text-emerald-700");
+                form.reset();
             })
-            .catch(function (error) {
-                console.error("EmailJS failed:", error);
-                setStatus(contactStatus, translate("status.failed"), "text-red-600");
+            .catch((error) => {
+                console.error("EmailJS failed", error);
+                setStatus(statusElement, translate("status.failed"), "text-red-700");
             });
-        });
-    }
+    });
+}
 
-    // ===== SAMPLE FORM =====
-    const sampleForm = document.getElementById("sample-form");
-    const sampleStatus = document.getElementById("sample-form-status");
+bindEmailForm(contactForm, statusText);
+bindEmailForm(sampleForm, sampleStatusText);
 
-    if (sampleForm) {
-        sampleForm.addEventListener("submit", function (e) {
-            e.preventDefault();
 
-            setStatus(sampleStatus, translate("status.sending"));
-
-            emailjs.sendForm(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_TEMPLATE_ID,
-                sampleForm
-            )
-            .then(function () {
-                setStatus(sampleStatus, translate("status.sent"), "text-green-600");
-                sampleForm.reset();
-            })
-            .catch(function (error) {
-                console.error("EmailJS failed:", error);
-                setStatus(sampleStatus, translate("status.failed"), "text-red-600");
-            });
-        });
-    }
-
-});
 
