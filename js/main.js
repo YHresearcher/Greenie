@@ -676,14 +676,6 @@ function setStatus(target, message, className) {
     target.className = `text-sm font-semibold ${className}`;
 }
 
-function isEmailJsConfigured() {
-    return (
-        EMAILJS_PUBLIC_KEY !== "_Gx8cHW_R8bomgG5c" &&
-        EMAILJS_SERVICE_ID !== "service_6joc3eq" &&
-        EMAILJS_TEMPLATE_ID !== "template_vknoy18" &&
-        window.emailjs
-    );
-}
 
 if (window.emailjs && EMAILJS_PUBLIC_KEY !== "_Gx8cHW_R8bomgG5c") {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
@@ -699,15 +691,6 @@ function bindEmailForm(form, statusElement) {
 
         if (!form.checkValidity()) {
             form.reportValidity();
-            return;
-        }
-
-        if (!isEmailJsConfigured()) {
-            setStatus(
-                statusElement,
-                translate("status.notConfigured"),
-                "text-amber-700"
-            );
             return;
         }
 
