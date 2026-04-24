@@ -392,7 +392,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section id="samples" class="section-space bg-emerald-950 text-white">
             <div class="max-w-screen-2xl mx-auto grid items-center gap-12 px-5 sm:px-8 lg:grid-cols-12">
                 <div class="lg:col-span-7" data-aos="fade-right">
@@ -405,49 +405,53 @@
                         <span class="sample-badge" data-i18n="samples.badge3">Buyer evaluation support</span>
                     </div>
                 </div>
+                <!--Sample Form-->
                 <div class="lg:col-span-5" data-aos="fade-left">
                     <form id="sample-form" class="sample-form">
-                        <div class="sample-form-head">
-                            <p class="font-headline text-xs font-black uppercase tracking-[0.18em] text-primary" data-i18n="samples.formTitle">Sample request brief</p>
-                            <p class="text-sm leading-relaxed text-secondary" data-i18n="samples.formCopy">Use this form when you only need product samples. The same sales team will handle both sample and wholesale requests.</p>
-                        </div>
-                        <div class="grid gap-4 md:grid-cols-2">
-                            <label><span data-i18n="form.company">Company name *</span><input required name="sample_company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
-                            <label><span data-i18n="form.country">Country *</span><input required name="sample_country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
-                            <label><span data-i18n="form.person">Contact person *</span><input required name="sample_contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
-                            <label><span data-i18n="form.email">Email *</span><input required name="sample_email" type="email" placeholder="name@company.com" data-i18n-placeholder="ph.email"/></label>
-                            <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input name="sample_whatsapp" type="text" placeholder="+84 ..." data-i18n-placeholder="ph.whatsapp"/></label>
-                           <label>
-                              <span>Sample product *</span>
-                              <select required name="product">
-                                <option value="" disabled selected>Select product</option>
-                                <option value="Cashew Kernels">Cashew Kernels</option>
-                                <option value="Artisan Cane Sugar">Artisan Cane Sugar</option>
-                                <option value="Mixed sample pack">Mixed sample pack</option>
-                              </select>
-                            </label>
-                            
-                            <label>
-                              <span>Sample size / pack</span>
-                              <select name="quantity">
-                                <option value="100g">100g</option>
-                                <option value="200g">200g</option>
-                              </select>
-                            </label>
-                            <label><span data-i18n="form.quantity">Estimated quantity</span>
-                                <select name="sample_set">
-                                <option value="1">1 set</option>
-                                <option value="2">2 sets</option>
-                                </select>
-                            </label>
-                            <label class="md:col-span-2"><span data-i18n="form.destination">Destination</span><input name="sample_destination" type="text" placeholder="Destination city / port" data-i18n-placeholder="ph.destination"/></label>
-                            <label class="md:col-span-2"><span data-i18n="form.notes">Notes</span><textarea name="sample_notes" rows="4" placeholder="Sampling purpose, target market, document needs..." data-i18n-placeholder="ph.sampleNotes"></textarea></label>
-                        </div>
-                        <div class="mt-6 flex items-center gap-4">
-                            <button class="btn-light" type="submit" data-i18n="form.submit">Request Samples</button>
-                            <p id="sample-form-status" class="hidden text-sm font-semibold text-emerald-100/80" role="status"></p>
-                        </div>
-                        <input type="hidden" name="request_type" value="sample_request"/>
+                      <div class="sample-form-head">
+                        <p class="font-headline text-xs font-black uppercase tracking-[0.18em] text-primary">
+                          Sample request brief
+                        </p>
+                      </div>
+                    
+                      <div class="grid gap-4 md:grid-cols-2">
+                    
+                        <label>
+                          <span>Company *</span>
+                          <input required name="company" type="text" />
+                        </label>
+                    
+                        <label>
+                          <span>Email *</span>
+                          <input required name="email" type="email" />
+                        </label>
+                    
+                        <label>
+                          <span>Product *</span>
+                          <select required name="product">
+                            <option value="" disabled selected>Select product</option>
+                            <option value="Cashew Kernels">Cashew Kernels</option>
+                            <option value="Artisan Cane Sugar">Artisan Cane Sugar</option>
+                            <option value="Mixed sample pack">Mixed sample pack</option>
+                          </select>
+                        </label>
+                    
+                        <label>
+                          <span>Sample size</span>
+                          <select name="quantity">
+                            <option value="100g">100g</option>
+                            <option value="200g">200g</option>
+                          </select>
+                        </label>
+                    
+                        <label class="md:col-span-2">
+                          <span>Message</span>
+                          <textarea name="message"></textarea>
+                        </label>
+                    
+                      </div>
+                    
+                      <button type="submit" class="btn-light">Request Samples</button>
                     </form>
                 </div>
             </div>
