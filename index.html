@@ -417,23 +417,21 @@
                             <label><span data-i18n="form.person">Contact person *</span><input required name="sample_contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
                             <label><span data-i18n="form.email">Email *</span><input required name="sample_email" type="email" placeholder="name@company.com" data-i18n-placeholder="ph.email"/></label>
                             <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input name="sample_whatsapp" type="text" placeholder="+84 ..." data-i18n-placeholder="ph.whatsapp"/></label>
-                           label>
-                              <span data-i18n="form.sampleProduct">Sample product *</span>
-                              <select required name="sample_product">
-                                <option value="" disabled selected data-i18n="form.selectProduct">
-                                  Select product
-                                </option>
-                                <option value="cashew" data-i18n="form.cashew">Cashew Kernels</option>
-                                <option value="sugar" data-i18n="form.sugar">Artisan Cane Sugar</option>
-                                <option value="mixed" data-i18n="form.both">Mixed sample pack</option>
+                           <label>
+                              <span>Sample product *</span>
+                              <select required name="product">
+                                <option value="" disabled selected>Select product</option>
+                                <option value="Cashew Kernels">Cashew Kernels</option>
+                                <option value="Artisan Cane Sugar">Artisan Cane Sugar</option>
+                                <option value="Mixed sample pack">Mixed sample pack</option>
                               </select>
                             </label>
                             
                             <label>
-                              <span data-i18n="form.packaging">Sample size / pack</span>
-                              <select name="sample_pack">
-                                <option value="100g pack">100g pack</option>
-                                <option value="200g pack">200g pack</option>
+                              <span>Sample size / pack</span>
+                              <select name="quantity">
+                                <option value="100g">100g</option>
+                                <option value="200g">200g</option>
                               </select>
                             </label>
                             <label><span data-i18n="form.quantity">Estimated quantity</span>
