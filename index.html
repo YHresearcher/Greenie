@@ -212,7 +212,6 @@
                     <h2 class="section-title" data-i18n="products.title">Premium export categories for wholesale and private label.</h2>
                     <p class="section-copy" data-i18n="products.copy">Focused product lines help buyers request the right specification sheets, samples, packaging options, and compliance documents faster.</p>
                 </div>
-
                 <div class="grid gap-8 lg:grid-cols-2">
 
                     <article class="product-card flex flex-col h-full" data-aos="fade-up">
@@ -248,20 +247,27 @@
                         </div>
                     </article>
 
-                    <article class="product-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="h-80 overflow-hidden">
-                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src="https://yhresearcher.github.io/Greenie/img/unrefined-cane-sugar.png?auto=format&fit=crop&q=80&w=1200" 
-                                alt="Traditional Vietnamese artisan cane sugar 'Duong Phoi' in jars and vacuum packaging"
-                                loading="lazy" decoding="async" width="1200" height="800"
-                                class="w-full h-64 object-cover"/>
+
+                    <article class="product-card flex flex-col h-full" data-aos="fade-up">
+                        <div class="aspect-[16/9] overflow-hidden">
+                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" 
+                                 src="https://yhresearcher.github.io/Greenie/img/unrefined-cane-sugar.png" 
+                                 alt="Traditional Vietnamese artisan cane sugar 'Duong Phoi' in jars and vacuum packaging">
                         </div>
-                        <div class="p-8 md:p-10">
+                        <div class="p-8 md:p-10 flex flex-col flex-grow">
                             <p class="eyebrow" data-i18n="sugar.origin">Quang Ngai, Vietnam</p>
-                            <a href="sugar-story.html" class="group">
-                                <h3 class="mb-4 font-headline text-3xl font-extrabold tracking-tight text-primary" data-i18n="sugar.title">Artisan Cane Sugar "Duong Phoi"</h3>
-                            </a>
-                            <p class="mb-8 leading-relaxed text-secondary" data-i18n="sugar.copy">Traditional Vietnamese cane sugar prepared for wholesale supply and private label packaging for global retail and foodservice markets.</p>
-                            <div class="spec-grid">
+                            <h3 class="mb-4 font-headline text-3xl font-extrabold text-primary" data-i18n="sugar.title">Artisan Cane Sugar "Duong Phoi"</h3>
+                            
+                            <p class="mb-8 leading-relaxed text-secondary flex-grow" data-i18n="sugar.copy">
+                               Traditional Vietnamese cane sugar prepared for wholesale supply and private label packaging for global retail and foodservice markets.
+                            </p>
+                    
+                            <div class="mt-auto flex flex-wrap gap-3">
+                                <a href="#quote" class="btn-primary" data-i18n="cta.getQuoteShort">Get Quote</a>
+                                <a href="#samples" class="btn-secondary" data-i18n="cta.samples">Request Samples</a>
+                            </div>
+                        </div>
+        
                                 <div><span data-i18n="sugar.spec1Label">Statement</span><b data-i18n="sugar.spec1">No preservatives</b></div>
                                 <div><span data-i18n="sugar.spec2Label">Packaging</span><b data-i18n="sugar.spec2">Jar, pouch, vacuum options</b></div>
                                 <div><span data-i18n="sugar.spec3Label">Documents</span><b data-i18n="sugar.spec3">Spec sheet, COA on request</b></div>
