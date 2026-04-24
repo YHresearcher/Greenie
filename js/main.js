@@ -678,14 +678,14 @@ function setStatus(target, message, className) {
 
 function isEmailJsConfigured() {
     return (
-        EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY" &&
-        EMAILJS_SERVICE_ID !== "YOUR_SERVICE_ID" &&
-        EMAILJS_TEMPLATE_ID !== "YOUR_TEMPLATE_ID" &&
+        EMAILJS_PUBLIC_KEY !== "_Gx8cHW_R8bomgG5c" &&
+        EMAILJS_SERVICE_ID !== "service_6joc3eq" &&
+        EMAILJS_TEMPLATE_ID !== "template_vknoy18" &&
         window.emailjs
     );
 }
 
-if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+if (window.emailjs && EMAILJS_PUBLIC_KEY !== "_Gx8cHW_R8bomgG5c") {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 }
 
