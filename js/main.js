@@ -720,7 +720,3 @@ function bindEmailForm(form, statusElement) {
 
 bindEmailForm(contactForm, statusText);
 bindEmailForm(sampleForm, sampleStatusText);
-
-product: formData.get("sample_product"),
-quantity: formData.get("sample_pack"),
-
