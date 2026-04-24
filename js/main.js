@@ -655,7 +655,14 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         });
     });
 });
-
+const data = {
+    company: formData.get("sample_company"),
+    email: formData.get("sample_email"),
+    product: formData.get("sample_pack"),
+    quantity: formData.get("sample_set"),
+    message: formData.get("sample_notes"),
+    type: "Sample Request"
+};
 const contactForm = document.getElementById("contact-form");
 const sampleForm = document.getElementById("sample-form");
 const statusText = document.getElementById("form-status");
