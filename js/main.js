@@ -703,8 +703,31 @@ function bindEmailForm(form, statusElement) {
     });
 }
 
-bindEmailForm(contactForm, statusText);
-bindEmailForm(sampleForm, sampleStatusText);
+// Gửi form Inquiry bằng Template cũ
+bindEmailForm(contactForm, statusText, EMAILJS_TEMPLATE_ID);
+
+// Gửi form Sample bằng Template mới
+bindEmailForm(sampleForm, sampleStatusText, "template_stjny2d"); 
+// (thay "template_xyz123" bằng ID thật bạn vừa tạo)
+
+// Sau đó sửa lại hàm bindEmailForm một chút để nó nhận Template ID làm tham số
+function bindEmailForm(form, statusElement, templateId) {
+    if (!form) return;
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        // ... (giữ nguyên các phần check valid) ...
+        setStatus(statusElement, translate("status.sending"), "text-primary");
+
+        // Gọi đúng templateId tương ứng với form
+        emailjs
+            .sendForm(EMAILJS_SERVICE_ID, templateId, form)
+            .then(() => {
+                setStatus(statusElement, translate("status.sent"), "text-emerald-700");
+                form.reset();
+            })
+            // ... (giữ nguyên phần catch error) ...
+    });
+}
 
 
 
