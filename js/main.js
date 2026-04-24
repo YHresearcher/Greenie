@@ -690,32 +690,38 @@ if (window.emailjs) {
     console.log("EmailJS initialized");
 }
 
-function bindEmailForm(form, statusElement) {
-    if (!form) {
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (!window.emailjs) {
+        console.error("EmailJS not loaded");
         return;
     }
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
+    // ✅ FIX QUAN TRỌNG
+    emailjs.init(EMAILJS_PUBLIC_KEY);
 
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
+    const form = document.getElementById("sample-form");
 
-        setStatus(statusElement, translate("status.sending"), "text-primary");
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        emailjs
-            .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
-            .then(() => {
-                setStatus(statusElement, translate("status.sent"), "text-emerald-700");
+            emailjs.sendForm(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                form
+            )
+            .then(function () {
+                alert("Sent successfully!");
                 form.reset();
             })
-            .catch((error) => {
-                console.error("EmailJS failed", error);
-                setStatus(statusElement, translate("status.failed"), "text-red-700");
+            .catch(function (error) {
+                console.error("EmailJS failed:", error);
+                alert("Failed to send");
             });
-    });
+        });
+    }
+});
 }
 
 bindEmailForm(contactForm, statusText);
