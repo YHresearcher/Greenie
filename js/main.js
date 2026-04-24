@@ -151,6 +151,7 @@ const translations = {
         "form.whatsapp": "WhatsApp / phone",
         "form.website": "Company website / social",
         "form.website": "Company website / social",
+        "form.SamplePack": "Sample size / pack",
         "form.product": "Product interest *",
         "form.selectProduct": "Select product",
         "form.cashew": "Cashew Kernels",
