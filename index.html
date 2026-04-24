@@ -42,14 +42,45 @@
     <meta name="twitter:title" content="Greenie Vietnam - Global Wholesale Export & Private Label"/>
     <meta name="twitter:description" content="Greenie Vietnam supplies export-ready Vietnamese cashew kernels and artisan cane sugar for global importers, wholesalers, distributors, and private label brands."/>
     <meta name="twitter:image" content="https://yhresearcher.github.io/Greenie/img/hero.png?auto=format&fit=crop&q=80&w=1200"/>
-
+    
+    <!-- JSON-LD Schema (Organization + Product)-->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Greenie Vietnam",
-            "description": "Export-ready Vietnamese agricultural products for global wholesale buyers and private label brands."
+            "@graph": [
+                {
+                "@type": "Organization",
+                "@id": "https://yourdomain.com/#organization",
+                "name": "Greenie Vietnam Agricultural Exports",
+                "url": "https://yourdomain.com",
+                "logo": "https://yourdomain.com/logo.png",
+                "description": "Export-ready Vietnamese agricultural products for global wholesale buyers and private label brands."
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+84-931-332-198",
+                    "contactType": "sales",
+                    "availableLanguage": ["English", "Vietnamese"]
+                },
+                {
+                  "@type": "Product",
+                  "name": "Vietnamese Cashew Kernels (W240/W320/W450)",
+                  "description": "Export-ready white whole cashew kernels from Binh Phuoc, Vietnam. Bulk, vacuum, carton packaging. HALAL & SGS/Eurofins testing on request.",
+                  "brand": {"@type": "Brand", "name": "Greenie Vietnam"},
+                  "offers": {
+                    "@type": "AggregateOffer",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock"
+                  }
+                },
+                {
+                  "@type": "Product",
+                  "name": "Artisan Cane Sugar 'Duong Phoi'",
+                  "description": "Preservative-free traditional Vietnamese cane sugar. Ideal for retail, foodservice, and private label packaging.",
+                  "brand": {"@type": "Brand", "name": "Greenie Vietnam"}
+                }
+            ]
         }
+        
     </script>
 
     <script id="tailwind-config">
@@ -86,6 +117,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
+
+    
 </head>
 <body class="bg-surface text-slate-900 font-body antialiased">
     <header class="fixed top-0 w-full z-50 glass-header">
@@ -195,7 +228,10 @@
                 <div class="grid gap-8 lg:grid-cols-2">
                     <article class="product-card" data-aos="fade-up">
                         <div class="h-80 overflow-hidden">
-                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src="https://images.unsplash.com/photo-1608797178974-15b35a64ede9?auto=format&fit=crop&q=80&w=1200" alt="White whole cashew kernels for B2B export"/>
+                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src="img/cashews-180.png?auto=format&fit=crop&q=80&w=1200" 
+                                 alt="White whole W180 cashew kernels from Binh Phuoc, Vietnam for B2B export"
+                                 loading="lazy" decoding="async" width="1200" height="800"
+                                 class="w-full h-64 object-cover">"/>
                         </div>
                         <div class="p-8 md:p-10">
                             <p class="eyebrow" data-i18n="cashew.origin">Binh Phuoc, Vietnam</p>
@@ -216,7 +252,10 @@
 
                     <article class="product-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="h-80 overflow-hidden">
-                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src="https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&q=80&w=1200" alt="Natural cane sugar crystals for artisan product supply"/>
+                            <img class="h-full w-full object-cover transition-transform duration-700 hover:scale-105" src="img/unrefined-sugar-vietnam.png?auto=format&fit=crop&q=80&w=1200" 
+                                alt="Traditional Vietnamese artisan cane sugar 'Duong Phoi' in jars and vacuum packaging"
+                                loading="lazy" decoding="async" width="1200" height="800"
+                                class="w-full h-64 object-cover"/>
                         </div>
                         <div class="p-8 md:p-10">
                             <p class="eyebrow" data-i18n="sugar.origin">Quang Ngai, Vietnam</p>
