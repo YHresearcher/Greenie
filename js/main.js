@@ -1,7 +1,3 @@
-﻿const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
-const EMAILJS_SERVICE_ID = "service_6joc3eq";
-const EMAILJS_TEMPLATE_ID = "template_vknoy18";
-
 const translations = {
     en: {
         metaTitle: "Greenie Vietnam - Global Wholesale Export & Private Label",
@@ -683,46 +679,97 @@ function setStatus(target, message, className) {
     target.textContent = message;
     target.className = `text-sm font-semibold ${className}`;
 }
+// ===== EMAILJS CONFIG =====
+const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
+const EMAILJS_SERVICE_ID = "service_6joc3eq";
+const EMAILJS_TEMPLATE_ID = "template_vknoy18";
 
+// ===== LANGUAGE (GIỮ TỐI THIỂU, KHÔNG LỖI) =====
+const translations = {
+    en: {
+        "status.sending": "Sending...",
+        "status.sent": "Sent successfully!",
+        "status.failed": "Failed to send. Please try again."
+    }
+};
 
-if (window.emailjs) {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-    console.log("EmailJS initialized");
+let currentLanguage = "en";
+
+function translate(key) {
+    return translations[currentLanguage]?.[key] || key;
 }
 
+// ===== STATUS HELPER =====
+function setStatus(el, message, className = "") {
+    if (!el) return;
+    el.textContent = message;
+    el.className = className;
+}
+
+// ===== INIT =====
 document.addEventListener("DOMContentLoaded", function () {
 
+    // ❗ CHECK EMAILJS
     if (!window.emailjs) {
         console.error("EmailJS not loaded");
         return;
     }
 
-    // ✅ FIX QUAN TRỌNG
+    // ✅ INIT (QUAN TRỌNG)
     emailjs.init(EMAILJS_PUBLIC_KEY);
+    console.log("EmailJS initialized");
 
-    const form = document.getElementById("sample-form");
+    // ===== CONTACT FORM =====
+    const contactForm = document.getElementById("contact-form");
+    const contactStatus = document.getElementById("form-status");
 
-    if (form) {
-        form.addEventListener("submit", function (e) {
+    if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
             e.preventDefault();
+
+            setStatus(contactStatus, translate("status.sending"));
 
             emailjs.sendForm(
                 EMAILJS_SERVICE_ID,
                 EMAILJS_TEMPLATE_ID,
-                form
+                contactForm
             )
             .then(function () {
-                alert("Sent successfully!");
-                form.reset();
+                setStatus(contactStatus, translate("status.sent"), "text-green-600");
+                contactForm.reset();
             })
             .catch(function (error) {
                 console.error("EmailJS failed:", error);
-                alert("Failed to send");
+                setStatus(contactStatus, translate("status.failed"), "text-red-600");
             });
         });
     }
-});
-}
 
-bindEmailForm(contactForm, statusText);
-bindEmailForm(sampleForm, sampleStatusText);
+    // ===== SAMPLE FORM =====
+    const sampleForm = document.getElementById("sample-form");
+    const sampleStatus = document.getElementById("sample-form-status");
+
+    if (sampleForm) {
+        sampleForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            setStatus(sampleStatus, translate("status.sending"));
+
+            emailjs.sendForm(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                sampleForm
+            )
+            .then(function () {
+                setStatus(sampleStatus, translate("status.sent"), "text-green-600");
+                sampleForm.reset();
+            })
+            .catch(function (error) {
+                console.error("EmailJS failed:", error);
+                setStatus(sampleStatus, translate("status.failed"), "text-red-600");
+            });
+        });
+    }
+
+});
+
