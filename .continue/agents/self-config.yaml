@@ -1,0 +1,44 @@
+# This is an example configuration file
+# To learn more, see the full config.yaml reference: https://docs.continue.dev/reference
+
+name: Thanh's Config
+version: 1.0.0
+schema: v1
+
+# Define which models can be used
+# https://docs.continue.dev/customization/models
+{
+  "models": [
+    {
+      "title": "DeepSeek V3 (Coding Expert)",
+      "provider": "deepseek",
+      "model": "deepseek-chat",
+      "apiKey": "sk-7ed8f129c38848028bc59451d1c4dee3"
+    },
+    {
+      "title": "Qwen 2.5 VL 72B (Vision & Logic)",
+      "provider": "openai",
+      "model": "qwen2.5-vl-72b-instruct",
+      "apiKey": "sk-569ea7f1bc4944a0a4cd5337f7c7ff8f",
+      "apiBase": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    },
+    {
+      "title": "Codestral (Mistral AI)",
+      "provider": "mistral",
+      "model": "codestral-latest",
+      "apiKey": "bu153qb53O8fWOVu4lGXMicSe8da3DOd"
+    }
+    
+  ],
+  "tabAutocompleteModel": {
+    "title": "DeepSeek Coder (Fast)",
+    "provider": "deepseek",
+    "model": "deepseek-coder",
+    "apiKey": "sk-7ed8f129c38848028bc59451d1c4dee3"
+  }
+}
+
+# MCP Servers that Continue can access
+# https://docs.continue.dev/customization/mcp-tools
+mcpServers:
+  - uses: anthropic/memory-mcp
