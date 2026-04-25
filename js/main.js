@@ -706,31 +706,38 @@ function bindEmailForm(form, statusElement) {
     });
 }
 
-// Gửi form Inquiry bằng Template cũ
-bindEmailForm(contactForm, statusText, EMAILJS_TEMPLATE_ID);
-
-// Gửi form Sample bằng Template mới
-bindEmailForm(sampleForm, sampleStatusText, "template_stjny2d"); 
-// (thay "template_xyz123" bằng ID thật bạn vừa tạo)
-
-// Sau đó sửa lại hàm bindEmailForm một chút để nó nhận Template ID làm tham số
+// Khởi tạo đúng hàm bindEmailForm với Template ID tham số
 function bindEmailForm(form, statusElement, templateId) {
-    if (!form) return;
+    if (!form) {
+        return;
+    }
+
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-        // ... (giữ nguyên các phần check valid) ...
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
         setStatus(statusElement, translate("status.sending"), "text-primary");
 
-        // Gọi đúng templateId tương ứng với form
         emailjs
             .sendForm(EMAILJS_SERVICE_ID, templateId, form)
             .then(() => {
                 setStatus(statusElement, translate("status.sent"), "text-emerald-700");
                 form.reset();
             })
-            // ... (giữ nguyên phần catch error) ...
+            .catch((error) => {
+                console.error("EmailJS failed", error);
+                setStatus(statusElement, translate("status.failed"), "text-red-700");
+            });
     });
 }
+
+// Gán hàm xử lý cho cả 2 form với template khác nhau
+bindEmailForm(contactForm, statusText, EMAILJS_TEMPLATE_ID);
+bindEmailForm(sampleForm, sampleStatusText, "template_stjny2d");
 
 
 
