@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://greenievietnam.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://greenievietnam.com/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://greenievietnam.com/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://greenievietnam.com/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://greenievietnam.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://greenievietnam.com/cashew-story.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://greenievietnam.com/sugar-story.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

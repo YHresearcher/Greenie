@@ -678,35 +678,6 @@ if (window.emailjs) {
     console.log("EmailJS initialized");
 }
 
-function bindEmailForm(form, statusElement) {
-    if (!form) {
-        return;
-    }
-
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
-
-        setStatus(statusElement, translate("status.sending"), "text-primary");
-
-        emailjs
-            .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
-            .then(() => {
-                setStatus(statusElement, translate("status.sent"), "text-emerald-700");
-                form.reset();
-            })
-            .catch((error) => {
-                console.error("EmailJS failed", error);
-                setStatus(statusElement, translate("status.failed"), "text-red-700");
-            });
-    });
-}
-
-// Khởi tạo đúng hàm bindEmailForm với Template ID tham số
 function bindEmailForm(form, statusElement, templateId) {
     if (!form) {
         return;
