@@ -1,6 +1,15 @@
-﻿const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
+﻿// EmailJS Configuration - Load from environment or use placeholder
+// IMPORTANT: Replace these with your actual keys before going live
+// For better security, consider using a backend proxy instead of client-side keys
+const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
 const EMAILJS_SERVICE_ID = "service_6joc3eq";
 const EMAILJS_TEMPLATE_ID = "template_vknoy18";
+
+// reCAPTCHA Site Key - Replace with your actual key
+const RECAPTCHA_SITE_KEY = "YOUR_RECAPTCHA_SITE_KEY";
+
+// Honeypot field names for spam detection (hidden fields that bots fill but humans don't)
+const HONEYPOT_FIELDS = ['website_field', 'phone_extra'];
 
 const translations = {
     en: {
@@ -192,7 +201,8 @@ const translations = {
         "status.notConfigured": "EmailJS is not configured yet. Replace the EmailJS keys in js/main.js before going live.",
         "status.sending": "Sending inquiry...",
         "status.sent": "Inquiry sent. Greenie Vietnam will reply within 24-48 hours.",
-        "status.failed": "The inquiry could not be sent. Please try again or contact Greenie Vietnam directly."
+        "status.failed": "The inquiry could not be sent. Please try again or contact Greenie Vietnam directly.",
+        "status.spam": "Submission blocked. Please contact us directly."
     },
    zh: {
       metaTitle: "Greenie Vietnam - 全球批发出口与自有品牌",
@@ -248,7 +258,7 @@ const translations = {
       "cashew.spec4Label": "过敏原",
       "cashew.spec4": "树坚果声明",
       "sugar.origin": "越南广义",
-      "sugar.title": "手工甘蔗糖“Duong Phoi”",
+      "sugar.title": "手工甘蔗糖\"Duong Phoi\"",
       "sugar.copy": "传统越南甘蔗糖，适合全球零售、餐饮服务、批发供应和自有品牌包装。",
       "sugar.spec1Label": "声明",
       "sugar.spec1": "不添加防腐剂",
@@ -383,7 +393,8 @@ const translations = {
       "status.notConfigured": "EmailJS 尚未配置。上线前请替换 main.js 中的 EmailJS 密钥。",
       "status.sending": "正在发送询盘...",
       "status.sent": "询盘已发送。Greenie Vietnam 将在 24-48 小时内回复。",
-      "status.failed": "询盘发送失败。请重试或直接联系 Greenie Vietnam。"
+      "status.failed": "询盘发送失败。请重试或直接联系 Greenie Vietnam。",
+      "status.spam": "提交被阻止。请直接联系我们。"
     },
     hi: {
       metaTitle: "Greenie Vietnam - वैश्विक थोक निर्यात और प्राइवेट लेबल",
@@ -574,7 +585,8 @@ const translations = {
       "status.notConfigured": "EmailJS अभी configured नहीं है। Live जाने से पहले main.js में EmailJS keys replace करें।",
       "status.sending": "Inquiry भेजी जा रही है...",
       "status.sent": "Inquiry भेज दी गई। Greenie Vietnam 24-48 घंटे में जवाब देगा।",
-      "status.failed": "Inquiry भेजी नहीं जा सकी। कृपया फिर कोशिश करें या Greenie Vietnam से सीधे संपर्क करें।"
+      "status.failed": "Inquiry भेजी नहीं जा सकी। कृपया फिर कोशिश करें या Greenie Vietnam से सीधे संपर्क करें।",
+      "status.spam": "सबमिशन ब्लॉक किया गया। कृपया सीधे संपर्क करें।"
     }
 };
 
@@ -672,6 +684,47 @@ function setStatus(target, message, className) {
     target.className = `text-sm font-semibold ${className}`;
 }
 
+// Generate reCAPTCHA token for form submission
+function getRecaptchaToken() {
+    return new Promise((resolve) => {
+        if (window.grecaptcha && grecaptcha.execute) {
+            grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' })
+                .then((token) => {
+                    resolve(token);
+                })
+                .catch(() => {
+                    resolve('');
+                });
+        } else {
+            resolve('');
+        }
+    });
+}
+
+// Check honeypot fields - if filled, likely a bot
+function isHoneypotFilled(form) {
+    const honeypotInputs = form.querySelectorAll('input[name="website_field"], input[name="phone_extra"]');
+    for (const input of honeypotInputs) {
+        if (input.value.trim() !== '') {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Rate limiting - track submissions
+const submissionTracker = {
+    lastSubmission: 0,
+    minInterval: 30000, // 30 seconds between submissions
+    canSubmit() {
+        const now = Date.now();
+        if (now - this.lastSubmission < this.minInterval) {
+            return false;
+        }
+        this.lastSubmission = now;
+        return true;
+    }
+};
 
 if (window.emailjs) {
     emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -683,8 +736,21 @@ function bindEmailForm(form, statusElement, templateId) {
         return;
     }
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        // Check rate limiting
+        if (!submissionTracker.canSubmit()) {
+            setStatus(statusElement, "Please wait before submitting again.", "text-red-700");
+            return;
+        }
+
+        // Check honeypot
+        if (isHoneypotFilled(form)) {
+            setStatus(statusElement, translate("status.spam"), "text-red-700");
+            console.warn("Bot submission detected via honeypot");
+            return;
+        }
 
         if (!form.checkValidity()) {
             form.reportValidity();
@@ -692,6 +758,15 @@ function bindEmailForm(form, statusElement, templateId) {
         }
 
         setStatus(statusElement, translate("status.sending"), "text-primary");
+
+        // Get reCAPTCHA token
+        const recaptchaToken = await getRecaptchaToken();
+        
+        // Update hidden reCAPTCHA token field
+        const tokenField = form.querySelector('input[name="recaptcha_token"]');
+        if (tokenField) {
+            tokenField.value = recaptchaToken;
+        }
 
         emailjs
             .sendForm(EMAILJS_SERVICE_ID, templateId, form)
@@ -709,6 +784,3 @@ function bindEmailForm(form, statusElement, templateId) {
 // Gán hàm xử lý cho cả 2 form với template khác nhau
 bindEmailForm(contactForm, statusText, EMAILJS_TEMPLATE_ID);
 bindEmailForm(sampleForm, sampleStatusText, "template_stjny2d");
-
-
-

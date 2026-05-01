@@ -29,7 +29,9 @@
     
     <meta name="robots" content="index,follow,max-image-preview:large"/>
 
-    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: http:; connect-src 'self' https://api.emailjs.com; frame-src https://www.google.com;"/>
+
     <!-- JSON-LD Schema (Organization + Product)-->
     <script type="application/ld+json">
         {
@@ -97,13 +99,16 @@
             }
         }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" integrity="sha384-7aMjXvMbqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqM" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" integrity="sha384-7aMjXvMbqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqM" crossorigin="anonymous"/>
     <link href="css/style.css" rel="stylesheet"/>
+
+    <!-- Google reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
 
     
 </head>
@@ -451,11 +456,12 @@
                                 </textarea>
                             </label>
                         </div>
-                        <div class="mt-6 flex items-center gap-4">
-                            <button class="btn-light" type="submit" data-i18n="form.submit">Request Samples</button>
-                            <p id="sample-form-status" class="hidden text-sm font-semibold text-emerald-100/80" role="status"></p>
-                        </div>
-                        <input type="hidden" name="request_type" value="sample_request"/>
+                    <div class="mt-6 flex items-center gap-4">
+                        <button class="btn-light" type="submit" data-i18n="form.submit">Request Samples</button>
+                        <p id="sample-form-status" class="hidden text-sm font-semibold text-emerald-100/80" role="status"></p>
+                    </div>
+                    <input type="hidden" name="request_type" value="sample_request"/>
+                    <input type="hidden" name="recaptcha_token" id="sample-recaptcha-token"/>
                     </form>
                 </div>
             </div>
@@ -509,6 +515,7 @@
                         <button class="btn-primary btn-large" type="submit" data-i18n="form.submit">Submit Inquiry</button>
                         <p id="form-status" class="hidden text-sm font-semibold" role="status" aria-live="polite"></p>
                     </div>
+                    <input type="hidden" name="recaptcha_token" id="contact-recaptcha-token"/>
                 </form>
           
         </section>
@@ -556,12 +563,13 @@
 
             <div class="footer-bottom">
                 <p class="text-xs font-bold uppercase tracking-[0.18em] text-secondary/70" data-i18n="footer.rights">© 2026 Greenie Vietnam Agricultural Exports.</p>
+                <p class="mt-2 text-xs text-secondary/50"><a href="#privacy" class="hover:text-primary">Privacy Policy</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" integrity="sha384-7aMjXvMbqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" integrity="sha384-7aMjXvMbqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqMqM" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 
     <!-- Floating WhatsApp Button -->
