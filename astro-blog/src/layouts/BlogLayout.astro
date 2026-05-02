@@ -97,11 +97,97 @@ const { title = "Greenie Blog" } = Astro.props;
         color: var(--green);
       }
 
-      /* Main Content */
+      /* Main Content — magazine width */
       .wrap {
-        max-width: 860px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 48px 2rem 80px;
+      }
+
+      /* Magazine Article Layout */
+      .magazine-article {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      /* Article Header */
+      .article-header {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 2rem 0 1rem;
+      }
+
+      .article-header .meta {
+        font-family: "Inter", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .article-header .origin-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent);
+        padding: 0.35rem 0.9rem;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: var(--green);
+        margin-bottom: 1.5rem;
+      }
+
+      .article-header .origin-badge::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+      }
+
+      /* Magazine headline */
+      .magazine-headline {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+        color: #0d0d0d;
+        max-width: 900px;
+        margin: 0 auto 1rem;
+      }
+
+      /* Deck / sub-headline */
+      .magazine-deck {
+        font-family: "Inter", sans-serif;
+        font-size: 1.15rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 680px;
+        margin: 0 auto 1.5rem;
+      }
+
+      /* Hero image — full bleed */
+      .hero-image {
+        width: 100%;
+        aspect-ratio: 21 / 9;
+        object-fit: cover;
+        border-radius: 4px;
+        margin: 1.5rem 0 3rem;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Body column */
+      .article-body {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0;
       }
 
       /* Typography */
@@ -116,13 +202,14 @@ const { title = "Greenie Blog" } = Astro.props;
       }
 
       h2 {
-        font-family: "Inter", sans-serif;
-        font-size: 1.5rem;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.85rem;
         font-weight: 700;
-        color: var(--green);
+        color: #0d0d0d;
         margin-top: 3rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
         letter-spacing: -0.01em;
+        line-height: 1.2;
       }
 
       h3 {
@@ -136,9 +223,28 @@ const { title = "Greenie Blog" } = Astro.props;
 
       p {
         margin-bottom: 1.2rem;
-        color: #444;
-        font-size: 1rem;
-        line-height: 1.75;
+        color: #333;
+        font-size: 1.05rem;
+        line-height: 1.8;
+      }
+
+      .lead {
+        font-size: 1.25rem;
+        line-height: 1.65;
+        color: #1a1a1a;
+        font-weight: 500;
+        margin-bottom: 1.6rem;
+      }
+
+      .drop-cap::first-letter {
+        float: left;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 4.6rem;
+        font-weight: 700;
+        line-height: 0.78;
+        color: var(--green);
+        padding-right: 0.2em;
+        padding-top: 0.04em;
       }
 
       .meta {
@@ -150,44 +256,136 @@ const { title = "Greenie Blog" } = Astro.props;
         margin-bottom: 2rem;
       }
 
-      /* Hero image */
-      .hero-image {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-        border-radius: 16px;
-        margin: 1.5rem 0 2.5rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      /* Pull Quote */
+      .pull-quote {
+        grid-column: 1 / -1;
+        max-width: 900px;
+        margin: 3rem auto;
+        padding: 2rem 0;
+        border-top: 2px solid var(--green);
+        border-bottom: 2px solid var(--green);
+        text-align: center;
       }
 
-      /* Blog list post cards */
-      article {
-        background: var(--card-bg);
-        padding: 28px 32px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        margin-bottom: 16px;
-        transition: box-shadow 0.2s ease, border-color 0.2s ease;
-      }
-
-      article:hover {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-        border-color: rgba(22, 59, 24, 0.15);
-      }
-
-      article h2 {
-        margin-top: 0;
-        font-size: 1.25rem;
-      }
-
-      article h2 a {
-        color: #0d0d0d;
-        text-decoration: none;
-        transition: color 0.2s ease;
-      }
-
-      article h2 a:hover {
+      .pull-quote blockquote {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.8rem;
+        font-weight: 600;
+        font-style: italic;
+        line-height: 1.3;
         color: var(--green);
+        margin: 0;
+      }
+
+      .pull-quote blockquote::before {
+        content: "\201C";
+      }
+
+      .pull-quote blockquote::after {
+        content: "\201D";
+      }
+
+      .pull-quote cite {
+        display: block;
+        margin-top: 1rem;
+        font-family: "Inter", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-style: normal;
+        color: var(--muted);
+      }
+
+      /* Side Note */
+      .side-note {
+        float: right;
+        width: 260px;
+        margin: 0.5rem -140px 1.5rem 2rem;
+        padding: 1.25rem;
+        background: var(--accent);
+        border-radius: 4px;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      .side-note strong {
+        display: block;
+        font-family: "Inter", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--green);
+        margin-bottom: 0.4rem;
+      }
+
+      /* Wide Image — breaks out of body column */
+      .wide-image {
+        grid-column: 1 / -1;
+        margin: 2.5rem 0;
+      }
+
+      .wide-image img {
+        width: 100%;
+        aspect-ratio: 21 / 9;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .wide-image figcaption {
+        margin-top: 0.6rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-align: center;
+        font-style: italic;
+      }
+
+      /* Two Column Text */
+      .two-col-text {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        margin: 2rem 0;
+      }
+
+      .two-col-text p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      /* editorial sections from old layout (kept for compatibility) */
+      .editorial-section {
+        margin: 3rem 0;
+      }
+
+      .origin-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent);
+        padding: 0.35rem 0.9rem;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: var(--green);
+        margin-bottom: 1rem;
+      }
+
+      .origin-badge::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+      }
+
+      .blog-post {
+        padding: 0;
+        border: none;
+        border-radius: 0;
       }
 
       a {
@@ -208,8 +406,8 @@ const { title = "Greenie Blog" } = Astro.props;
 
       ul li {
         margin-bottom: 0.5rem;
-        color: #444;
-        line-height: 1.65;
+        color: #333;
+        line-height: 1.7;
       }
 
       strong {
