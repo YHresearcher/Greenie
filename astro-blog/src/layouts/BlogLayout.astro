@@ -422,12 +422,95 @@ const { title = "Greenie Blog" } = Astro.props;
 
       /* Footer */
       footer {
-        text-align: center;
-        padding: 2rem;
-        color: var(--muted);
-        font-size: 0.8rem;
+        background: #f8f9fa;
         border-top: 1px solid var(--border);
         margin-top: 4rem;
+        padding: 3rem 0;
+      }
+
+      .footer-wrap {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        flex-wrap: wrap;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 2rem;
+      }
+
+      .footer-brand-name {
+        font-family: "Inter", sans-serif;
+        font-weight: 900;
+        font-size: 1.2rem;
+        letter-spacing: -0.02em;
+        color: var(--green);
+        text-transform: uppercase;
+      }
+
+      .footer-brand-desc {
+        margin-top: 0.75rem;
+        max-width: 500px;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      .footer-actions {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      .footer-col-title {
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--green);
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-grid a,
+      .footer-line {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--muted);
+        text-decoration: none;
+        margin-bottom: 0.4rem;
+        transition: color 0.15s ease;
+      }
+
+      .footer-grid a:hover {
+        color: var(--green);
+        text-decoration: none;
+      }
+
+      .footer-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-copyright {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(107, 114, 128, 0.7);
       }
 
       /* Responsive */
@@ -462,18 +545,63 @@ const { title = "Greenie Blog" } = Astro.props;
   <body>
     <nav class="nav">
       <div class="nav-inner">
+        <a class="back-link" href="/Greenie/">← Back to Greenie</a>
         <a class="brand" href="/Greenie/blog/">
           <div class="brand-dot">G</div>
           Greenie Blog
         </a>
-        <a class="back-link" href="/Greenie/">← Back to Greenie</a>
       </div>
     </nav>
     <div class="wrap">
       <slot />
     </div>
     <footer>
-      <p>© 2026 Greenie Vietnam Agricultural Exports</p>
+      <div class="footer-wrap">
+        <div class="footer-top">
+          <div>
+            <p class="footer-brand-name">Greenie Vietnam</p>
+            <p class="footer-brand-desc">
+              Export-ready Vietnamese agricultural products for global wholesale buyers and private label brands.
+            </p>
+          </div>
+          <div class="footer-actions">
+            <a class="btn-primary" href="/Greenie/#quote">Get Wholesale Quote</a>
+            <a class="btn-secondary" href="/Greenie/#samples">Request Samples</a>
+          </div>
+        </div>
+
+        <div class="footer-grid">
+          <div>
+            <p class="footer-col-title">Products</p>
+            <a href="/Greenie/#products">Cashew Kernels</a>
+            <a href="/Greenie/#products">Artisanal Cane Sugar</a>
+            <a href="/Greenie/#products">Shan Tuyet Ancient Tea</a>
+            <a href="/Greenie/blog/">Blog</a>
+          </div>
+          <div>
+            <p class="footer-col-title">Sales</p>
+            <a href="/Greenie/#quote">Get Wholesale Quote</a>
+            <a href="/Greenie/#samples">Request Samples</a>
+            <a href="/Greenie/#oem">Submit OEM Brief</a>
+          </div>
+          <div>
+            <p class="footer-col-title">Quick Facts</p>
+            <p class="footer-line">MOQ from 1 MT</p>
+            <p class="footer-line">Lead time 7-15 days</p>
+            <p class="footer-line">FOB / CIF from Saigon Port</p>
+          </div>
+          <div>
+            <p class="footer-col-title">Contact</p>
+            <a class="footer-line" href="mailto:sales@greenievietnam.com">sales@greenievietnam.com</a>
+            <a class="footer-line" href="https://wa.me/084909053058" target="_blank" rel="noopener noreferrer">WhatsApp Business</a>
+            <p class="footer-line">HALAL and testing on request</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright">© 2026 Greenie Vietnam Agricultural Exports.</p>
+        </div>
+      </div>
     </footer>
   </body>
 </html>
