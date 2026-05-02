@@ -6,6 +6,7 @@ const posts = [
     href: "/Greenie/blog/vietnamese-qualified-cashews/",
     date: "2026-05-02",
     thumbnail: "https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=600",
+    alt: "Vietnamese W180 cashew kernels from Binh Phuoc — export-ready white whole kernels for wholesale buyers",
     excerpt: "Export-ready white whole cashew kernels from Binh Phuoc, Vietnam. Grades, packaging, and compliance for global wholesale buyers."
   },
   {
@@ -13,6 +14,7 @@ const posts = [
     href: "/Greenie/blog/vietnamese-artisanal-cane-sugar/",
     date: "2026-05-02",
     thumbnail: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&q=80&w=600",
+    alt: "Traditional Vietnamese 'Duong Phoi' cane sugar blocks — artisan sugarcane crafted without preservatives",
     excerpt: "Traditional Vietnamese 'Duong Phoi' cane sugar — preservative-free, crafted for wholesale, retail, and private label markets."
   },
   {
@@ -20,6 +22,7 @@ const posts = [
     href: "/Greenie/blog/vietnamese-ancient-tea/",
     date: "2026-05-02",
     thumbnail: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&q=80&w=600",
+    alt: "Shan Tuyet ancient tea leaves from Ha Giang highlands — wild-grown 200-year-old tea trees in mist",
     excerpt: "Wild-grown ancient tea from 200+ year-old trees in Ha Giang's misty highlands. A rare Vietnamese heritage tea for premium buyers."
   }
 ];
@@ -28,14 +31,27 @@ const posts = [
   <h1>Greenie Insights & Stories</h1>
   <p>Market insights, sourcing notes, and product stories from Greenie Vietnam.</p>
 
-  {posts.map((p) => (
-    <article class="post-card">
-      <img class="post-thumbnail" src={p.thumbnail} alt={p.title} loading="lazy" decoding="async" width="600" height="400" />
-      <div class="post-card-content">
-        <h2><a href={p.href}>{p.title}</a></h2>
-        <p class="meta">{p.date}</p>
-        <p>{p.excerpt}</p>
-      </div>
-    </article>
-  ))}
+  <div class="magazine-grid">
+    {posts.map((p, i) => (
+      <article class={"post-card" + (i === 0 ? " post-card--featured" : "")}>
+        <a href={p.href} class="post-card-image-link" aria-hidden="true" tabindex="-1">
+          <img
+            class="post-thumbnail"
+            src={p.thumbnail}
+            alt={p.alt}
+            loading={i === 0 ? "eager" : "lazy"}
+            decoding="async"
+            width="600"
+            height="400"
+          />
+        </a>
+        <div class="post-card-content">
+          <p class="meta">{p.date}</p>
+          <h2><a href={p.href}>{p.title}</a></h2>
+          <p>{p.excerpt}</p>
+          <a href={p.href} class="post-card-readmore">Read story <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    ))}
+  </div>
 </BlogLayout>

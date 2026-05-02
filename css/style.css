@@ -734,61 +734,145 @@ h4,
     }
 }
 
-/* Blog index post cards */
-.post-card {
+/* Magazine-style blog index */
+.magazine-grid {
     display: grid;
-    grid-template-columns: 200px 1fr;
     gap: 1.5rem;
-    align-items: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 2rem;
+}
+
+.post-card {
     background: #fff;
     border: 1px solid #e7e8e9;
-    border-radius: 0.5rem;
     overflow: hidden;
-    margin-bottom: 1.5rem;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    display: flex;
+    flex-direction: column;
 }
+
 .post-card:hover {
-    box-shadow: 0 40px 40px rgba(25, 28, 29, 0.04);
+    box-shadow: 0 40px 40px rgba(25, 28, 29, 0.06);
+    transform: translateY(-2px);
 }
+
+/* First article spans full width with large image */
+.post-card--featured {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+    .post-card--featured {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+    }
+
+    .post-card--featured .post-thumbnail {
+        height: 100%;
+    }
+
+    .post-card--featured .post-card-content h2 {
+        font-size: 1.75rem;
+    }
+}
+
+.post-card-image-link {
+    display: block;
+    line-height: 0;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
 .post-thumbnail {
     width: 100%;
-    height: 140px;
+    height: 200px;
     object-fit: cover;
+    transition: transform 0.6s ease;
 }
+
+.post-card:hover .post-thumbnail {
+    transform: scale(1.04);
+}
+
 .post-card-content {
-    padding: 1.25rem 1.25rem 1.25rem 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
+
+.post-card-content .meta {
+    font-family: "Manrope", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #545e76;
+    margin-bottom: 0.5rem;
+}
+
 .post-card-content h2 {
-    margin: 0 0 0.35rem;
-    font-size: 1.25rem;
+    margin: 0 0 0.65rem;
+    font-family: "Manrope", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
+
 .post-card-content h2 a {
     color: #163b18;
     text-decoration: none;
 }
+
 .post-card-content h2 a:hover {
     text-decoration: underline;
-}
-.post-card-content .meta {
-    font-size: 0.8rem;
-    color: #545e76;
-    margin-bottom: 0.5rem;
-}
-.post-card-content p {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #545e76;
-    line-height: 1.55;
+    text-underline-offset: 0.15em;
 }
 
-@media (max-width: 600px) {
-    .post-card {
+.post-card-content p {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    color: #545e76;
+    line-height: 1.6;
+}
+
+.post-card-readmore {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #163b18;
+    text-decoration: none;
+    margin-top: auto;
+    transition: gap 0.2s ease;
+}
+
+.post-card-readmore:hover {
+    gap: 0.6rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+@media (max-width: 599px) {
+    .magazine-grid {
         grid-template-columns: 1fr;
     }
+
     .post-thumbnail {
-        height: 180px;
+        height: 220px;
     }
+
     .post-card-content {
-        padding: 1rem;
+        padding: 1.25rem;
+    }
+
+    .post-card-content h2 {
+        font-size: 1.2rem;
     }
 }
