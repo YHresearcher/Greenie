@@ -1,0 +1,31 @@
+---
+const { title = "Greenie Blog" } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <style>
+      :root { --green:#163b18; --text:#1f2937; --muted:#6b7280; --bg:#f8f9fa; }
+      body { margin:0; font-family: Inter, system-ui, sans-serif; color:var(--text); background:var(--bg); }
+      .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px; }
+      a { color: var(--green); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      header { margin-bottom: 24px; }
+      .brand { font-weight: 800; letter-spacing: .03em; }
+      .meta { color: var(--muted); font-size: 14px; }
+      article { background:#fff; padding: 20px; border-radius: 12px; margin-bottom: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="/blog/">Greenie Blog</a>
+        <div class="meta"><a href="/">← Back to Greenie Website</a></div>
+      </header>
+      <slot />
+    </div>
+  </body>
+</html>

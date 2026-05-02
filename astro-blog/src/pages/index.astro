@@ -1,0 +1,23 @@
+---
+import BlogLayout from "../layouts/BlogLayout.astro";
+const posts = [
+  {
+    title: "Welcome to Greenie Blog",
+    href: "/blog/posts/welcome/",
+    date: "2026-05-02",
+    excerpt: "This is the first post in Greenie's Astro-powered blog."
+  }
+];
+---
+<BlogLayout title="Greenie Blog">
+  <h1>Greenie Insights & Stories</h1>
+  <p>Market insights, sourcing notes, and product stories from Greenie Vietnam.</p>
+
+  {posts.map((p) => (
+    <article>
+      <h2><a href={p.href}>{p.title}</a></h2>
+      <p class="meta">{p.date}</p>
+      <p>{p.excerpt}</p>
+    </article>
+  ))}
+</BlogLayout>
