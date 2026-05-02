@@ -419,10 +419,14 @@
                             <p class="text-sm leading-relaxed text-secondary" data-i18n="samples.formCopy">Use this form when you only need product samples. The same sales team will handle both sample and wholesale requests.</p>
                         </div>
                         <div class="grid gap-4 md:grid-cols-2">
+                            <!-- Honeypot field - hidden from humans, bots will fill it -->
+                            <input type="text" name="website_field" style="display:none" tabindex="-1" autocomplete="off"/>
                             <label><span data-i18n="form.company">Company name *</span><input required name="sample_company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
                             <label><span data-i18n="form.country">Country *</span><input required name="sample_country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
                             <label><span data-i18n="form.person">Contact person *</span><input required name="sample_contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
                             <label><span data-i18n="form.email">Email *</span><input required name="sample_email" type="email" placeholder="name@company.com" data-i18n-placeholder="ph.email"/></label>
+                            <!-- Honeypot field - hidden from humans, bots will fill it -->
+                            <input type="text" name="phone_extra" style="display:none" tabindex="-1" autocomplete="off"/>
                             <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input name="sample_whatsapp" type="tel" placeholder="+84909053058" data-i18n-placeholder="ph.whatsapp"/></label>
                             <label><span data-i18n="form.product">Sample product *</span>
                                 <select required name="sample_product">
@@ -477,11 +481,15 @@
                     <!--Contact Form-->
                     <form id="contact-form" class="quote-form lg:col-span-8" data-aos="fade-left">
                     <div class="grid gap-6 md:grid-cols-2">
+                        <!-- Honeypot field - hidden from humans, bots will fill it -->
+                        <input type="text" name="website_field" style="display:none" tabindex="-1" autocomplete="off"/>
                         <label><span data-i18n="form.company">Company name *</span><input required name="company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
                         <label><span data-i18n="form.country">Country *</span><input required name="country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
                         <label><span data-i18n="form.person">Contact person *</span><input required name="contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
                         <label><span data-i18n="form.role">Role</span><input name="role" type="text" placeholder="Purchasing manager" data-i18n-placeholder="ph.role"/></label>
                         <label><span data-i18n="form.email">Email *</span><input required name="email" type="email" placeholder="name@company.com" data-i18n-placeholder="ph.email"/></label>
+                        <!-- Honeypot field - hidden from humans, bots will fill it -->
+                        <input type="text" name="phone_extra" style="display:none" tabindex="-1" autocomplete="off"/>
                         <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input name="whatsapp" type="tel" placeholder="+84909053058" data-i18n-placeholder="ph.whatsapp"/></label>
                         <label class="md:col-span-2"><span data-i18n="form.website">Company website / social</span><input name="company_website" type="text" placeholder="https://..." data-i18n-placeholder="ph.website"/></label>
                         <label><span data-i18n="form.product">Product interest *</span>
