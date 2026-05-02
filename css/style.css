@@ -23,8 +23,8 @@ h4,
 
 .glass-header {
     background: rgba(248, 249, 250, 0.86);
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     box-shadow: 0 24px 40px rgba(25, 28, 29, 0.05);
 }
 
@@ -525,8 +525,8 @@ h4,
 .sample-form {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     box-shadow: 0 32px 48px rgba(7, 20, 11, 0.22);
     padding: 1.5rem;
 }
