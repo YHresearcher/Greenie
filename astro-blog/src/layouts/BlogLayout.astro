@@ -7,25 +7,473 @@ const { title = "Greenie Blog" } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      :root { --green:#163b18; --text:#1f2937; --muted:#6b7280; --bg:#f8f9fa; }
-      body { margin:0; font-family: Inter, system-ui, sans-serif; color:var(--text); background:var(--bg); }
-      .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px; }
-      a { color: var(--green); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      header { margin-bottom: 24px; }
-      .brand { font-weight: 800; letter-spacing: .03em; }
-      .meta { color: var(--muted); font-size: 14px; }
-      article { background:#fff; padding: 20px; border-radius: 12px; margin-bottom: 16px; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --green: #163b18;
+        --green-light: #2d522d;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --bg: #fdfdfd;
+        --card-bg: #ffffff;
+        --border: rgba(0, 0, 0, 0.06);
+        --accent: #f5f0e8;
+      }
+
+      body {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Navigation */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+      }
+
+      .brand {
+        font-family: "Inter", sans-serif;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: -0.02em;
+        color: var(--green);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .brand-dot {
+        width: 28px;
+        height: 28px;
+        background: var(--green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+
+      .back-link {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 0.4rem 0.9rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+      }
+
+      .back-link:hover {
+        background: rgba(0, 0, 0, 0.04);
+        color: var(--green);
+      }
+
+      /* Main Content */
+      .wrap {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 48px 2rem 80px;
+      }
+
+      /* Typography */
+      h1 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        color: #0d0d0d;
+        margin-bottom: 1rem;
+      }
+
+      h2 {
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--green);
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        letter-spacing: -0.01em;
+      }
+
+      h3 {
+        font-family: "Inter", sans-serif;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #0d0d0d;
+        margin-top: 2rem;
+        margin-bottom: 0.6rem;
+      }
+
+      p {
+        margin-bottom: 1.2rem;
+        color: #444;
+        font-size: 1rem;
+        line-height: 1.75;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 2rem;
+      }
+
+      /* Hero image */
+      .hero-image {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 16px;
+        margin: 1.5rem 0 2.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Blog list post cards */
+      article {
+        background: var(--card-bg);
+        padding: 28px 32px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        margin-bottom: 16px;
+        transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+
+      article:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        border-color: rgba(22, 59, 24, 0.15);
+      }
+
+      article h2 {
+        margin-top: 0;
+        font-size: 1.25rem;
+      }
+
+      article h2 a {
+        color: #0d0d0d;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      article h2 a:hover {
+        color: var(--green);
+      }
+
+      a {
+        color: var(--green);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Bullet list */
+      ul {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      ul li {
+        margin-bottom: 0.5rem;
+        color: #444;
+        line-height: 1.65;
+      }
+
+      strong {
+        color: #1a1a1a;
+      }
+
+      /* Buttons */
+      .btn-primary {
+        display: inline-block;
+        background: var(--green);
+        color: white;
+        padding: 0.75rem 1.6rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 14px rgba(22, 59, 24, 0.25);
+        margin-right: 0.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .btn-primary:hover {
+        background: var(--green-light);
+        text-decoration: none;
+        box-shadow: 0 6px 18px rgba(22, 59, 24, 0.3);
+      }
+
+      .btn-secondary {
+        display: inline-block;
+        background: transparent;
+        color: var(--green);
+        padding: 0.75rem 1.6rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        border: 1.5px solid rgba(22, 59, 24, 0.25);
+        transition: all 0.2s ease;
+        margin-bottom: 0.5rem;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(22, 59, 24, 0.05);
+        border-color: var(--green);
+        text-decoration: none;
+      }
+
+      /* Editorial sections */
+      .editorial-section {
+        margin: 3rem 0;
+      }
+
+      .origin-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent);
+        padding: 0.35rem 0.9rem;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: var(--green);
+        margin-bottom: 1rem;
+      }
+
+      .origin-badge::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+      }
+
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .process-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+
+      .process-card img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+
+      .process-card-content {
+        padding: 1.2rem;
+      }
+
+      .process-card-content h3 {
+        margin-top: 0;
+        font-size: 1rem;
+      }
+
+      .process-card-content p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 0;
+      }
+
+      .dark-cta {
+        background: var(--green);
+        color: white;
+        padding: 3rem 2rem;
+        border-radius: 16px;
+        margin: 3rem 0;
+      }
+
+      .dark-cta h2 {
+        color: #f5f0e8;
+        font-size: 2.2rem;
+        margin-top: 0;
+      }
+
+      .dark-cta p {
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 2rem;
+      }
+
+      .stats-row {
+        display: flex;
+        gap: 2.5rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .stat-dot {
+        width: 8px;
+        height: 8px;
+        background: #f5f0e8;
+        border-radius: 50%;
+      }
+
+      .cta-section {
+        background: var(--accent);
+        padding: 3rem 2rem;
+        border-radius: 16px;
+        text-align: center;
+        margin: 3rem 0;
+      }
+
+      .cta-section h2 {
+        margin-top: 0;
+      }
+
+      .cert-logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        opacity: 0.35;
+        filter: grayscale(1);
+      }
+
+      .cert-logos img {
+        height: 40px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .glass-note {
+        background: var(--accent);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+      }
+
+      .glass-note span {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--green);
+        margin-bottom: 0.5rem;
+      }
+
+      .glass-note p {
+        font-size: 0.85rem;
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+        border-top: 1px solid var(--border);
+        margin-top: 4rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .wrap {
+          padding: 32px 1.2rem 60px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .process-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .two-col {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .stats-row {
+          gap: 1.2rem;
+        }
+
+        .dark-cta h2 {
+          font-size: 1.6rem;
+        }
+      }
     </style>
   </head>
   <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="/Greenie/blog/">
+          <div class="brand-dot">G</div>
+          Greenie Blog
+        </a>
+        <a class="back-link" href="/Greenie/">← Back to Greenie</a>
+      </div>
+    </nav>
     <div class="wrap">
-      <header>
-        <a class="brand" href="/Greenie/blog/">Greenie Blog</a>
-        <div class="meta"><a href="/Greenie/">← Back to Greenie Website</a></div>
-      </header>
       <slot />
     </div>
+    <footer>
+      <p>© 2026 Greenie Vietnam Agricultural Exports</p>
+    </footer>
   </body>
 </html>
