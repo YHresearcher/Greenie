@@ -40,6 +40,7 @@ jobs:
           rm -rf blog
           mkdir -p blog
           cp -R astro-blog/dist/. blog/
+          touch blog/.nojekyll
 
       - name: Commit generated blog
         run: |
