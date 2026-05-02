@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -29,6 +29,7 @@
     
     <meta name="robots" content="index,follow,max-image-preview:large"/>
 
+    
     <!-- JSON-LD Schema (Organization + Product)-->
     <script type="application/ld+json">
         {
@@ -96,15 +97,13 @@
             }
         }
     </script>
-    <script src="https://cdn.tailwindcss.com" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
-
-    <!-- Google reCAPTCHA v3 is loaded dynamically in js/main.js when a real key is configured -->
 
     
 </head>
@@ -122,7 +121,7 @@
                 <a href="#oem" class="nav-link" data-i18n="nav.oem">OEM</a>
                 <a href="#samples" class="nav-link" data-i18n="nav.samples">Samples</a>
                 <a href="#quote" class="nav-link" data-i18n="nav.quote">Quote</a>
-                <a href="/Greenie/blog/" class="nav-link" data-i18n="nav.blog">Blog</a>
+                <a href="https://blog.greenievietnam.com" class="nav-link" data-i18n="nav.blog">Blog</a>
             </nav>
 
             <div class="hidden xl:flex items-center gap-3">
@@ -420,14 +419,10 @@
                             <p class="text-sm leading-relaxed text-secondary" data-i18n="samples.formCopy">Use this form when you only need product samples. The same sales team will handle both sample and wholesale requests.</p>
                         </div>
                         <div class="grid gap-4 md:grid-cols-2">
-                            <!-- Honeypot field - hidden from humans, bots will fill it -->
-                            <input type="text" name="website_field" style="display:none" tabindex="-1" autocomplete="off"/>
                             <label><span data-i18n="form.company">Company name *</span><input required name="sample_company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
                             <label><span data-i18n="form.country">Country *</span><input required name="sample_country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
                             <label><span data-i18n="form.person">Contact person *</span><input required name="sample_contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
                             <label><span data-i18n="form.email">Email *</span><input required name="sample_email" type="email" placeholder="name@company.com" data-i18n-placeholder="ph.email"/></label>
-                            <!-- Honeypot field - hidden from humans, bots will fill it -->
-                            <input type="text" name="phone_extra" style="display:none" tabindex="-1" autocomplete="off"/>
                             <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input name="sample_whatsapp" type="tel" placeholder="+84909053058" data-i18n-placeholder="ph.whatsapp"/></label>
                             <label><span data-i18n="form.product">Sample product *</span>
                                 <select required name="sample_product">
@@ -456,12 +451,11 @@
                                 </textarea>
                             </label>
                         </div>
-                    <div class="mt-6 flex items-center gap-4">
-                        <button class="btn-light" type="submit" data-i18n="form.submit">Request Samples</button>
-                        <p id="sample-form-status" class="hidden text-sm font-semibold text-emerald-100/80" role="status"></p>
-                    </div>
-                    <input type="hidden" name="request_type" value="sample_request"/>
-                    <input type="hidden" name="recaptcha_token" id="sample-recaptcha-token"/>
+                        <div class="mt-6 flex items-center gap-4">
+                            <button class="btn-light" type="submit" data-i18n="form.submit">Request Samples</button>
+                            <p id="sample-form-status" class="hidden text-sm font-semibold text-emerald-100/80" role="status"></p>
+                        </div>
+                        <input type="hidden" name="request_type" value="sample_request"/>
                     </form>
                 </div>
             </div>
@@ -483,15 +477,11 @@
                     <!--Contact Form-->
                     <form id="contact-form" class="quote-form lg:col-span-8" data-aos="fade-left">
                     <div class="grid gap-6 md:grid-cols-2">
-                        <!-- Honeypot field - hidden from humans, bots will fill it -->
-                        <input type="text" name="website_field" style="display:none" tabindex="-1" autocomplete="off"/>
                         <label><span data-i18n="form.company">Company name *</span><input required name="company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
                         <label><span data-i18n="form.country">Country *</span><input required name="country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
                         <label><span data-i18n="form.person">Contact person *</span><input required name="contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
                         <label><span data-i18n="form.role">Role</span><input name="role" type="text" placeholder="Purchasing manager" data-i18n-placeholder="ph.role"/></label>
                         <label><span data-i18n="form.email">Email *</span><input required name="email" type="email" placeholder="name@company.com" data-i18n-placeholder="ph.email"/></label>
-                        <!-- Honeypot field - hidden from humans, bots will fill it -->
-                        <input type="text" name="phone_extra" style="display:none" tabindex="-1" autocomplete="off"/>
                         <label><span data-i18n="form.whatsapp">WhatsApp / phone</span><input name="whatsapp" type="tel" placeholder="+84909053058" data-i18n-placeholder="ph.whatsapp"/></label>
                         <label class="md:col-span-2"><span data-i18n="form.website">Company website / social</span><input name="company_website" type="text" placeholder="https://..." data-i18n-placeholder="ph.website"/></label>
                         <label><span data-i18n="form.product">Product interest *</span>
@@ -519,7 +509,6 @@
                         <button class="btn-primary btn-large" type="submit" data-i18n="form.submit">Submit Inquiry</button>
                         <p id="form-status" class="hidden text-sm font-semibold" role="status" aria-live="polite"></p>
                     </div>
-                    <input type="hidden" name="recaptcha_token" id="contact-recaptcha-token"/>
                 </form>
           
         </section>
@@ -567,13 +556,12 @@
 
             <div class="footer-bottom">
                 <p class="text-xs font-bold uppercase tracking-[0.18em] text-secondary/70" data-i18n="footer.rights">© 2026 Greenie Vietnam Agricultural Exports.</p>
-                <p id="privacy" class="mt-2 text-xs text-secondary/50"><a href="#privacy" class="hover:text-primary">Privacy Policy</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="js/main.js"></script>
 
     <!-- Floating WhatsApp Button -->
@@ -587,3 +575,4 @@
     </a>
 </body>
 </html>
+
