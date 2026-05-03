@@ -1,886 +1,251 @@
 ---
-const { title = "Greenie Blog" } = Astro.props;
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedDate?: Date;
+  modifiedDate?: Date;
+  author?: string;
+}
+
+const {
+  title,
+  description = "Greenie - Vietnamese agricultural products: artisanal cane sugar, qualified cashews, and ancient tea traditions.",
+  image = "/Greenie/blog/og-image.png",
+  type = "website",
+  publishedDate,
+  modifiedDate,
+  author = "Greenie Team"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = image.startsWith('/') ? new URL(image, Astro.site) : image;
+const siteName = "Greenie";
+
+const jsonLDWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteName,
+  "url": Astro.site?.toString(),
+  "description": description,
+};
+
+const jsonLDArticle = publishedDate ? {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "image": ogImageURL.toString(),
+  "author": {
+    "@type": "Person",
+    "name": author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName,
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/favicon.svg", Astro.site).toString()
+    }
+  },
+  "datePublished": publishedDate.toISOString(),
+  "dateModified": modifiedDate ? modifiedDate.toISOString() : publishedDate.toISOString(),
+  "mainEntityOfPage": canonicalURL.toString(),
+} : null;
+
+const jsonLD = type === 'article' && jsonLDArticle ? jsonLDArticle : jsonLDWebsite;
 ---
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | Greenie</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
 
-      :root {
-        --green: #163b18;
-        --green-light: #2d522d;
-        --text: #1f2937;
-        --muted: #6b7280;
-        --bg: #fdfdfd;
-        --card-bg: #ffffff;
-        --border: rgba(0, 0, 0, 0.06);
-        --accent: #f5f0e8;
-      }
+    <ClientRouter />
 
+    <!-- Dark mode initialization script -->
+    <script is:inline>
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      }
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
+    </script>
+
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content={siteName} />
+    {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
+    {modifiedDate && <meta property="article:modified_time" content={modifiedDate.toISOString()} />}
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageURL} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
+
+    <style is:inline>
       body {
-        font-family: "Inter", system-ui, -apple-system, sans-serif;
-        background-color: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
+        font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       }
-
-      /* Navigation */
-      .nav {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .nav-inner {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 0 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 60px;
-      }
-
-      .brand {
-        font-family: "Inter", sans-serif;
-        font-weight: 800;
-        font-size: 1.1rem;
-        letter-spacing: -0.02em;
-        color: var(--green);
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .brand-dot {
-        width: 28px;
-        height: 28px;
-        background: var(--green);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 700;
-        font-size: 0.85rem;
-      }
-
-      .back-link {
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--muted);
-        text-decoration: none;
-        padding: 0.4rem 0.9rem;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-      }
-
-      .back-link:hover {
-        background: rgba(0, 0, 0, 0.04);
-        color: var(--green);
-      }
-
-      /* Main Content — magazine width */
-      .wrap {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 48px 2rem 80px;
-      }
-
-      /* Magazine Article Layout */
-      .magazine-article {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      /* Article Header */
-      .article-header {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 2rem 0 1rem;
-      }
-
-      .article-header .meta {
-        font-family: "Inter", sans-serif;
-        font-size: 0.68rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        color: var(--muted);
-        margin-bottom: 0.5rem;
-      }
-
-      .article-header .origin-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--accent);
-        padding: 0.35rem 0.9rem;
-        border-radius: 100px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.03em;
-        color: var(--green);
-        margin-bottom: 1.5rem;
-      }
-
-      .article-header .origin-badge::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        background: var(--green);
-        border-radius: 50%;
-      }
-
-      /* Magazine headline */
-      .magazine-headline {
-        font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(2.4rem, 5vw, 4rem);
-        font-weight: 700;
-        line-height: 1.12;
-        letter-spacing: -0.025em;
-        color: #0d0d0d;
-        max-width: 900px;
-        margin: 0 auto 1rem;
-      }
-
-      /* Deck / sub-headline */
-      .magazine-deck {
-        font-family: "Inter", sans-serif;
-        font-size: 1.15rem;
-        font-weight: 400;
-        line-height: 1.6;
-        color: var(--muted);
-        max-width: 680px;
-        margin: 0 auto 1.5rem;
-      }
-
-      /* Hero image — full bleed */
-      .hero-image {
-        width: 100%;
-        aspect-ratio: 21 / 9;
-        object-fit: cover;
-        border-radius: 4px;
-        margin: 1.5rem 0 3rem;
-        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Body column */
-      .article-body {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 0;
-      }
-
-      /* Typography */
-      h1 {
-        font-family: "Playfair Display", Georgia, serif;
-        font-size: 2.8rem;
-        font-weight: 700;
-        line-height: 1.15;
-        letter-spacing: -0.02em;
-        color: #0d0d0d;
-        margin-bottom: 1rem;
-      }
-
-      h2 {
-        font-family: "Playfair Display", Georgia, serif;
-        font-size: 1.85rem;
-        font-weight: 700;
-        color: #0d0d0d;
-        margin-top: 3rem;
-        margin-bottom: 0.75rem;
-        letter-spacing: -0.01em;
-        line-height: 1.2;
-      }
-
-      h3 {
-        font-family: "Inter", sans-serif;
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #0d0d0d;
-        margin-top: 2rem;
-        margin-bottom: 0.6rem;
-      }
-
-      p {
-        margin-bottom: 1.2rem;
-        color: #333;
-        font-size: 1.05rem;
-        line-height: 1.8;
-      }
-
-      .lead {
-        font-size: 1.25rem;
-        line-height: 1.65;
-        color: #1a1a1a;
-        font-weight: 500;
-        margin-bottom: 1.6rem;
-      }
-
-      .drop-cap::first-letter {
-        float: left;
-        font-family: "Playfair Display", Georgia, serif;
-        font-size: 4.6rem;
-        font-weight: 700;
-        line-height: 0.78;
-        color: var(--green);
-        padding-right: 0.2em;
-        padding-top: 0.04em;
-      }
-
-      .meta {
-        color: var(--muted);
-        font-size: 0.8rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        margin-bottom: 2rem;
-      }
-
-      /* Pull Quote */
-      .pull-quote {
-        grid-column: 1 / -1;
-        max-width: 900px;
-        margin: 3rem auto;
-        padding: 2rem 0;
-        border-top: 2px solid var(--green);
-        border-bottom: 2px solid var(--green);
-        text-align: center;
-      }
-
-      .pull-quote blockquote {
-        font-family: "Playfair Display", Georgia, serif;
-        font-size: 1.8rem;
-        font-weight: 600;
-        font-style: italic;
-        line-height: 1.3;
-        color: var(--green);
-        margin: 0;
-      }
-
-      .pull-quote blockquote::before {
-        content: "\201C";
-      }
-
-      .pull-quote blockquote::after {
-        content: "\201D";
-      }
-
-      .pull-quote cite {
-        display: block;
-        margin-top: 1rem;
-        font-family: "Inter", sans-serif;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-style: normal;
-        color: var(--muted);
-      }
-
-      /* Side Note */
-      .side-note {
-        float: right;
-        width: 260px;
-        margin: 0.5rem -140px 1.5rem 2rem;
-        padding: 1.25rem;
-        background: var(--accent);
-        border-radius: 4px;
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: var(--muted);
-      }
-
-      .side-note strong {
-        display: block;
-        font-family: "Inter", sans-serif;
-        font-size: 0.65rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: var(--green);
-        margin-bottom: 0.4rem;
-      }
-
-      /* Wide Image — breaks out of body column */
-      .wide-image {
-        grid-column: 1 / -1;
-        margin: 2.5rem 0;
-      }
-
-      .wide-image img {
-        width: 100%;
-        aspect-ratio: 21 / 9;
-        object-fit: cover;
-        border-radius: 4px;
-      }
-
-      .wide-image figcaption {
-        margin-top: 0.6rem;
-        font-size: 0.8rem;
-        color: var(--muted);
-        text-align: center;
-        font-style: italic;
-      }
-
-      /* Magazine: Full-bleed image — spans entire article width, breaks between body sections */
-      .article-full-bleed {
-        grid-column: 1 / -1;
-        margin: 3rem auto;
-        max-width: 1200px;
-        padding: 0;
-      }
-
-      .article-full-bleed img {
-        width: 100%;
-        aspect-ratio: 21 / 9;
-        object-fit: cover;
-        border-radius: 2px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-        display: block;
-      }
-
-      .article-full-bleed figcaption {
-        margin-top: 0.7rem;
-        font-size: 0.78rem;
-        color: var(--muted);
-        text-align: center;
-        font-style: italic;
-        max-width: 680px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      /* Magazine: Image float-left with text wrapping */
-      .image-float-left {
-        float: left;
-        width: 280px;
-        max-width: 45%;
-        margin: 0.4rem 2rem 1.5rem 0;
-        border-radius: 3px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      .image-float-left img {
-        width: 100%;
-        display: block;
-        object-fit: cover;
-        aspect-ratio: 4 / 5;
-      }
-
-      /* Magazine: Image float-right with text wrapping */
-      .image-float-right {
-        float: right;
-        width: 280px;
-        max-width: 45%;
-        margin: 0.4rem 0 1.5rem 2rem;
-        border-radius: 3px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      .image-float-right img {
-        width: 100%;
-        display: block;
-        object-fit: cover;
-        aspect-ratio: 4 / 5;
-      }
-
-      .image-float-caption {
-        padding: 0.6rem 0.85rem;
-        font-size: 0.72rem;
-        color: var(--muted);
-        font-style: italic;
-        line-height: 1.4;
-        background: #fafafa;
-        border-top: 1px solid var(--border);
-      }
-
-      /* Clearfix for float wrapping */
-      .clearfix::after {
-        content: "";
-        display: table;
-        clear: both;
-      }
-
-      /* Two Column Text */
-      .two-col-text {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2.5rem;
-        margin: 2rem 0;
-      }
-
-      .two-col-text p {
-        font-size: 0.95rem;
-        line-height: 1.7;
-      }
-
-      /* editorial sections from old layout (kept for compatibility) */
-      .editorial-section {
-        margin: 3rem 0;
-      }
-
-      .origin-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--accent);
-        padding: 0.35rem 0.9rem;
-        border-radius: 100px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.03em;
-        color: var(--green);
-        margin-bottom: 1rem;
-      }
-
-      .origin-badge::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        background: var(--green);
-        border-radius: 50%;
-      }
-
-      .blog-post {
-        padding: 0;
-        border: none;
-        border-radius: 0;
-      }
-
-      a {
-        color: var(--green);
-        text-decoration: none;
-        font-weight: 500;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      /* Bullet list */
-      ul {
-        margin-bottom: 1.5rem;
-        padding-left: 1.5rem;
-      }
-
-      ul li {
-        margin-bottom: 0.5rem;
-        color: #333;
-        line-height: 1.7;
-      }
-
-      strong {
-        color: #1a1a1a;
-      }
-
-      /* Buttons */
-      .btn-primary {
-        display: inline-block;
-        background: var(--green);
-        color: white;
-        padding: 0.75rem 1.6rem;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        text-decoration: none;
-        transition: background 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 4px 14px rgba(22, 59, 24, 0.25);
-        margin-right: 0.8rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .btn-primary:hover {
-        background: var(--green-light);
-        text-decoration: none;
-        box-shadow: 0 6px 18px rgba(22, 59, 24, 0.3);
-      }
-
-      .btn-secondary {
-        display: inline-block;
-        background: transparent;
-        color: var(--green);
-        padding: 0.75rem 1.6rem;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        text-decoration: none;
-        border: 1.5px solid rgba(22, 59, 24, 0.25);
-        transition: all 0.2s ease;
-        margin-bottom: 0.5rem;
-      }
-
-      .btn-secondary:hover {
-        background: rgba(22, 59, 24, 0.05);
-        border-color: var(--green);
-        text-decoration: none;
-      }
-
-      /* Editorial sections */
-      .editorial-section {
-        margin: 3rem 0;
-      }
-
-      .origin-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--accent);
-        padding: 0.35rem 0.9rem;
-        border-radius: 100px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.03em;
-        color: var(--green);
-        margin-bottom: 1rem;
-      }
-
-      .origin-badge::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        background: var(--green);
-        border-radius: 50%;
-      }
-
-      .process-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-        margin: 2rem 0;
-      }
-
-      .process-card {
-        background: var(--card-bg);
-        border-radius: 12px;
-        overflow: hidden;
-        border: 1px solid var(--border);
-      }
-
-      .process-card img {
-        width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
-      }
-
-      .process-card-content {
-        padding: 1.2rem;
-      }
-
-      .process-card-content h3 {
-        margin-top: 0;
-        font-size: 1rem;
-      }
-
-      .process-card-content p {
-        font-size: 0.85rem;
-        color: var(--muted);
-        margin-bottom: 0;
-      }
-
-      .dark-cta {
-        background: var(--green);
-        color: white;
-        padding: 3rem 2rem;
-        border-radius: 16px;
-        margin: 3rem 0;
-      }
-
-      .dark-cta h2 {
-        color: #f5f0e8;
-        font-size: 2.2rem;
-        margin-top: 0;
-      }
-
-      .dark-cta p {
-        color: rgba(255, 255, 255, 0.75);
-        margin-bottom: 2rem;
-      }
-
-      .stats-row {
-        display: flex;
-        gap: 2.5rem;
-        margin-top: 2rem;
-        flex-wrap: wrap;
-      }
-
-      .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        color: rgba(255, 255, 255, 0.8);
-      }
-
-      .stat-dot {
-        width: 8px;
-        height: 8px;
-        background: #f5f0e8;
-        border-radius: 50%;
-      }
-
-      .cta-section {
-        background: var(--accent);
-        padding: 3rem 2rem;
-        border-radius: 16px;
-        text-align: center;
-        margin: 3rem 0;
-      }
-
-      .cta-section h2 {
-        margin-top: 0;
-      }
-
-      .cert-logos {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        margin-top: 2rem;
-        opacity: 0.35;
-        filter: grayscale(1);
-      }
-
-      .cert-logos img {
-        height: 40px;
-      }
-
-      .two-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin: 2rem 0;
-      }
-
-      .glass-note {
-        background: var(--accent);
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin: 1.5rem 0;
-      }
-
-      .glass-note span {
-        display: block;
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--green);
-        margin-bottom: 0.5rem;
-      }
-
-      .glass-note p {
-        font-size: 0.85rem;
-        margin-bottom: 0;
-        color: var(--muted);
-      }
-
-      /* Footer */
-      footer {
-        background: #f8f9fa;
-        border-top: 1px solid var(--border);
-        margin-top: 4rem;
-        padding: 3rem 0;
-      }
-
-      .footer-wrap {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .footer-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 2rem;
-        flex-wrap: wrap;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 2rem;
-      }
-
-      .footer-brand-name {
-        font-family: "Inter", sans-serif;
-        font-weight: 900;
-        font-size: 1.2rem;
-        letter-spacing: -0.02em;
-        color: var(--green);
-        text-transform: uppercase;
-      }
-
-      .footer-brand-desc {
-        margin-top: 0.75rem;
-        max-width: 500px;
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: var(--muted);
-      }
-
-      .footer-actions {
-        display: flex;
-        gap: 0.8rem;
-        flex-wrap: wrap;
-      }
-
-      .footer-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        padding-bottom: 2rem;
-      }
-
-      .footer-col-title {
-        font-family: "Inter", sans-serif;
-        font-weight: 700;
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--green);
-        margin-bottom: 0.8rem;
-      }
-
-      .footer-grid a,
-      .footer-line {
-        display: block;
-        font-size: 0.85rem;
-        color: var(--muted);
-        text-decoration: none;
-        margin-bottom: 0.4rem;
-        transition: color 0.15s ease;
-      }
-
-      .footer-grid a:hover {
-        color: var(--green);
-        text-decoration: none;
-      }
-
-      .footer-bottom {
-        padding-top: 2rem;
-        border-top: 1px solid var(--border);
-      }
-
-      .footer-copyright {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: rgba(107, 114, 128, 0.7);
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .wrap {
-          padding: 32px 1.2rem 60px;
-        }
-
-        h1 {
-          font-size: 2rem;
-        }
-
-        .process-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .two-col {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-        }
-
-        .stats-row {
-          gap: 1.2rem;
-        }
-
-        .dark-cta h2 {
-          font-size: 1.6rem;
-        }
+      code, pre, kbd, samp {
+        font-family: 'Geist Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
       }
     </style>
   </head>
-  <body>
-    <nav class="nav">
-      <div class="nav-inner">
-        <a class="back-link" href="/Greenie/">← Back to Greenie</a>
-        <a class="brand" href="/Greenie/blog/">
-          <div class="brand-dot">G</div>
-          Greenie Blog
-        </a>
-      </div>
-    </nav>
-    <div class="wrap">
-      <slot />
+  <body class="text-gray-900 bg-white dark:text-gray-300 dark:bg-black transition-colors duration-300">
+    <div class="bg-white dark:bg-black transition-colors duration-300">
+      <header class="mx-auto max-w-4xl py-8 px-4">
+        <div class="flex items-center justify-between">
+          <a href="/" class="text-2xl font-semibold text-green-800 dark:text-green-400" transition:animate="fade">Greenie</a>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center gap-6">
+            <nav class="flex items-center gap-6">
+              <a href="/Greenie/blog" class="nav-link">Home</a>
+              <a href="/" class="nav-link">Website</a>
+            </nav>
+            <!-- Dark mode toggle button -->
+            <button
+              class="theme-toggle inline-flex items-center justify-center p-2 bg-white dark:bg-black text-gray-900 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none border-0 rounded-md"
+              aria-label="Toggle dark mode"
+            >
+              <svg id="sun-icon" class="hidden dark:block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <svg id="moon-icon" class="block dark:hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile Navigation Controls -->
+          <div class="md:hidden flex items-center gap-2">
+            <button
+              class="theme-toggle inline-flex items-center justify-center p-2 bg-white dark:bg-black text-gray-900 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none border-0 rounded-md"
+              aria-label="Toggle dark mode"
+            >
+              <svg id="sun-icon-mobile" class="hidden dark:block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <svg id="moon-icon-mobile" class="block dark:hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            </button>
+            <button
+              id="mobile-menu-button"
+              type="button"
+              class="inline-flex items-center justify-center p-2 bg-white dark:bg-black text-gray-900 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none border-0"
+              aria-expanded="false"
+              aria-label="Toggle menu"
+            >
+            <svg id="menu-icon" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg id="close-icon" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav id="mobile-menu" class="hidden md:hidden mt-6 pt-4 border-t border-gray-200 dark:border-gray-800 space-y-1">
+          <a href="/Greenie/blog" class="block px-3 py-2 text-sm text-gray-900 dark:text-gray-300 hover:underline">Home</a>
+          <a href="/" class="block px-3 py-2 text-sm text-gray-900 dark:text-gray-300 hover:underline">Website</a>
+        </nav>
+      </header>
+
+      <main class="py-10" transition:animate="fade">
+        <slot />
+      </main>
+
+      <footer class="max-w-4xl mx-auto py-8 border-t border-gray-200 dark:border-gray-800 mt-12 px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-sm text-gray-500 dark:text-gray-500">
+              &copy; {new Date().getFullYear()} Greenie. All rights reserved.
+            </div>
+            <nav class="flex items-center gap-4">
+              <a href="/Greenie/blog" class="nav-link-footer">Blog</a>
+              <a href="/" class="nav-link-footer">Website</a>
+            </nav>
+          </div>
+      </footer>
     </div>
-    <footer>
-      <div class="footer-wrap">
-        <div class="footer-top">
-          <div>
-            <p class="footer-brand-name">Greenie Vietnam</p>
-            <p class="footer-brand-desc">
-              Export-ready Vietnamese agricultural products for global wholesale buyers and private label brands.
-            </p>
-          </div>
-          <div class="footer-actions">
-            <a class="btn-primary" href="/Greenie/#quote">Get Wholesale Quote</a>
-            <a class="btn-secondary" href="/Greenie/#samples">Request Samples</a>
-          </div>
-        </div>
 
-        <div class="footer-grid">
-          <div>
-            <p class="footer-col-title">Products</p>
-            <a href="/Greenie/#products">Cashew Kernels</a>
-            <a href="/Greenie/#products">Artisanal Cane Sugar</a>
-            <a href="/Greenie/#products">Shan Tuyet Ancient Tea</a>
-            <a href="/Greenie/blog/">Blog</a>
-          </div>
-          <div>
-            <p class="footer-col-title">Sales</p>
-            <a href="/Greenie/#quote">Get Wholesale Quote</a>
-            <a href="/Greenie/#samples">Request Samples</a>
-            <a href="/Greenie/#oem">Submit OEM Brief</a>
-          </div>
-          <div>
-            <p class="footer-col-title">Quick Facts</p>
-            <p class="footer-line">MOQ from 1 MT</p>
-            <p class="footer-line">Lead time 7-15 days</p>
-            <p class="footer-line">FOB / CIF from Saigon Port</p>
-          </div>
-          <div>
-            <p class="footer-col-title">Contact</p>
-            <a class="footer-line" href="mailto:sales@greenievietnam.com">sales@greenievietnam.com</a>
-            <a class="footer-line" href="https://wa.me/084909053058" target="_blank" rel="noopener noreferrer">WhatsApp Business</a>
-            <p class="footer-line">HALAL and testing on request</p>
-          </div>
-        </div>
+    <script>
+      function initMobileMenu() {
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
 
-        <div class="footer-bottom">
-          <p class="footer-copyright">© 2026 Greenie Vietnam Agricultural Exports.</p>
-        </div>
-      </div>
-    </footer>
+        if (!menuButton || !mobileMenu || !menuIcon || !closeIcon) return;
+
+        menuButton.addEventListener('click', () => {
+          const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+          mobileMenu.classList.toggle('hidden');
+          menuIcon.classList.toggle('hidden');
+          closeIcon.classList.toggle('hidden');
+          menuButton.setAttribute('aria-expanded', String(!isExpanded));
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      function initThemeToggle() {
+        const buttons = document.querySelectorAll('.theme-toggle');
+        buttons.forEach(button => {
+          const oldHandler = button.themeToggleHandler;
+          if (oldHandler) {
+            button.removeEventListener('click', oldHandler);
+          }
+          const handler = function() {
+            if (document.documentElement.classList.contains('dark')) {
+              localStorage.theme = 'light';
+              document.documentElement.classList.remove('dark');
+            } else {
+              localStorage.theme = 'dark';
+              document.documentElement.classList.add('dark');
+            }
+          };
+          button.themeToggleHandler = handler;
+          button.addEventListener('click', handler);
+        });
+      }
+
+      initMobileMenu();
+      initThemeToggle();
+
+      document.addEventListener('astro:after-swap', () => {
+        initMobileMenu();
+        initThemeToggle();
+      });
+    </script>
   </body>
 </html>

@@ -1,119 +1,98 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
+
+const publishDate = new Date("2026-05-02");
 ---
-<BlogLayout title="The Sovereign Cashew — Vietnamese Cashew Kernels from Binh Phuoc | Greenie Vietnam">
-  <article class="magazine-article">
-    
-    <!-- Article Header -->
-    <header class="article-header">
-      <p class="meta">May 2, 2026</p>
-      <span class="origin-badge">Origin: Binh Phuoc, Vietnam</span>
-      <h1 class="magazine-headline">The Sovereign Cashew: Binh Phuoc's Heritage in Every Kernel</h1>
-      <p class="magazine-deck">Where ancient basalt red earth meets generational farming wisdom, the world's finest white whole cashew kernels are born — export-ready for importers, distributors, and private label brands worldwide.</p>
+
+<BlogLayout
+  title="The Sovereign Cashew — Binh Phuoc's Heritage in Every Kernel"
+  description="Where ancient basalt red earth meets generational farming wisdom, the world's finest white whole cashew kernels are born — export-ready for importers, distributors, and private label brands worldwide."
+  image="https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=1200"
+  type="article"
+  publishedDate={publishDate}
+  author="Greenie Team"
+>
+  <article id="main-content">
+    <header class="max-w-3xl mx-auto mb-10 px-4">
+      <div class="text-gray-500 text-sm mb-2">
+        <time datetime="2026-05-02">May 2, 2026</time>
+        <span class="mx-2">·</span>
+        <span class="inline-flex items-center rounded-md bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-800">Origin: Binh Phuoc, Vietnam</span>
+      </div>
+      <h1 class="text-5xl mb-6">The Sovereign Cashew: Binh Phuoc's Heritage in Every Kernel</h1>
+      <p class="text-xl text-gray-500">Where ancient basalt red earth meets generational farming wisdom, the world's finest white whole cashew kernels are born — export-ready for importers, distributors, and private label brands worldwide.</p>
     </header>
 
-    <!-- Hero Image -->
-    <img
-      class="hero-image"
-      src="https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=1200"
-      alt="Vietnamese W180 cashew kernels from Binh Phuoc for wholesale export"
-    />
+    <div class="max-w-4xl mx-auto mt-2 mb-10 feature-image">
+      <img
+        src="https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=1200"
+        alt="Vietnamese W180 cashew kernels from Binh Phuoc for wholesale export"
+        class="w-full h-full object-cover"
+        loading="eager"
+        decoding="async"
+        width="1200"
+        height="675"
+      />
+    </div>
 
-    <!-- Body -->
-    <div class="article-body">
+    <div class="max-w-3xl mx-auto prose prose-xl px-4">
 
-      <p class="lead drop-cap">Vietnam has been the world's largest cashew exporter for over a decade, and Binh Phuoc province — the "Cashew Capital" — is the heart of that production. Greenie Vietnam sources white whole cashew kernels directly from qualified processors in this region, bringing export-ready kernels to importers, distributors, roasters, manufacturers, and private label brands worldwide.</p>
+      <p class="lead">Vietnam has been the world's largest cashew exporter for over a decade, and Binh Phuoc province — the "Cashew Capital" — is the heart of that production. Greenie Vietnam sources white whole cashew kernels directly from qualified processors in this region, bringing export-ready kernels to importers, distributors, roasters, manufacturers, and private label brands worldwide.</p>
 
       <h2>The Alchemy of Basalt Red Earth</h2>
       <p>Binh Phuoc possesses a unique geological advantage. The deep, porous basalt red earth — remnants of ancient volcanic activity — provides an irreproducible mineral-rich foundation. This soil retains perfect moisture during tropical monsoon rains while allowing critical root aeration. It is this precise mineral signature that imparts the Sovereign cashew with its signature density and complex fatty acid structure.</p>
 
-      <aside class="side-note">
-        <strong>Technical Note</strong>
-        Mineral-rich basalt soil contributes to 15% higher oil content compared to coastal cashew varieties, resulting in a creamier texture and richer flavor profile.
-      </aside>
+      <blockquote>
+        <p><strong>Technical Note:</strong> Mineral-rich basalt soil contributes to 15% higher oil content compared to coastal cashew varieties, resulting in a creamier texture and richer flavor profile.</p>
+      </blockquote>
 
       <p>Our farmers are not merely laborers; they are stewards of this land with knowledge passed through four generations. Each harvest season, they walk the same red earth their great-grandparents cultivated, selecting only the cashew apples that have reached peak ripeness.</p>
 
-      <!-- Pull Quote -->
-      <div class="pull-quote">
-        <blockquote>Not all cashews are created equal. The terroir of Binh Phuoc cannot be replicated — it must be protected.</blockquote>
-        <cite>— Greenie Vietnam Sourcing Principle</cite>
-      </div>
+      <blockquote>
+        <p>Not all cashews are created equal. The terroir of Binh Phuoc cannot be replicated — it must be protected.</p>
+        <footer>— Greenie Vietnam Sourcing Principle</footer>
+      </blockquote>
 
       <h2>The Artisan Process</h2>
       <p>From the patient rhythm of sun-drying to the precision of hand-shelling, every kernel is handled with uncompromising respect.</p>
 
-      <!-- Float-right image with text wrapping -->
-      <figure class="image-float-right">
-        <img src="https://images.unsplash.com/photo-1574184864702-315817b02790?auto=format&fit=crop&q=80&w=600" alt="Artisan hand-shelling premium cashew kernels in Binh Phuoc" loading="lazy" />
-        <figcaption class="image-float-caption">Generational artisans hand-shell each kernel to preserve structural integrity.</figcaption>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1574184864702-315817b02790?auto=format&fit=crop&q=80&w=800" alt="Artisan hand-shelling premium cashew kernels in Binh Phuoc" loading="lazy" />
+        <figcaption>Generational artisans hand-shell each kernel to preserve structural integrity.</figcaption>
       </figure>
 
       <p>The shelling process is where true mastery reveals itself. Unlike industrial operations that rely on mechanical crushers — which fracture up to 18% of kernels — Greenie's partner artisans employ a hand-shelling technique passed through four generations. Each cashew nut is positioned at a precise angle against the blade, requiring intimate knowledge of the nut's internal architecture.</p>
 
       <p>A skilled artisan can shell over 8,000 nuts per day while maintaining a whole-kernel rate exceeding 92%. The alternative — mechanical shelling — would compromise both the structural integrity and the visual uniformity that premium buyers demand.</p>
 
-      <div class="clearfix"></div>
-
     </div>
 
-    <!-- Full-bleed image: Cashew drying -->
-    <figure class="article-full-bleed">
-      <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&q=80&w=1400" alt="Sun-dried cashew kernels spread on elevated bamboo racks in Binh Phuoc, Vietnam" loading="lazy" />
-      <figcaption>Greenie's partner farmers sun-dry cashew kernels on elevated bamboo racks — a technique that preserves the nut's natural enzyme system and ensures stable 5% moisture content for export.</figcaption>
+    <figure class="max-w-4xl mx-auto my-12">
+      <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&q=80&w=1400" alt="Sun-dried cashew kernels on elevated bamboo racks in Binh Phuoc" loading="lazy" />
+      <figcaption class="text-center text-sm text-gray-500 mt-3">Greenie's partner farmers sun-dry cashew kernels on elevated bamboo racks — a technique that preserves the nut's natural enzyme system and ensures stable 5% moisture content for export.</figcaption>
     </figure>
 
-    <!-- Process Grid (wide) -->
-    <div class="process-grid" style="grid-column: 1 / -1; max-width: 1100px; margin: 2rem auto; padding: 0;">
-      <div class="process-card">
-        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&q=80&w=800" alt="Fresh cashew harvesting in Binh Phuoc" />
-        <div class="process-card-content">
-          <h3>I. Selective Harvesting</h3>
-          <p>We harvest only when the cashew apple reaches peak ripeness, ensuring maximum kernel density and optimal flavor development.</p>
-        </div>
-      </div>
-      <div class="process-card">
-        <img src="https://images.unsplash.com/photo-1600189020840-e9918c2626e1?auto=format&fit=crop&q=80&w=800" alt="Sun-drying cashew kernels on elevated bamboo racks" />
-        <div class="process-card-content">
-          <h3>II. Natural Sun-Drying</h3>
-          <p>Elevated bamboo racks allow airflow to reduce moisture to a stable 5%, preserving the natural enzyme system intact.</p>
-        </div>
-      </div>
-      <div class="process-card">
-        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=800" alt="Hand-sorting and grading premium cashew kernels" />
-        <div class="process-card-content">
-          <h3>III. Structural Grading</h3>
-          <p>Each kernel is hand-peeled and sorted by weight. Only the "giants" — WW180 and WW210 — are selected for the Sovereign line.</p>
-        </div>
-      </div>
-    </div>
+    <div class="max-w-3xl mx-auto prose prose-xl px-4">
 
-    <div class="article-body">
+      <h3>The Process</h3>
 
-      <div class="dark-cta">
-        <h2>The Art of the Crunch</h2>
-        <div class="two-col">
-          <div>
-            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#f5f0e8;margin-bottom:0.5rem;">Flavor Profile</p>
-            <p>Binh Phuoc cashew begins with a buttery creaminess and finishes with an ethereal sweet note. The Sovereign's structure is dense and enduring, never crumbly — the result of exceptionally high monounsaturated fat content.</p>
-          </div>
-          <div>
-            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#f5f0e8;margin-bottom:0.5rem;">Culinary Authority</p>
-            <p>Trusted by Michelin-starred pastry chefs, our cashew kernels provide the structural integrity required for premium confectionery while maintaining a distinct terroir identity.</p>
-          </div>
-        </div>
-        <div class="stats-row">
-          <div class="stat-item"><span class="stat-dot"></span> Structural Density: High</div>
-          <div class="stat-item"><span class="stat-dot"></span> Oil Content: 46.5%</div>
-          <div class="stat-item"><span class="stat-dot"></span> Grade: WW180 Premium</div>
-        </div>
-      </div>
+      <h4>I. Selective Harvesting</h4>
+      <p>We harvest only when the cashew apple reaches peak ripeness, ensuring maximum kernel density and optimal flavor development.</p>
+
+      <h4>II. Natural Sun-Drying</h4>
+      <p>Elevated bamboo racks allow airflow to reduce moisture to a stable 5%, preserving the natural enzyme system intact.</p>
+
+      <h4>III. Structural Grading</h4>
+      <p>Each kernel is hand-peeled and sorted by weight. Only the "giants" — WW180 and WW210 — are selected for the Sovereign line.</p>
+
+      <h2>The Art of the Crunch</h2>
+      <p>Binh Phuoc cashew begins with a buttery creaminess and finishes with an ethereal sweet note. The Sovereign's structure is dense and enduring, never crumbly — the result of exceptionally high monounsaturated fat content. Trusted by premium pastry chefs, our cashew kernels provide the structural integrity required for high-end confectionery while maintaining a distinct terroir identity.</p>
 
       <h2>Grades Available for Wholesale</h2>
       <ul>
-        <li><strong>W180</strong> — King of cashews. Large whole white kernels, ideal for premium retail and gifting.</li>
-        <li><strong>W240</strong> — Mid-size whole white kernels, the most popular grade for retail and foodservice.</li>
-        <li><strong>W320</strong> — Smaller whole white kernels, cost-effective for snacking, ingredients, and manufacturing.</li>
+        <li><strong>W180</strong> — King of cashews. Large whole white kernels (170–180 nuts/lb), ideal for premium retail and gifting.</li>
+        <li><strong>W240</strong> — Mid-size whole white kernels (220–240 nuts/lb), the most popular grade for retail and foodservice.</li>
+        <li><strong>W320</strong> — Smaller whole white kernels (300–320 nuts/lb), cost-effective for snacking, ingredients, and manufacturing.</li>
       </ul>
 
       <h2>Packaging Options</h2>
@@ -142,20 +121,15 @@ import BlogLayout from "../layouts/BlogLayout.astro";
         <li><strong>Response time:</strong> 24–48 hours for quote requests</li>
       </ul>
 
-      <div class="cta-section">
-        <h2>Secure Your Sovereign Harvest</h2>
+      <div class="mt-12 p-8 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+        <h2 class="mt-0">Secure Your Sovereign Harvest</h2>
         <p>Reserve your allocation for the upcoming harvest. Our global logistics team ensures climate-controlled transport from Binh Phuoc directly to your warehouse.</p>
-        <p>
-          <a href="/Greenie/#quote" class="btn-primary">Request Wholesale Quote</a>
-          <a href="/Greenie/#samples" class="btn-secondary">Request Samples</a>
-        </p>
-        <div class="cert-logos">
-          <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=200" alt="Quality certified" />
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&q=80&w=200" alt="Food safety" />
-          <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&q=80&w=200" alt="Organic" />
+        <div class="flex flex-wrap gap-3">
+          <a href="/Greenie/#quote" class="btn-primary inline-block">Request Wholesale Quote</a>
+          <a href="/Greenie/#samples" class="btn-secondary inline-block">Request Samples</a>
         </div>
       </div>
-    </div>
 
+    </div>
   </article>
 </BlogLayout>
