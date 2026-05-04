@@ -1,17 +1,152 @@
 ---
+import BlogLayout from '../layouts/BlogLayout.astro';
 
+const posts = [
+  {
+    title: "The Emperor's Kernel: Premium Vietnamese Cashew Export",
+    slug: 'vietnamese-qualified-cashews',
+    description: 'On the basalt-rich red earth of Binh Phuoc province, where cashew trees have anchored themselves for over a century, an invisible architecture of flavor is built.',
+    image: 'https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=1200',
+    date: 'May 2, 2026',
+    origin: 'Origin: Binh Phuoc, Vietnam',
+  },
+  {
+    title: 'Shan Tuyet: Vietnam\'s Ancient Tea Legacy in Every Sip',
+    slug: 'vietnamese-ancient-tea',
+    description: 'High in the mist-shrouded Hoang Lien Son mountains of northern Vietnam, ancient Shan Tuyet tea trees have stood for over 300 years. These wild-grown, snow-kissed leaves produce a tea of extraordinary complexity.',
+    image: 'https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?auto=format&fit=crop&q=80&w=1200',
+    date: 'May 3, 2026',
+    origin: 'Origin: Ha Giang, Vietnam',
+  },
+  {
+    title: 'Vietnamese Artisanal Cane Sugar: Golden Terroir from the Mekong Delta',
+    slug: 'vietnamese-artisanal-cane-sugar',
+    description: 'From the alluvial plains of the Mekong Delta, where sugarcane has been cultivated for centuries, comes a golden unrefined sugar with a depth that industrial processing can never replicate.',
+    image: 'https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&q=80&w=1200',
+    date: 'May 4, 2026',
+    origin: 'Origin: Ben Tre, Vietnam',
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BlogLayout
+  title="Greenie Blog — Vietnamese Agricultural Exports"
+  description="Insights into Vietnam's finest agricultural exports: premium cashew kernels, artisanal cane sugar, and ancient Shan Tuyet tea traditions."
+  ogType="website"
+>
+  <style>
+    .blog-index {
+      max-width: 56rem;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .blog-index h1 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .blog-index .subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 1.125rem;
+      margin-bottom: 3rem;
+    }
+    html.dark .blog-index .subtitle {
+      color: #9ca3af;
+    }
+    .posts-grid {
+      display: grid;
+      gap: 2rem;
+    }
+    .post-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      background: #fff;
+    }
+    html.dark .post-card {
+      background: #111827;
+      border-color: #1f2937;
+    }
+    .post-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: #d1d5db;
+    }
+    html.dark .post-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      border-color: #374151;
+    }
+    .post-card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .post-card-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .post-card-body {
+      padding: 1.5rem;
+    }
+    .post-card-body h2 {
+      font-size: 1.5rem;
+      margin: 0 0 0.5rem 0;
+      color: #111827;
+    }
+    html.dark .post-card-body h2 {
+      color: #f3f4f6;
+    }
+    .post-card-body p {
+      color: #6b7280;
+      font-size: 0.9375rem;
+      margin-bottom: 0.75rem;
+    }
+    html.dark .post-card-body p {
+      color: #9ca3af;
+    }
+    .post-card-meta {
+      font-size: 0.8125rem;
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .post-card .origin-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 0.375rem;
+      background-color: #dcfce7;
+      padding: 0.125rem 0.625rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #166534;
+    }
+    html.dark .post-card .origin-badge {
+      background-color: #052e16;
+      color: #4ade80;
+    }
+  </style>
+
+  <div class="blog-index">
+    <h1>Greenie Blog</h1>
+    <p class="subtitle">Insights into Vietnam's finest agricultural exports</p>
+    <div class="posts-grid">
+      {posts.map((post) => (
+        <article class="post-card">
+          <a href={`/blog/${post.slug}`}>
+            <img class="post-card-image" src={post.image} alt={post.title} loading="lazy" decoding="async" width="600" height="315" />
+            <div class="post-card-body">
+              <h2>{post.title}</h2>
+              <p>{post.description}</p>
+              <div class="post-card-meta">
+                <time>{post.date}</time>
+                <span class="origin-badge">{post.origin}</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</BlogLayout>
