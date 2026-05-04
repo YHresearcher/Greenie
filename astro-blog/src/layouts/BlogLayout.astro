@@ -1,0 +1,241 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedDate?: Date;
+  modifiedDate?: Date;
+  author?: string;
+}
+
+const {
+  title,
+  description = "Greenie - Vietnamese agricultural products: artisanal cane sugar, qualified cashews, and ancient tea traditions.",
+  image = "/Greenie/blog/og-image.png",
+  type = "website",
+  publishedDate,
+  modifiedDate,
+  author = "Greenie Team"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = image.startsWith('/') ? new URL(image, Astro.site) : image;
+const siteName = "Greenie";
+
+const jsonLDWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteName,
+  "url": Astro.site?.toString(),
+  "description": description,
+};
+
+const jsonLDArticle = publishedDate ? {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "image": ogImageURL.toString(),
+  "author": {
+    "@type": "Person",
+    "name": author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName,
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/favicon.svg", Astro.site).toString()
+    }
+  },
+  "datePublished": publishedDate.toISOString(),
+  "dateModified": modifiedDate ? modifiedDate.toISOString() : publishedDate.toISOString(),
+  "mainEntityOfPage": canonicalURL.toString(),
+} : null;
+
+const jsonLD = type === 'article' && jsonLDArticle ? jsonLDArticle : jsonLDWebsite;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | Greenie</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.toString()} />
+
+    <!-- Dark mode initialization script -->
+    <script is:inline>
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      }
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
+    </script>
+
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL.toString()} />
+    <meta property="og:site_name" content={siteName} />
+    {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
+    {modifiedDate && <meta property="article:modified_time" content={modifiedDate.toISOString()} />}
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL.toString()} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageURL.toString()} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <header class="site-header">
+        <div class="header-inner">
+          <a href="/" class="site-logo">Greenie</a>
+
+          <!-- Desktop Navigation -->
+          <div class="desktop-nav">
+            <nav style="display: flex; align-items: center; gap: 1.5rem;">
+              <a href="/Greenie/blog" class="nav-link">Home</a>
+              <a href="/" class="nav-link">Website</a>
+            </nav>
+            <!-- Dark mode toggle button -->
+            <button
+              class="theme-toggle"
+              aria-label="Toggle dark mode"
+            >
+              <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile Navigation Controls -->
+          <div class="mobile-nav-controls">
+            <button
+              class="theme-toggle"
+              aria-label="Toggle dark mode"
+            >
+              <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            </button>
+            <button
+              id="mobile-menu-button"
+              type="button"
+              class="mobile-menu-btn"
+              aria-expanded="false"
+              aria-label="Toggle menu"
+            >
+              <svg id="menu-icon" class="block" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.5rem; height: 1.5rem;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <svg id="close-icon" class="hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.5rem; height: 1.5rem;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav id="mobile-menu" class="mobile-menu">
+          <a href="/Greenie/blog">Home</a>
+          <a href="/">Website</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-copyright">
+            &copy; {new Date().getFullYear()} Greenie. All rights reserved.
+          </div>
+          <nav class="footer-nav">
+            <a href="/Greenie/blog">Blog</a>
+            <a href="/">Website</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      function initMobileMenu() {
+        const menuButton = document.getElementById('mobile-menu-button') as HTMLButtonElement | null;
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        if (!menuButton || !mobileMenu || !menuIcon || !closeIcon) return;
+
+        const newButton = menuButton.cloneNode(true) as HTMLButtonElement;
+        menuButton.parentNode!.replaceChild(newButton, menuButton);
+
+        const newMenuIcon = document.getElementById('menu-icon')!;
+        const newCloseIcon = document.getElementById('close-icon')!;
+
+        newButton.addEventListener('click', () => {
+          const isExpanded = newButton.getAttribute('aria-expanded') === 'true';
+          mobileMenu.classList.toggle('open');
+          newMenuIcon.classList.toggle('hidden');
+          newCloseIcon.classList.toggle('hidden');
+          newButton.setAttribute('aria-expanded', String(!isExpanded));
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            newMenuIcon.classList.remove('hidden');
+            newCloseIcon.classList.add('hidden');
+            newButton.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      function initThemeToggle() {
+        const buttons = document.querySelectorAll('.theme-toggle');
+        buttons.forEach(button => {
+          const handler = function() {
+            if (document.documentElement.classList.contains('dark')) {
+              localStorage.theme = 'light';
+              document.documentElement.classList.remove('dark');
+            } else {
+              localStorage.theme = 'dark';
+              document.documentElement.classList.add('dark');
+            }
+          };
+          button.removeEventListener('click', handler);
+          button.addEventListener('click', handler);
+        });
+      }
+
+      initMobileMenu();
+      initThemeToggle();
+
+      document.addEventListener('astro:after-swap', () => {
+        initMobileMenu();
+        initThemeToggle();
+      });
+    </script>
+  </body>
+</html>
