@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://yhresearcher.github.io/Greenie',
-  base: '/Greenie/blog',
+  site: 'https://greenievietnam.live',
+  base: '/',
   output: 'static',
 });
