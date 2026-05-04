@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -68,6 +69,21 @@ const jsonLD = type === 'article' && jsonLDArticle ? jsonLDArticle : jsonLDWebsi
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL.toString()} />
 
+    <ClientRouter />
+
+    <!-- Dark mode initialization script -->
+    <script is:inline>
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      }
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
+    </script>
+
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL.toString()} />
     <meta property="og:title" content={title} />
@@ -84,161 +100,143 @@ const jsonLD = type === 'article' && jsonLDArticle ? jsonLDArticle : jsonLDWebsi
     <meta property="twitter:image" content={ogImageURL.toString()} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
-
-    <script is:inline id="tailwind-config">
-      window.tailwind = window.tailwind || {};
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#163b18",
-              "primary-container": "#2d522d",
-              secondary: "#545e76",
-              surface: "#f8f9fa",
-              "surface-container-low": "#f3f4f5",
-              "surface-container-lowest": "#ffffff",
-              "surface-container-high": "#e7e8e9",
-              "tertiary-fixed": "#ffdea5",
-              harvest: "#604503"
-            },
-            fontFamily: {
-              headline: ["Manrope", "sans-serif"],
-              body: ["Inter", "sans-serif"]
-            },
-            boxShadow: {
-              ambient: "0 40px 40px rgba(25, 28, 29, 0.04)"
-            }
-          }
-        }
-      }
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <link href="/css/style.css" rel="stylesheet" />
   </head>
-  <body class="bg-surface text-slate-900 font-body antialiased">
-    <header class="fixed top-0 w-full z-50 glass-header">
-      <div class="flex min-h-20 max-w-screen-2xl items-center justify-between gap-4 px-5 py-3 sm:px-8 mx-auto">
-        <a href="https://greenievietnam.live/#hero" class="font-headline text-xl sm:text-2xl font-black uppercase tracking-tight text-primary">
-          Greenie <span class="font-light">Vietnam</span>
-        </a>
+  <body class="text-gray-900 bg-white dark:text-gray-300 dark:bg-black transition-colors duration-300">
+    <div class="bg-white dark:bg-black transition-colors duration-300">
+      <header class="mx-auto max-w-4xl py-8 px-4">
+        <div class="flex items-center justify-between">
+          <a href="https://greenievietnam.live/" class="text-2xl font-semibold text-green-800 dark:text-green-400" transition:animate="fade">Greenie</a>
 
-        <nav class="hidden lg:flex items-center gap-6 font-headline text-[11px] font-bold uppercase tracking-[0.18em] text-secondary">
-          <a href="https://greenievietnam.live/#products" class="nav-link" data-i18n="nav.products">Products</a>
-          <a href="https://greenievietnam.live/#about" class="nav-link" data-i18n="nav.about">About</a>
-          <a href="https://greenievietnam.live/#quality" class="nav-link" data-i18n="nav.quality">Quality</a>
-          <a href="https://greenievietnam.live/#oem" class="nav-link" data-i18n="nav.oem">OEM</a>
-          <a href="https://greenievietnam.live/#samples" class="nav-link" data-i18n="nav.samples">Samples</a>
-          <a href="https://greenievietnam.live/#quote" class="nav-link" data-i18n="nav.quote">Quote</a>
-          <a href="https://greenievietnam.live/blog/" class="nav-link" data-i18n="nav.blog">Blog</a>
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center gap-6">
+            <nav class="flex items-center gap-6">
+              <a href="https://greenievietnam.live/blog/" class="nav-link">Home</a>
+              <a href="https://greenievietnam.live/" class="nav-link">Website</a>
+            </nav>
+            <!-- Dark mode toggle button -->
+            <button
+              class="theme-toggle inline-flex items-center justify-center p-2 bg-white dark:bg-black text-gray-900 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none border-0 rounded-md"
+              aria-label="Toggle dark mode"
+            >
+              <svg id="sun-icon" class="hidden dark:block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <svg id="moon-icon" class="block dark:hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile Navigation Controls -->
+          <div class="md:hidden flex items-center gap-2">
+            <button
+              class="theme-toggle inline-flex items-center justify-center p-2 bg-white dark:bg-black text-gray-900 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none border-0 rounded-md"
+              aria-label="Toggle dark mode"
+            >
+              <svg id="sun-icon-mobile" class="hidden dark:block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <svg id="moon-icon-mobile" class="block dark:hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            </button>
+            <button
+              id="mobile-menu-button"
+              type="button"
+              class="inline-flex items-center justify-center p-2 bg-white dark:bg-black text-gray-900 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none border-0"
+              aria-expanded="false"
+              aria-label="Toggle menu"
+            >
+            <svg id="menu-icon" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg id="close-icon" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav id="mobile-menu" class="hidden md:hidden mt-6 pt-4 border-t border-gray-200 dark:border-gray-800 space-y-1">
+          <a href="https://greenievietnam.live/blog/" class="block px-3 py-2 text-sm text-gray-900 dark:text-gray-300 hover:underline">Home</a>
+          <a href="https://greenievietnam.live/" class="block px-3 py-2 text-sm text-gray-900 dark:text-gray-300 hover:underline">Website</a>
         </nav>
+      </header>
 
-        <div class="hidden xl:flex items-center gap-3">
-          <a href="https://greenievietnam.live/#samples" class="btn-secondary" data-i18n="cta.samples">Request Samples</a>
-          <a href="https://greenievietnam.live/#quote" class="btn-primary" data-i18n="cta.quote">Get Wholesale Quote</a>
-        </div>
+      <main class="py-10" transition:animate="fade">
+        <slot />
+      </main>
 
-        <div class="language-switcher" aria-label="Language selector">
-          <button class="lang-btn active" type="button" data-lang="en">EN</button>
-          <button class="lang-btn" type="button" data-lang="zh">中文</button>
-          <button class="lang-btn" type="button" data-lang="hi">हिन्दी</button>
-        </div>
-
-        <button
-          id="mobile-menu-button"
-          class="lg:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm bg-surface-container-low text-primary"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          aria-label="Open menu"
-        >
-          <span class="material-symbols-outlined">menu</span>
-        </button>
-      </div>
-      <nav id="mobile-menu" class="hidden border-t border-slate-200/60 bg-white/95 px-5 py-5 lg:hidden">
-        <div class="grid gap-4 font-headline text-xs font-bold uppercase tracking-[0.18em] text-secondary">
-          <a href="https://greenievietnam.live/#products" class="mobile-link" data-i18n="nav.products">Products</a>
-          <a href="https://greenievietnam.live/#about" class="mobile-link" data-i18n="nav.about">About</a>
-          <a href="https://greenievietnam.live/#quality" class="mobile-link" data-i18n="nav.quality">Quality</a>
-          <a href="https://greenievietnam.live/#oem" class="mobile-link" data-i18n="nav.oem">OEM</a>
-          <a href="https://greenievietnam.live/#samples" class="mobile-link" data-i18n="nav.samples">Samples</a>
-          <a href="https://greenievietnam.live/#quote" class="mobile-link" data-i18n="nav.getQuote">Get Quote</a>
-        </div>
-      </nav>
-    </header>
-
-    <main class="pt-32 lg:pt-36 pb-16">
-      <slot />
-    </main>
-
-    <footer class="footer-surface">
-      <div class="max-w-screen-2xl mx-auto px-5 sm:px-8">
-        <div class="footer-top">
-          <div class="footer-brand">
-            <p class="font-headline text-xl font-black uppercase tracking-tight text-primary">Greenie Vietnam</p>
-            <p class="mt-4 max-w-xl text-sm leading-relaxed text-secondary" data-i18n="footer.copy">
-              Export-ready Vietnamese agricultural products for global wholesale buyers and private label brands.
-            </p>
+      <footer class="max-w-4xl mx-auto py-8 border-t border-gray-200 dark:border-gray-800 mt-12 px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-sm text-gray-500 dark:text-gray-500">
+              &copy; {new Date().getFullYear()} Greenie. All rights reserved.
+            </div>
+            <nav class="flex items-center gap-4">
+              <a href="https://greenievietnam.live/blog/" class="nav-link-footer">Blog</a>
+              <a href="https://greenievietnam.live/" class="nav-link-footer">Website</a>
+            </nav>
           </div>
-          <div class="footer-actions">
-            <a href="https://greenievietnam.live/#quote" class="btn-primary" data-i18n="cta.quote">Get Wholesale Quote</a>
-            <a href="https://greenievietnam.live/#samples" class="btn-secondary" data-i18n="cta.samples">Request Samples</a>
-          </div>
-        </div>
-
-        <div class="footer-grid">
-          <div>
-            <p class="footer-title" data-i18n="footer.products">Products</p>
-            <a href="https://greenievietnam.live/#products" data-i18n="footer.cashew">Cashew Kernels</a>
-            <a href="https://greenievietnam.live/#products" data-i18n="footer.sugar">Artisanal Cane Sugar</a>
-            <a href="https://greenievietnam.live/#products" data-i18n="footer.tea">Shan Tuyet Ancient Tea</a>
-            <a href="https://greenievietnam.live/blog/" data-i18n="nav.blog">Blog</a>
-          </div>
-          <div>
-            <p class="footer-title" data-i18n="footer.sales">Sales</p>
-            <a href="https://greenievietnam.live/#quote" data-i18n="cta.quote">Get Wholesale Quote</a>
-            <a href="https://greenievietnam.live/#samples" data-i18n="cta.samples">Request Samples</a>
-            <a href="https://greenievietnam.live/#oem" data-i18n="cta.submitOem">Submit OEM Brief</a>
-          </div>
-          <div>
-            <p class="footer-title" data-i18n="footer.quickTitle">Quick Facts</p>
-            <p class="footer-line" data-i18n="footer.fact1">MOQ from 1 MT</p>
-            <p class="footer-line" data-i18n="footer.fact2">Lead time 7-15 days</p>
-            <p class="footer-line" data-i18n="footer.fact3">FOB / CIF from Saigon Port</p>
-          </div>
-          <div>
-            <p class="footer-title" data-i18n="footer.contactTitle">Contact</p>
-            <a href="mailto:sales@greenievietnam.com" class="footer-line">sales@greenievietnam.com</a>
-            <a href="https://wa.me/084909053058" target="_blank" rel="noopener noreferrer" class="footer-line">WhatsApp Business</a>
-            <p class="footer-line" data-i18n="footer.contact3">HALAL and testing on request</p>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p class="text-xs font-bold uppercase tracking-[0.18em] text-secondary/70" data-i18n="footer.rights">© 2026 Greenie Vietnam Agricultural Exports.</p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
 
     <script>
-      const mobileMenuButton = document.getElementById("mobile-menu-button");
-      const mobileMenu = document.getElementById("mobile-menu");
+      function initMobileMenu() {
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
 
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener("click", () => {
-          const isOpen = !mobileMenu.classList.contains("hidden");
-          mobileMenu.classList.toggle("hidden", isOpen);
-          mobileMenuButton.setAttribute("aria-expanded", String(!isOpen));
+        if (!menuButton || !mobileMenu || !menuIcon || !closeIcon) return;
+
+        menuButton.addEventListener('click', () => {
+          const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+          mobileMenu.classList.toggle('hidden');
+          menuIcon.classList.toggle('hidden');
+          closeIcon.classList.toggle('hidden');
+          menuButton.setAttribute('aria-expanded', String(!isExpanded));
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+          });
         });
       }
+
+      function initThemeToggle() {
+        const buttons = document.querySelectorAll('.theme-toggle');
+        buttons.forEach(button => {
+          const oldHandler = button.themeToggleHandler;
+          if (oldHandler) {
+            button.removeEventListener('click', oldHandler);
+          }
+          const handler = function() {
+            if (document.documentElement.classList.contains('dark')) {
+              localStorage.theme = 'light';
+              document.documentElement.classList.remove('dark');
+            } else {
+              localStorage.theme = 'dark';
+              document.documentElement.classList.add('dark');
+            }
+          };
+          button.themeToggleHandler = handler;
+          button.addEventListener('click', handler);
+        });
+      }
+
+      initMobileMenu();
+      initThemeToggle();
+
+      document.addEventListener('astro:after-swap', () => {
+        initMobileMenu();
+        initThemeToggle();
+      });
     </script>
   </body>
 </html>
