@@ -1,6 +1,156 @@
 @import "tailwindcss";
 
-/* Geist Font Family */
+/* ============================================
+   Magazine / Blog Post Styles (from BlogLayout)
+   ============================================ */
+
+@layer components {
+  /* Prose enhancements for blog articles */
+  .prose .lead {
+    @apply text-lg leading-relaxed text-gray-600 dark:text-gray-300;
+    margin-bottom: 2rem;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-green-600 bg-green-50/50 dark:bg-green-950/20 dark:border-green-500 px-6 py-4 my-8 italic text-gray-700 dark:text-gray-300;
+    font-style: normal;
+  }
+
+  .prose blockquote p {
+    @apply mb-2;
+  }
+
+  .prose blockquote footer {
+    @apply text-sm text-gray-500 dark:text-gray-400 mt-2;
+    font-style: normal;
+  }
+
+  .prose blockquote strong {
+    @apply text-green-700 dark:text-green-300;
+  }
+
+  .prose h2 {
+    @apply mt-12 mb-6;
+  }
+
+  .prose h3 {
+    @apply mt-10 mb-4;
+  }
+
+  .prose h4 {
+    @apply mt-8 mb-3 text-base uppercase tracking-wider text-gray-500 dark:text-gray-400;
+  }
+
+  .prose ul {
+    @apply space-y-2;
+  }
+
+  .prose ul li {
+    @apply mb-1;
+  }
+
+  /* Image float layouts */
+  .image-float-right {
+    @apply float-right w-80 ml-8 mb-6;
+  }
+
+  .image-float-left {
+    @apply float-left w-80 mr-8 mb-6;
+  }
+
+  .image-float-right img,
+  .image-float-left img {
+    @apply w-full rounded-lg;
+  }
+
+  .image-float-caption {
+    @apply text-xs text-gray-500 mt-2 leading-snug;
+  }
+
+  /* Clear floats after prose sections */
+  .prose::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Post meta */
+  .post-meta {
+    @apply text-gray-500 text-sm mb-2 flex flex-wrap items-center gap-x-2;
+  }
+
+  /* Feature image */
+  .feature-image {
+    @apply aspect-video rounded-lg overflow-hidden;
+  }
+
+  .feature-image img {
+    @apply w-full h-full object-cover;
+  }
+
+  /* CTA box at end of articles */
+  .prose .cta-box {
+    @apply mt-12 p-8 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800;
+  }
+
+  .prose .cta-box h2 {
+    @apply mt-0;
+  }
+
+  /* Magazine grid for blog index (backward compat) */
+  .magazine-grid {
+    @apply grid gap-6 md:grid-cols-2;
+  }
+
+  .post-card {
+    @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col;
+  }
+
+  .post-card--featured {
+    @apply md:col-span-2 md:grid md:grid-cols-2;
+  }
+
+  .post-card-image-link {
+    @apply block overflow-hidden shrink-0;
+  }
+
+  .post-thumbnail {
+    @apply w-full h-48 md:h-56 object-cover transition-transform duration-500;
+  }
+
+  .post-card:hover .post-thumbnail {
+    @apply scale-105;
+  }
+
+  .post-card-body {
+    @apply p-5 flex flex-col flex-1;
+  }
+
+  .post-card-body .meta {
+    @apply text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2;
+  }
+
+  .post-card-body h2 {
+    @apply text-lg md:text-xl font-bold mb-2 leading-snug;
+    margin-top: 0;
+  }
+
+  .post-card-body h2 a {
+    @apply text-gray-900 dark:text-gray-100 no-underline hover:underline;
+  }
+
+  .post-card-body p {
+    @apply text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4;
+  }
+
+  .post-card-readmore {
+    @apply inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-green-700 dark:text-green-400 no-underline hover:underline transition-all mt-auto;
+  }
+}
+
+/* ============================================
+   Geist Font Family
+   ============================================ */
 @font-face {
   font-family: 'Geist Sans';
   src: url('/fonts/Geist-Variable.woff2') format('woff2');
