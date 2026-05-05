@@ -22,20 +22,54 @@ h4,
 }
 
 .glass-header {
-    background: rgba(248, 249, 250, 0.86);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 24px 40px rgba(25, 28, 29, 0.05);
+    background: rgba(248, 249, 250, 0.82);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    box-shadow: 0 1px 0 rgba(22, 59, 24, 0.06), 0 24px 40px rgba(25, 28, 29, 0.04);
 }
 
 .nav-link,
 .mobile-link {
-    transition: color 180ms ease, transform 180ms ease;
+    transition: color 200ms ease;
+    position: relative;
+}
+
+.nav-link::after {
+    background: linear-gradient(90deg, #163b18, #2d522d);
+    bottom: -4px;
+    content: "";
+    height: 1.5px;
+    left: 0;
+    position: absolute;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 280ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
 }
 
 .nav-link:hover,
 .mobile-link:hover {
     color: #163b18;
+}
+
+.nav-link-accent {
+    background: linear-gradient(135deg, #163b18, #2d522d);
+    border-radius: 2px;
+    color: #fff !important;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link-accent::after {
+    display: none;
+}
+
+.nav-link-accent:hover {
+    opacity: 0.9;
+    color: #fff !important;
 }
 
 .language-switcher {
@@ -477,13 +511,13 @@ h4,
     padding: 0.9rem 1rem;
 }
 
-.quote-form {
+.inquiry-form {
     background: #f3f4f5;
     box-shadow: 0 40px 40px rgba(25, 28, 29, 0.04);
     padding: 2rem;
 }
 
-.quote-form label {
+.inquiry-form label {
     color: #545e76;
     display: grid;
     font-size: 0.72rem;
@@ -493,9 +527,9 @@ h4,
     text-transform: uppercase;
 }
 
-.quote-form input,
-.quote-form select,
-.quote-form textarea {
+.inquiry-form input,
+.inquiry-form select,
+.inquiry-form textarea {
     background: #fff;
     border: 0;
     border-bottom: 2px solid rgba(114, 121, 111, 0.22);
@@ -511,14 +545,14 @@ h4,
     width: 100%;
 }
 
-.quote-form textarea {
+.inquiry-form textarea {
     min-height: 9rem;
     resize: vertical;
 }
 
-.quote-form input:focus,
-.quote-form select:focus,
-.quote-form textarea:focus {
+.inquiry-form input:focus,
+.inquiry-form select:focus,
+.inquiry-form textarea:focus {
     border-bottom-color: #163b18;
 }
 
@@ -688,7 +722,7 @@ h4,
         grid-template-columns: 1fr;
     }
 
-    .quote-form {
+    .inquiry-form {
         padding: 1.25rem;
     }
 
