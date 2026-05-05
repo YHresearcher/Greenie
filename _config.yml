@@ -1,0 +1,6 @@
+# Exclude Astro source files from Jekyll processing
+# .astro files use --- as code fences, not YAML front matter
+exclude:
+  - astro-blog/src/
+  - astro-blog/node_modules/
+  - "*.astro"
