@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/products/vietnamese-qualified-cashews/:path*",
+      "destination": "https://the-cashew.vercel.app/:path*"
+    },
+    {
       "source": "/products/vietnamese-artisanal-cane-sugar/:path*",
       "destination": "https://shan-tuyet-tea.vercel.app/:path*"
     }
