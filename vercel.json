@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/products/vietnamese-artisanal-cane-sugar/:path*",
+      "destination": "https://shan-tuyet-tea.vercel.app/:path*"
+    }
+  ]
+}
