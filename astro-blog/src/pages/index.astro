@@ -3,35 +3,35 @@ import BlogLayout from '../layouts/BlogLayout.astro';
 
 const posts = [
   {
-    title: "The Emperor's Kernel: Premium Vietnamese Cashew Export",
-    slug: 'vietnamese-qualified-cashews',
+    title: "Vietnamese Cashew Kernels — W180, W240, W320 Wholesale Export",
+    slug: 'products/cashew-kernels',
     description: 'On the basalt-rich red earth of Binh Phuoc province, where cashew trees have anchored themselves for over a century, an invisible architecture of flavor is built.',
     image: 'https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&q=80&w=1200',
-    date: 'May 2, 2026',
+    date: null,
     origin: 'Origin: Binh Phuoc, Vietnam',
   },
   {
-    title: 'Shan Tuyet: Vietnam\'s Ancient Tea Legacy in Every Sip',
-    slug: 'vietnamese-ancient-tea',
+    title: "Shan Tuyet Ancient Tea — Wild-Grown Ha Giang Wholesale Export",
+    slug: 'products/ancient-tea',
     description: 'High in the mist-shrouded Hoang Lien Son mountains of northern Vietnam, ancient Shan Tuyet tea trees have stood for over 300 years. These wild-grown, snow-kissed leaves produce a tea of extraordinary complexity.',
     image: 'https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?auto=format&fit=crop&q=80&w=1200',
-    date: 'May 3, 2026',
+    date: null,
     origin: 'Origin: Ha Giang, Vietnam',
   },
   {
-    title: 'Vietnamese Artisanal Cane Sugar: Golden Terroir from the Mekong Delta',
-    slug: 'vietnamese-artisanal-cane-sugar',
+    title: "Vietnamese Artisanal Cane Sugar 'Duong Phoi' — Wholesale Export",
+    slug: 'products/artisanal-cane-sugar',
     description: 'From the alluvial plains of the Mekong Delta, where sugarcane has been cultivated for centuries, comes a golden unrefined sugar with a depth that industrial processing can never replicate.',
     image: 'https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&q=80&w=1200',
-    date: 'May 4, 2026',
+    date: null,
     origin: 'Origin: Ben Tre, Vietnam',
   },
 ];
 ---
 
 <BlogLayout
-  title="Greenie Blog — Vietnamese Agricultural Exports"
-  description="Insights into Vietnam's finest agricultural exports: premium cashew kernels, artisanal cane sugar, and ancient Shan Tuyet tea traditions."
+  title="Greenie Products — Vietnamese Agricultural Exports"
+  description="Export-ready Vietnamese agricultural products: premium cashew kernels, artisanal cane sugar, and ancient Shan Tuyet tea. MOQ 1 MT. FOB/CIF Saigon Port."
   ogType="website"
 >
   <style>
@@ -129,8 +129,8 @@ const posts = [
   </style>
 
   <div class="blog-index">
-    <h1>Greenie Blog</h1>
-    <p class="subtitle">Insights into Vietnam's finest agricultural exports</p>
+    <h1>Greenie Products</h1>
+    <p class="subtitle">Export-ready Vietnamese agricultural products for global buyers</p>
     <div class="posts-grid">
       {posts.map((post) => (
         <article class="post-card">
@@ -140,7 +140,6 @@ const posts = [
               <h2>{post.title}</h2>
               <p>{post.description}</p>
               <div class="post-card-meta">
-                <time>{post.date}</time>
                 <span class="origin-badge">{post.origin}</span>
               </div>
             </div>

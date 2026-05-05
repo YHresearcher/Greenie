@@ -5,50 +5,37 @@ interface Props {
   title: string;
   description: string;
   image?: string;
-  pubDate?: Date;
-  author?: string;
-  originLabel?: string;
-  ogType?: string;
+  origin?: string;
+  category?: string;
 }
 
 const {
   title,
   description,
   image,
-  pubDate,
-  author = 'Greenie Team',
-  originLabel,
-  ogType = 'website',
+  origin,
+  category,
 } = Astro.props;
 
 const siteName = 'Greenie Vietnam';
 const siteUrl = 'https://www.greenievietnam.live';
 const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
 
-// Pre-compute JSON-LD to avoid template rendering issues inside <script> tag
-const schemaJSON = ogType === 'article'
-  ? JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: title,
-      image: image || undefined,
-      author: { '@type': 'Person', name: author },
-      publisher: {
-        '@type': 'Organization',
-        name: siteName,
-        logo: { '@type': 'ImageObject', url: 'https://yhresearcher.github.io/favicon.svg' },
-      },
-      datePublished: pubDate?.toISOString(),
-      dateModified: pubDate?.toISOString(),
-      mainEntityOfPage: currentUrl,
-    })
-  : JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: siteName,
-      url: siteUrl,
-      description: description,
-    });
+const schemaJSON = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: title,
+  description: description,
+  image: image || undefined,
+  brand: { '@type': 'Brand', name: siteName },
+  ...(origin ? { countryOfOrigin: { '@type': 'Country', name: 'Vietnam' } } : {}),
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'Organization', name: siteName },
+  },
+});
 ---
 
 <!DOCTYPE html>
@@ -81,7 +68,7 @@ const schemaJSON = ogType === 'article'
     </script>
 
     <!-- Open Graph -->
-    <meta property="og:type" content={ogType} />
+    <meta property="og:type" content="product" />
     <meta property="og:url" content={currentUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -95,7 +82,7 @@ const schemaJSON = ogType === 'article'
     <meta property="twitter:description" content={description} />
     {image && <meta property="twitter:image" content={image} />}
 
-    <!-- Schema.org -->
+    <!-- Schema.org Product -->
     <script type="application/ld+json" set:html={schemaJSON}>
     </script>
   </head>
@@ -162,10 +149,9 @@ const schemaJSON = ogType === 'article'
           <div class="footer-grid">
             <div class="footer-col">
               <p class="footer-col-title">Products</p>
-              <a href="/#products">Cashew Kernels</a>
-              <a href="/#products">Artisanal Cane Sugar</a>
-              <a href="/#products">Shan Tuyet Ancient Tea</a>
-              <a href="/blog">Blog</a>
+              <a href="/products/cashew-kernels/">Cashew Kernels</a>
+              <a href="/products/artisanal-cane-sugar/">Artisanal Cane Sugar</a>
+              <a href="/products/ancient-tea/">Shan Tuyet Ancient Tea</a>
             </div>
             <div class="footer-col">
               <p class="footer-col-title">Sales</p>
@@ -205,20 +191,6 @@ const schemaJSON = ogType === 'article'
     </a>
 
     <script type="module">
-      // Language switcher
-      function initLanguageSwitcher() {
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const lang = btn.dataset.lang;
-            if (lang) {
-              const url = new URL(window.location.href);
-              url.searchParams.set('lang', lang);
-              window.location.href = url.toString();
-            }
-          });
-        });
-      }
-
       // Mobile menu toggle
       function initMobileMenu() {
         const menuButton = document.getElementById('mobile-menu-button');
@@ -243,12 +215,8 @@ const schemaJSON = ogType === 'article'
         });
       }
 
-      initLanguageSwitcher();
       initMobileMenu();
-      document.addEventListener('astro:after-swap', () => {
-        initLanguageSwitcher();
-        initMobileMenu();
-      });
+      document.addEventListener('astro:after-swap', initMobileMenu);
     </script>
   </body>
 </html>
