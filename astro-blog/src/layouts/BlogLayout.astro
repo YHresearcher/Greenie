@@ -20,7 +20,7 @@ const {
 } = Astro.props;
 
 const siteName = 'Greenie Vietnam';
-const siteUrl = 'https://www.greenievietnam.live';
+const siteUrl = Astro.site?.href || 'https://greenievietnam.live';
 const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
 
 // Pre-compute JSON-LD to avoid template rendering issues inside <script> tag
@@ -188,7 +188,7 @@ const schemaJSON = ogType === 'article'
             </div>
             <div class="footer-col">
               <p class="footer-col-title">Contact</p>
-              <a href="mailto:sales@greenievietnam.com" class="footer-line">sales@greenievietnam.com</a>
+              <a href={`mailto:sales@${new URL(siteUrl).hostname}`} class="footer-line">sales@{new URL(siteUrl).hostname}</a>
               <a href="https://wa.me/084909053058" target="_blank" rel="noopener noreferrer" class="footer-line">WhatsApp Business</a>
               <p class="footer-line">HALAL and testing on request</p>
             </div>
