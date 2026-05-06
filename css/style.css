@@ -17,7 +17,7 @@ h2,
 h3,
 h4,
 .font-headline {
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     letter-spacing: -0.02em;
 }
 
@@ -167,7 +167,7 @@ h4,
 
 .section-title {
     color: #163b18;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2.25rem, 5vw, 4rem);
     font-weight: 800;
     line-height: 1.08;
@@ -256,7 +256,7 @@ h4,
 
 .info-panel h3 {
     color: #163b18;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.35rem;
     font-weight: 800;
     margin-top: 1.5rem;
@@ -278,7 +278,7 @@ h4,
 
 .about-story blockquote {
     color: #163b18;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.75rem, 3vw, 3rem);
     font-weight: 800;
     letter-spacing: -0.02em;
@@ -323,7 +323,7 @@ h4,
 
 .about-standard-header h3 {
     color: #163b18;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.45rem;
     font-weight: 800;
     line-height: 1.2;
@@ -351,7 +351,7 @@ h4,
 
 .about-principles h4 {
     color: #163b18;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.05rem;
     font-weight: 800;
     margin-top: 0.55rem;
@@ -496,7 +496,7 @@ h4,
 
 .workflow h3 {
     color: #163b18;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 800;
 }
 
@@ -848,7 +848,7 @@ h4,
 
 .post-card-content h2 {
     margin: 0 0 0.65rem;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.35rem;
     font-weight: 800;
     line-height: 1.2;
