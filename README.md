@@ -9,8 +9,8 @@ Greenie Vietnam supplies export-ready Vietnamese cashew kernels and artisan cane
 Core commercial messaging:
 
 - MOQ from 1 metric ton
-- Lead time 7-15 days
-- FOB/CIF from Saigon Port
+- Lead time 10-30 days
+- FOB/CIF from Saigon & Haiphong Port
 - T/T and L/C payment support
 - HALAL certificate available
 - SGS/Eurofins testing available on request
