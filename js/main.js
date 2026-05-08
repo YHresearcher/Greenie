@@ -191,6 +191,7 @@ const translations = {
         "footer.cashew": "Cashew Kernels",
         "footer.sugar": "Artisan Cane Sugar",
         "footer.tea": "Shan Tuyet Ancient Tea",
+        "footer.oem": "OEM / Private Label",
         "footer.sales": "Sales",
         "footer.quickTitle": "Quick Facts",
         "footer.contactTitle": "Contact",
@@ -394,6 +395,7 @@ const translations = {
       "footer.cashew": "\u8170\u679c\u4ec1",
       "footer.sugar": "\u624b\u5de5\u7518\u8517\u7cd6",
       "footer.tea": "\u5c71\u96ea\u53e4\u6811\u8336",
+      "footer.oem": "OEM / \u81ea\u6709\u54c1\u724c",
       "footer.sales": "\u9500\u552e",
       "footer.quickTitle": "\u6838\u5fc3\u4f18\u52bf",
       "footer.contactTitle": "\u8054\u7cfb\u65b9\u5f0f",
@@ -597,6 +599,7 @@ const translations = {
       "footer.cashew": "Cashew Kernels",
       "footer.sugar": "Artisan Cane Sugar",
       "footer.tea": "Shan Tuyet Ancient Tea",
+      "footer.oem": "OEM / Private Label",
       "footer.sales": "Sales",
       "footer.quickTitle": "Quick Facts",
       "footer.contactTitle": "Contact",
@@ -753,32 +756,34 @@ const mobileMenuBtn = document.getElementById("mobile-menu-button");
 if (mainHeader) {
     window.addEventListener("scroll", () => {
         if (window.scrollY > 50) {
-            mainHeader.classList.add("bg-white/90", "backdrop-blur-md", "shadow-sm", "py-3");
+            // Scrolled: white glass with strong border + shadow to contrast bg-surface
+            mainHeader.classList.add("bg-white", "backdrop-blur-xl", "shadow-md", "border-b", "border-slate-200", "py-3");
             mainHeader.classList.remove("bg-transparent", "py-4", "lg:py-8");
-            
+
             logo?.classList.add("text-primary");
             logo?.classList.remove("text-white", "hover:text-white/80");
-            
+
             navMenu?.classList.add("text-secondary");
             navMenu?.classList.remove("text-white/80");
-            
+
             inquireBtn?.classList.add("border-primary", "text-primary", "hover:bg-primary", "hover:text-white");
-            inquireBtn?.classList.remove("border-white/30", "text-white", "hover:bg-white");
+            inquireBtn?.classList.remove("border-white/30", "text-white", "hover:bg-white", "hover:text-primary");
 
             mobileMenuBtn?.classList.add("bg-primary/10", "text-primary");
             mobileMenuBtn?.classList.remove("bg-white/10", "text-white");
         } else {
-            mainHeader.classList.remove("bg-white/90", "backdrop-blur-md", "shadow-sm", "py-3");
+            // At top: fully transparent
+            mainHeader.classList.remove("bg-white", "backdrop-blur-xl", "shadow-md", "border-b", "border-slate-200", "py-3");
             mainHeader.classList.add("bg-transparent", "py-4", "lg:py-8");
-            
+
             logo?.classList.remove("text-primary");
             logo?.classList.add("text-white", "hover:text-white/80");
-            
+
             navMenu?.classList.remove("text-secondary");
             navMenu?.classList.add("text-white/80");
 
             inquireBtn?.classList.remove("border-primary", "text-primary", "hover:bg-primary", "hover:text-white");
-            inquireBtn?.classList.add("border-white/30", "text-white", "hover:bg-white");
+            inquireBtn?.classList.add("border-white/30", "text-white", "hover:bg-white", "hover:text-primary");
 
             mobileMenuBtn?.classList.remove("bg-primary/10", "text-primary");
             mobileMenuBtn?.classList.add("bg-white/10", "text-white");
