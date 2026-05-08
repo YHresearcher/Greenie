@@ -144,7 +144,7 @@
                     <button class="lang-btn" type="button" data-lang="hi">हिन्दी</button>
                 </div>
 
-                <a href="#inquiry" id="inquire-btn" class="hidden md:inline-block px-6 py-2.5 rounded-full border border-white/30 text-[10px] uppercase tracking-widest font-bold transition-all text-white hover:bg-white hover:text-primary">
+                <a href="#inquiry" id="inquire-btn" class="hidden md:inline-block px-6 py-2.5 rounded-full border border-white/30 text-[10px] uppercase tracking-widest font-bold transition-all text-white hover:bg-white hover:text-primary" data-i18n="nav.inquiry">
                     Inquire
                 </a>
 
@@ -456,6 +456,9 @@
                             <p class="font-headline text-xs font-black uppercase tracking-[0.18em] text-primary" data-i18n="samples.formTitle">Sample request brief</p>
                             <p class="text-sm leading-relaxed text-secondary" data-i18n="samples.formCopy">Use this form when you only need product samples. The same sales team will handle both sample and wholesale requests.</p>
                         </div>
+                        <div style="display: none;">
+                            <input type="text" name="confirm_email_address" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="grid gap-4 md:grid-cols-2">
                             <label><span data-i18n="form.company">Company name *</span><input required name="sample_company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
                             <label><span data-i18n="form.country">Country *</span><input required name="sample_country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
@@ -515,7 +518,10 @@
               
                     <!--Contact Form-->
                      <form id="contact-form" class="inquiry-form lg:col-span-8" data-aos="fade-left">
-                    <div class="grid gap-6 md:grid-cols-2">
+                        <div style="display: none;">
+                            <input type="text" name="confirm_user_name" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div class="grid gap-6 md:grid-cols-2">
                         <label><span data-i18n="form.company">Company name *</span><input required name="company" type="text" placeholder="Company Ltd." data-i18n-placeholder="ph.company"/></label>
                         <label><span data-i18n="form.country">Country *</span><input required name="country" type="text" placeholder="Germany" data-i18n-placeholder="ph.country"/></label>
                         <label><span data-i18n="form.person">Contact person *</span><input required name="contact_person" type="text" placeholder="Full name" data-i18n-placeholder="ph.person"/></label>
