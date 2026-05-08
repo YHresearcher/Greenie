@@ -1,4 +1,4 @@
-﻿const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
+const EMAILJS_PUBLIC_KEY = "_Gx8cHW_R8bomgG5c";
 const EMAILJS_SERVICE_ID = "service_6joc3eq";
 const EMAILJS_TEMPLATE_ID = "template_vknoy18";
 
@@ -743,5 +743,49 @@ function bindEmailForm(form, statusElement, templateId) {
 }
 
 // Gán hàm xử lý cho cả 2 form với template khác nhau
+// Navbar Scroll Effect
+const mainHeader = document.getElementById("main-header");
+const logo = document.getElementById("logo");
+const navMenu = document.getElementById("nav-menu");
+const inquireBtn = document.getElementById("inquire-btn");
+const mobileMenuBtn = document.getElementById("mobile-menu-button");
+
+if (mainHeader) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            mainHeader.classList.add("bg-white/90", "backdrop-blur-md", "shadow-sm", "py-3");
+            mainHeader.classList.remove("bg-transparent", "py-4", "lg:py-8");
+            
+            logo?.classList.add("text-primary");
+            logo?.classList.remove("text-white", "hover:text-white/80");
+            
+            navMenu?.classList.add("text-secondary");
+            navMenu?.classList.remove("text-white/80");
+            
+            inquireBtn?.classList.add("border-primary", "text-primary", "hover:bg-primary", "hover:text-white");
+            inquireBtn?.classList.remove("border-white/30", "text-white", "hover:bg-white");
+
+            mobileMenuBtn?.classList.add("bg-primary/10", "text-primary");
+            mobileMenuBtn?.classList.remove("bg-white/10", "text-white");
+        } else {
+            mainHeader.classList.remove("bg-white/90", "backdrop-blur-md", "shadow-sm", "py-3");
+            mainHeader.classList.add("bg-transparent", "py-4", "lg:py-8");
+            
+            logo?.classList.remove("text-primary");
+            logo?.classList.add("text-white", "hover:text-white/80");
+            
+            navMenu?.classList.remove("text-secondary");
+            navMenu?.classList.add("text-white/80");
+
+            inquireBtn?.classList.remove("border-primary", "text-primary", "hover:bg-primary", "hover:text-white");
+            inquireBtn?.classList.add("border-white/30", "text-white", "hover:bg-white");
+
+            mobileMenuBtn?.classList.remove("bg-primary/10", "text-primary");
+            mobileMenuBtn?.classList.add("bg-white/10", "text-white");
+        }
+    });
+}
+
 bindEmailForm(contactForm, statusText, EMAILJS_TEMPLATE_ID);
+
 bindEmailForm(sampleForm, sampleStatusText, "template_stjny2d");

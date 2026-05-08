@@ -22,10 +22,9 @@ h4,
 }
 
 .glass-header {
-    background: rgba(248, 249, 250, 0.82);
+    background: rgba(255, 255, 255, 0.82);
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
-    box-shadow: 0 1px 0 rgba(22, 59, 24, 0.06), 0 24px 40px rgba(25, 28, 29, 0.04);
 }
 
 .nav-link,
@@ -53,7 +52,7 @@ h4,
 
 .nav-link:hover,
 .mobile-link:hover {
-    color: #163b18;
+    opacity: 0.8;
 }
 
 .nav-link-accent {

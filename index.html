@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -122,31 +122,39 @@
         <script src="js/site-config.js"></script>
 </head>
 <body class="bg-surface text-slate-900 font-body antialiased">
-    <header class="fixed top-0 w-full z-50 glass-header">
-        <div class="flex min-h-20 max-w-screen-2xl items-center justify-between gap-4 px-5 py-3 sm:px-8 mx-auto">
-            <a href="#hero" class="flex items-center gap-3 font-headline text-xl sm:text-2xl font-black uppercase tracking-tight text-primary">
+    <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent py-4 lg:py-8">
+        <div id="header-container" class="flex max-w-screen-2xl items-center justify-between gap-4 px-5 sm:px-8 mx-auto transition-all duration-500">
+            <a href="#hero" id="logo" class="flex items-center gap-3 font-headline text-2xl italic tracking-tighter transition-colors text-white hover:text-white/80">
                 <img src="img/logo.png" alt="Greenie Vietnam Logo" class="h-10 w-auto">
-                Greenie <span class="font-light">Vietnam</span>
+                Greenie Vietnam
             </a>
 
-                 <nav class="hidden lg:flex items-center gap-8 font-headline text-[11px] font-bold uppercase tracking-[0.20em] text-secondary">
-                    <a href="#products" class="nav-link" data-i18n="nav.products">Products</a>
-                    <a href="#about" class="nav-link" data-i18n="nav.about">About</a>
-                    <a href="#quality" class="nav-link" data-i18n="nav.quality">Quality</a>
-                    <a href="/blog/" class="nav-link" data-i18n="nav.blog">Blog</a>
-                    <a href="#samples" class="nav-link" data-i18n="nav.sample">Request sample</a>
-                    <a href="#inquiry" class="nav-link nav-link-accent" data-i18n="nav.inquiry">Inquiry</a>
-                </nav>
+            <nav id="nav-menu" class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.25em] transition-colors text-white/80">
+                <a href="#products" class="nav-link hover:text-white transition-colors" data-i18n="nav.products">Products</a>
+                <a href="#about" class="nav-link hover:text-white transition-colors" data-i18n="nav.about">About</a>
+                <a href="#quality" class="nav-link hover:text-white transition-colors" data-i18n="nav.quality">Quality</a>
+                <a href="/blog/" class="nav-link hover:text-white transition-colors" data-i18n="nav.blog">Blog</a>
+                <a href="#samples" class="nav-link hover:text-white transition-colors" data-i18n="nav.sample">Request sample</a>
+            </nav>
 
-            <div class="language-switcher" aria-label="Language selector">
-                <button class="lang-btn active" type="button" data-lang="en">EN</button>
-                <button class="lang-btn" type="button" data-lang="zh">中文</button>
-                <button class="lang-btn" type="button" data-lang="hi">हिन्दी</button>
+            <div class="flex items-center gap-6">
+                <div class="language-switcher rounded-full overflow-hidden" aria-label="Language selector">
+                    <button class="lang-btn active" type="button" data-lang="en">EN</button>
+                    <button class="lang-btn" type="button" data-lang="zh">中文</button>
+                    <button class="lang-btn" type="button" data-lang="hi">हिन्दी</button>
+                </div>
+
+                <a href="#inquiry" id="inquire-btn" class="hidden md:inline-block px-6 py-2.5 rounded-full border border-white/30 text-[10px] uppercase tracking-widest font-bold transition-all text-white hover:bg-white hover:text-primary">
+                    Inquire
+                </a>
+
+                <button id="mobile-menu-button" class="lg:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
             </div>
+        </div>
 
-            <button id="mobile-menu-button" class="lg:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm bg-surface-container-low text-primary" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
+            </div>
         </div>
                  <nav id="mobile-menu" class="hidden border-t border-slate-200/60 bg-white/95 px-5 py-5 lg:hidden">
                      <div class="grid gap-4 font-headline text-xs font-bold uppercase tracking-[0.18em] text-secondary">
