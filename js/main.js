@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const target = entry.target;
                 const endValue = parseInt(target.getAttribute('data-target'));
+                const suffix = target.getAttribute('data-suffix') || '+';
                 if (!isNaN(endValue)) {
-                    animateCounter(target, endValue, 2000);
+                    animateCounter(target, endValue, suffix, 2000);
                 }
                 observer.unobserve(target);
             }
@@ -48,16 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     counters.forEach(counter => counterObserver.observe(counter));
 
-    function animateCounter(el, endValue, duration) {
+    function animateCounter(el, endValue, suffix, duration) {
         let startTimestamp = null;
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            el.innerText = Math.floor(progress * endValue) + "+";
+            el.innerText = Math.floor(progress * endValue) + suffix;
             if (progress < 1) {
                 window.requestAnimationFrame(step);
             } else {
-                el.innerText = endValue + "+";
+                el.innerText = endValue + suffix;
             }
         };
         window.requestAnimationFrame(step);

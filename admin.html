@@ -309,6 +309,10 @@
                 <span class="material-symbols-outlined">rice_bowl</span>
                 Cane Sugar
             </li>
+            <li class="menu-item" data-tab="settings">
+                <span class="material-symbols-outlined">settings</span>
+                Đổi mật khẩu
+            </li>
         </ul>
     </aside>
 
@@ -530,6 +534,29 @@
                 </div>
             </div>
         </section>
+
+        <!-- Settings Tab -->
+        <section id="settings" class="tab-panel">
+            <div style="max-width: 500px; background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                <h2 class="font-headline" style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.75rem;">Thay đổi mật khẩu quản trị</h2>
+                <form id="changePasswordForm" class="upload-form">
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu hiện tại *</label>
+                        <input type="password" id="currentPassword" class="form-control" required style="border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu mới *</label>
+                        <input type="password" id="newPassword" class="form-control" required style="border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Xác nhận mật khẩu mới *</label>
+                        <input type="password" id="confirmNewPassword" class="form-control" required style="border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem;">
+                    </div>
+                    <button type="submit" class="btn-upload" style="margin-top: 1rem;">Cập nhật mật khẩu</button>
+                    <div id="pwStatusMsg" class="status-msg"></div>
+                </form>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -566,9 +593,10 @@
             });
         });
 
-        // Form Submission Logic
+        // Form Submission Logic (Uploads)
         const forms = document.querySelectorAll('.upload-form');
         forms.forEach(form => {
+            if (form.id === 'changePasswordForm') return; // Handled separately
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const filename = this.getAttribute('data-filename');
@@ -588,7 +616,7 @@
                 formData.append('filename', filename);
 
                 try {
-                    const response = await fetch('http://localhost:3000/upload', {
+                    const response = await fetch('/upload', {
                         method: 'POST',
                         body: formData
                     });
@@ -596,7 +624,6 @@
                     if (response.ok) {
                         status.className = "status-msg success";
                         status.innerText = "Tải lên thành công!";
-                        // Add cache buster to image preview
                         const card = this.closest('.image-card');
                         const previewImg = card.querySelector('.current-img');
                         previewImg.src = previewImg.src.split('?')[0] + '?' + new Date().getTime();
@@ -612,6 +639,53 @@
                 }
             });
         });
+
+        // Change password form logic
+        const pwForm = document.getElementById('changePasswordForm');
+        if (pwForm) {
+            pwForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+                const status = document.getElementById('pwStatusMsg');
+
+                if (newPassword !== confirmNewPassword) {
+                    status.className = "status-msg error";
+                    status.innerText = "Lỗi: Mật khẩu mới không khớp.";
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/change-password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ currentPassword, newPassword })
+                    });
+
+                    let errorMsg = "Không thể đổi mật khẩu.";
+                    if (response.ok) {
+                        status.className = "status-msg success";
+                        status.innerText = "Mật khẩu đã được thay đổi thành công! Vui lòng làm mới trang (F5) để đăng nhập bằng mật khẩu mới.";
+                        pwForm.reset();
+                    } else {
+                        try {
+                            const data = await response.json();
+                            errorMsg = data.message || errorMsg;
+                        } catch(e) {
+                            errorMsg = await response.text();
+                        }
+                        status.className = "status-msg error";
+                        status.innerText = "Lỗi: " + errorMsg;
+                    }
+                } catch (err) {
+                    status.className = "status-msg error";
+                    status.innerText = "Lỗi kết nối tới máy chủ.";
+                }
+            });
+        }
     </script>
 </body>
 </html>
