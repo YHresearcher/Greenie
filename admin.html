@@ -3,98 +3,614 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Greenie Admin Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <title>Greenie Admin Portal - Image Manager</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
     <style>
-        body { font-family: 'Inter', sans-serif; background: #f3f4f6; color: #1f2937; margin: 0; padding: 2rem; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { color: #1E3A2F; margin-top: 0; }
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; font-weight: 500; margin-bottom: 0.5rem; }
-        input[type="file"] { display: block; margin-bottom: 0.5rem; }
-        button { background: #1E3A2F; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; font-weight: 500; }
-        button:hover { opacity: 0.9; }
-        .success { color: #059669; background: #d1fae5; padding: 1rem; border-radius: 4px; display: none; margin-top: 1rem; }
-        .error { color: #dc2626; background: #fee2e2; padding: 1rem; border-radius: 4px; display: none; margin-top: 1rem; }
-        .note { font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem; }
-        img.preview { max-width: 100%; height: auto; max-height: 200px; margin-top: 1rem; border-radius: 4px; display: none; }
+        :root {
+            --primary: #1E3A2F;
+            --accent: #C5A880;
+            --background: #FDFBF7;
+            --card-bg: #FFFFFF;
+            --text: #333333;
+            --border: #E5E7EB;
+            --success: #10B981;
+            --error: #EF4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 1.5rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #6B7280;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Tabs Panels */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* Grid Layout for Cards */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Card Styles */
+        .image-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        }
+
+        .image-preview-container {
+            height: 200px;
+            background-color: #F3F4F6;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-preview-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-path {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0,0,0,0.6);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .file-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: #F3F4F6;
+            border: 1px dashed #D1D5DB;
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+
+        .file-label:hover {
+            background-color: #E5E7EB;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn-upload {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-upload:hover {
+            opacity: 0.9;
+        }
+
+        .status-msg {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            display: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .status-msg.success {
+            background-color: #D1FAE5;
+            color: var(--success);
+            display: block;
+        }
+
+        .status-msg.error {
+            background-color: #FEE2E2;
+            color: var(--error);
+            display: block;
+        }
+
+        /* Top Action Area */
+        .btn-view-site {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-view-site:hover {
+            background-color: var(--primary);
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Greenie Image Manager</h1>
-        <p>Use this tool to update images on the website. You must run the local Node.js server (`node server.js`) for this to work.</p>
-        
-        <form id="uploadForm">
-            <div class="form-group">
-                <label>Select Section to Update:</label>
-                <select id="imageTarget" style="padding: 0.5rem; width: 100%;">
-                    <option value="hero-macro-tea.png">Homepage Hero Image</option>
-                    <option value="shan-tuyet-ancient-tea.jpeg">Tea Product Image</option>
-                    <option value="cashew-w180.png">Cashew Product Image</option>
-                    <option value="artisanal-cane-sugar.jpeg">Sugar Product Image</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Select New Image:</label>
-                <input type="file" id="imageFile" accept="image/*" required>
-                <img id="preview" class="preview" alt="Preview">
-                <p class="note">The uploaded image will overwrite the existing image for the selected section.</p>
-            </div>
-
-            <button type="submit">Upload and Replace</button>
-            <div id="successMsg" class="success">Image replaced successfully! Refresh the website to see changes.</div>
-            <div id="errorMsg" class="error">Failed to replace image. Make sure the local server is running.</div>
-        </form>
-        <div style="margin-top: 2rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
-            <a href="index.html" style="color: #1E3A2F;">&larr; Back to Website</a>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="material-symbols-outlined">dashboard</span>
+            Greenie Admin
         </div>
-    </div>
+        <ul class="sidebar-menu">
+            <li class="menu-item active" data-tab="homepage">
+                <span class="material-symbols-outlined">home</span>
+                Homepage
+            </li>
+            <li class="menu-item" data-tab="tea">
+                <span class="material-symbols-outlined">emoji_nature</span>
+                Shan Tuyết Tea
+            </li>
+            <li class="menu-item" data-tab="cashew">
+                <span class="material-symbols-outlined">shopping_basket</span>
+                Cashew Kernels
+            </li>
+            <li class="menu-item" data-tab="sugar">
+                <span class="material-symbols-outlined">rice_bowl</span>
+                Cane Sugar
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <header>
+            <div>
+                <h1>Quản lý Hình ảnh hệ thống</h1>
+                <div class="subtitle">Liệt kê và phân loại hình ảnh theo từng khu vực hiển thị của website</div>
+            </div>
+            <a href="index.html" class="btn-view-site" target="_blank">Xem Website &rarr;</a>
+        </header>
+
+        <!-- Homepage Tab -->
+        <section id="homepage" class="tab-panel active">
+            <div class="image-grid">
+                <!-- Hero Banner -->
+                <div class="image-card">
+                    <div class="image-preview-container">
+                        <img src="img/hero-macro-tea.png" alt="Hero Banner" class="current-img">
+                        <div class="badge-path">img/hero-macro-tea.png</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Homepage Hero Banner</div>
+                        <div class="card-desc">Ảnh macro búp trà hoặc phong cảnh chất lượng cao hiển thị ở khu vực đầu trang chủ.</div>
+                        <form class="upload-form" data-filename="hero-macro-tea.png">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Logo -->
+                <div class="image-card">
+                    <div class="image-preview-container" style="background-color: var(--primary);">
+                        <img src="img/logo.png" alt="Logo" class="current-img" style="object-fit: contain; width: 60%; height: 60%;">
+                        <div class="badge-path">img/logo.png</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Logo Công ty</div>
+                        <div class="card-desc">Logo thương hiệu Greenie hiển thị trên thanh Menu điều hướng và dưới Chân trang.</div>
+                        <form class="upload-form" data-filename="logo.png">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Favicon -->
+                <div class="image-card">
+                    <div class="image-preview-container" style="background-color: #EEEEEE;">
+                        <img src="img/favicon.png" alt="Favicon" class="current-img" style="object-fit: contain; width: 32px; height: 32px;">
+                        <div class="badge-path">img/favicon.png</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Website Favicon</div>
+                        <div class="card-desc">Icon nhỏ 16x16 hoặc 32x32 hiển thị trên tab trình duyệt của người dùng.</div>
+                        <form class="upload-form" data-filename="favicon.png">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shan Tuyet Tea Tab -->
+        <section id="tea" class="tab-panel">
+            <div class="image-grid">
+                <!-- Main Image -->
+                <div class="image-card">
+                    <div class="image-preview-container">
+                        <img src="img/shan-tuyet-ancient-tea.jpeg" alt="Tea Main" class="current-img">
+                        <div class="badge-path">img/shan-tuyet-ancient-tea.jpeg</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Ảnh bìa Trang Trà Shan Tuyết</div>
+                        <div class="card-desc">Hình ảnh chính giới thiệu trà Shan Tuyết Cổ thụ, xuất hiện trong Grid sản phẩm trang chủ và bìa landing page trà.</div>
+                        <form class="upload-form" data-filename="shan-tuyet-ancient-tea.jpeg">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sub Image: picking tea -->
+                <div class="image-card">
+                    <div class="image-preview-container">
+                        <img src="img/acient-tea/picking-tea.jpeg" alt="Picking Tea" class="current-img">
+                        <div class="badge-path">img/acient-tea/picking-tea.jpeg</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Vùng nguyên liệu & Nghệ nhân hái trà</div>
+                        <div class="card-desc">Ảnh mô tả cảnh thu hoạch trà vào sáng sớm của đồng bào Tây Bắc.</div>
+                        <form class="upload-form" data-filename="acient-tea/picking-tea.jpeg">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cashew Tab -->
+        <section id="cashew" class="tab-panel">
+            <div class="image-grid">
+                <!-- Main Image -->
+                <div class="image-card">
+                    <div class="image-preview-container">
+                        <img src="img/cashew-w180.png" alt="Cashew Main" class="current-img">
+                        <div class="badge-path">img/cashew-w180.png</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Ảnh bìa Hạt Điều</div>
+                        <div class="card-desc">Ảnh packshot hạt điều Bình Phước chất lượng cao, xuất hiện ở Grid sản phẩm và trang Landing Page hạt điều.</div>
+                        <form class="upload-form" data-filename="cashew-w180.png">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Showcase Image -->
+                <div class="image-card">
+                    <div class="image-preview-container">
+                        <img src="img/Homepage.png" alt="Cashew Showcase" class="current-img">
+                        <div class="badge-path">img/Homepage.png</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Quy trình & Đóng gói Hạt Điều</div>
+                        <div class="card-desc">Hình ảnh minh họa sản phẩm hạt điều thành phẩm được xếp khay tinh khiết và đồng đều.</div>
+                        <form class="upload-form" data-filename="Homepage.png">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sugar Tab -->
+        <section id="sugar" class="tab-panel">
+            <div class="image-grid">
+                <!-- Main Image -->
+                <div class="image-card">
+                    <div class="image-preview-container">
+                        <img src="img/artisanal-cane-sugar.jpeg" alt="Sugar Main" class="current-img">
+                        <div class="badge-path">img/artisanal-cane-sugar.jpeg</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Ảnh bìa Đường Phổi</div>
+                        <div class="card-desc">Ảnh hũ/túi thành phẩm Đường Phổi Quảng Ngãi, xuất hiện ở Grid trang chủ và bìa landing page đường.</div>
+                        <form class="upload-form" data-filename="artisanal-cane-sugar.jpeg">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Process Image -->
+                <div class="image-card">
+                    <div class="image-preview-container">
+                        <img src="img/artisanal-sugar/boilling-sugar.jpeg" alt="Sugar Process" class="current-img">
+                        <div class="badge-path">img/artisanal-sugar/boilling-sugar.jpeg</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Nấu mật mía thủ công</div>
+                        <div class="card-desc">Ảnh tư liệu nghệ nhân xứ Quảng đang đun và lọc mật mía bằng phương pháp cơ học tự nhiên.</div>
+                        <form class="upload-form" data-filename="artisanal-sugar/boilling-sugar.jpeg">
+                            <label class="file-label">
+                                <span class="material-symbols-outlined">upload_file</span>
+                                Chọn ảnh thay thế
+                                <input type="file" class="file-input" accept="image/*" required>
+                            </label>
+                            <button type="submit" class="btn-upload">Cập nhật ảnh</button>
+                            <div class="status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
-        const fileInput = document.getElementById('imageFile');
-        const preview = document.getElementById('preview');
+        // Tab switching logic
+        const menuItems = document.querySelectorAll('.menu-item');
+        const panels = document.querySelectorAll('.tab-panel');
 
-        fileInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetTab = item.getAttribute('data-tab');
+
+                menuItems.forEach(i => i.classList.remove('active'));
+                panels.forEach(p => p.classList.remove('active'));
+
+                item.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
         });
 
-        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const targetName = document.getElementById('imageTarget').value;
-            const file = fileInput.files[0];
-            if (!file) return;
-
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append('filename', targetName);
-
-            try {
-                const response = await fetch('http://localhost:3000/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    document.getElementById('successMsg').style.display = 'block';
-                    document.getElementById('errorMsg').style.display = 'none';
-                } else {
-                    throw new Error('Upload failed');
+        // Live preview selected file locally before uploading
+        const fileInputs = document.querySelectorAll('.file-input');
+        fileInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const card = this.closest('.image-card');
+                const previewImg = card.querySelector('.current-img');
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
                 }
-            } catch (err) {
-                console.error(err);
-                document.getElementById('errorMsg').style.display = 'block';
-                document.getElementById('successMsg').style.display = 'none';
-            }
+            });
+        });
+
+        // Form Submission Logic
+        const forms = document.querySelectorAll('.upload-form');
+        forms.forEach(form => {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const filename = this.getAttribute('data-filename');
+                const fileInput = this.querySelector('.file-input');
+                const status = this.querySelector('.status-msg');
+                const btn = this.querySelector('.btn-upload');
+                
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const originalBtnText = btn.innerText;
+                btn.innerText = "Đang tải lên...";
+                btn.disabled = true;
+
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('filename', filename);
+
+                try {
+                    const response = await fetch('http://localhost:3000/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        status.className = "status-msg success";
+                        status.innerText = "Tải lên thành công!";
+                        // Add cache buster to image preview
+                        const card = this.closest('.image-card');
+                        const previewImg = card.querySelector('.current-img');
+                        previewImg.src = previewImg.src.split('?')[0] + '?' + new Date().getTime();
+                    } else {
+                        throw new Error("Lỗi máy chủ");
+                    }
+                } catch (err) {
+                    status.className = "status-msg error";
+                    status.innerText = "Lỗi: Không kết nối được tới server admin. Chạy 'npm start'.";
+                } finally {
+                    btn.innerText = originalBtnText;
+                    btn.disabled = false;
+                }
+            });
         });
     </script>
 </body>
