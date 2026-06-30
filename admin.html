@@ -665,6 +665,7 @@
                         body: JSON.stringify({ currentPassword, newPassword })
                     });
 
+                    const text = await response.text();
                     let errorMsg = "Không thể đổi mật khẩu.";
                     if (response.ok) {
                         status.className = "status-msg success";
@@ -672,10 +673,10 @@
                         pwForm.reset();
                     } else {
                         try {
-                            const data = await response.json();
+                            const data = JSON.parse(text);
                             errorMsg = data.message || errorMsg;
                         } catch(e) {
-                            errorMsg = await response.text();
+                            errorMsg = text || errorMsg;
                         }
                         status.className = "status-msg error";
                         status.innerText = "Lỗi: " + errorMsg;
