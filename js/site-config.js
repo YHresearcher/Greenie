@@ -6,7 +6,7 @@
   const siteDomain = "greenievietnam.biz.vn";
   const baseURL = "https://" + siteDomain;
   const wwwBaseURL = "https://www." + siteDomain;
-  const siteEmail = "sales@" + siteDomain;
+  const siteEmail = "hello@" + siteDomain;
   const siteName = "Greenie Vietnam";
   const ogImagePath = "/img/hero-macro-tea.png"; 
 

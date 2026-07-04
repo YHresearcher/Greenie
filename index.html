@@ -4,6 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Premium Vietnamese qualified cashews, artisan cane sugar & Shan Tuyet ancient tea for global B2B buyers.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Greenie Vietnam - Global Wholesale Export">
+    <meta property="og:description" content="Premium Vietnamese qualified cashews, artisan cane sugar & Shan Tuyet ancient tea. ISO 22000 / HACCP compliant. Direct B2B wholesale supply for global buyers.">
+    <meta property="og:image" content="https://greenievietnam.biz.vn/img/hero-macro-tea.png">
+    <meta property="og:url" content="https://greenievietnam.biz.vn/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Greenie Vietnam">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Greenie Vietnam - Global Wholesale Export</title>
     
     <!-- SEO & Domain config -->
@@ -21,8 +29,7 @@
     <!-- CSS -->
     <link href="css/style.css" rel="stylesheet" />
     
-    <!-- EmailJS & Translation -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Translation -->
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
@@ -166,13 +173,13 @@
                             <span class="material-symbols-outlined" style="margin-right: 8px;">chat</span> Chat on WhatsApp
                         </a>
                         <br/>
-                        <a href="mailto:sales@greenievietnam.biz.vn" class="btn btn-outline" style="width: 100%;">
-                            <span class="material-symbols-outlined" style="margin-right: 8px;">mail</span> sales@greenievietnam.biz.vn
+                        <a href="mailto:hello@greenievietnam.biz.vn" class="btn btn-outline" style="width: 100%;">
+                            <span class="material-symbols-outlined" style="margin-right: 8px;">mail</span> hello@greenievietnam.biz.vn
                         </a>
                     </div>
                 </div>
                 <div>
-                    <form id="inquiry-form">
+                    <form id="inquiry-form" action="mailto:hello@greenievietnam.biz.vn" method="POST" enctype="text/plain">
                         <div class="form-group">
                             <label class="form-label">Company Name *</label>
                             <input type="text" name="company" class="form-control" required>
@@ -227,7 +234,7 @@
                 </div>
                 <div>
                     <h4 class="footer-title">Contact</h4>
-                    <a href="mailto:sales@greenievietnam.biz.vn" class="footer-link">sales@greenievietnam.biz.vn</a>
+                    <a href="mailto:hello@greenievietnam.biz.vn" class="footer-link">hello@greenievietnam.biz.vn</a>
                     <a href="https://wa.me/84909053058" class="footer-link">WhatsApp Business</a>
                 </div>
             </div>
@@ -239,11 +246,5 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script>
-        // Init EmailJS
-        (function(){
-            emailjs.init("YOUR_PUBLIC_KEY");
-        })();
-    </script>
 </body>
 </html>

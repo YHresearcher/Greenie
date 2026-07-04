@@ -95,34 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. EmailJS Form Submission
-    const emailForm = document.getElementById('inquiry-form');
-    if (emailForm) {
-        emailForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const btn = emailForm.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            btn.innerText = "Sending...";
-            btn.disabled = true;
-
-            emailjs.sendForm('service_6joc3eq', 'template_vknoy18', this)
-                .then(() => {
-                    btn.innerText = "Sent Successfully!";
-                    emailForm.reset();
-                    setTimeout(() => {
-                        btn.innerText = originalText;
-                        btn.disabled = false;
-                    }, 3000);
-                }, (error) => {
-                    console.error('FAILED...', error);
-                    btn.innerText = "Error. Try again.";
-                    setTimeout(() => {
-                        btn.innerText = originalText;
-                        btn.disabled = false;
-                    }, 3000);
-                });
-        });
-    }
 });
 
 // 7. Google Translate Initialization - Exposed Globally
