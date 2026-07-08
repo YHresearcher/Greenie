@@ -8,18 +8,9 @@
   const wwwBaseURL = "https://www." + siteDomain;
   const siteEmail = "hello@" + siteDomain;
   const siteName = "Greenie Vietnam";
-  const ogImagePath = "/img/hero-macro-tea.png"; 
+  const ogImagePath = "/img/hero-macro-tea.webp"; 
 
   function applyDomain() {
-    const currentDomain = baseURL;
-    const pagePath = window.location.pathname;
-    const fullPageURL = currentDomain + pagePath;
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.href = fullPageURL;
-    }
-
     document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
       var href = a.getAttribute("href");
       if (href && href.includes("@greenievietnam")) {
