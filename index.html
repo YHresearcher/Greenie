@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Greenie Vietnam">
     <meta name="twitter:card" content="summary_large_image">
-    <title>Greenie Vietnam - Global Wholesale Export</title>
+    <title>Greenie Vietnam - Premium Global Wholesale Export Partner</title>
     
     <!-- SEO & Domain config -->
     <link rel="canonical" href="https://greenievietnam.biz.vn/">
@@ -21,17 +21,39 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Greenie Vietnam",
-      "url": "https://greenievietnam.biz.vn/",
-      "logo": "https://greenievietnam.biz.vn/img/logo.webp",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "hello@greenievietnam.biz.vn",
-        "contactType": "customer service"
-      },
-      "sameAs": [
-        "https://wa.me/84931332198"
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://greenievietnam.biz.vn/",
+          "url": "https://greenievietnam.biz.vn/",
+          "name": "Greenie Vietnam - Premium Global Wholesale Export Partner",
+          "description": "Premium Vietnamese qualified cashews, artisan cane sugar & Shan Tuyet ancient tea for global B2B buyers."
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://greenievietnam.biz.vn/#organization",
+          "name": "Greenie Vietnam",
+          "url": "https://greenievietnam.biz.vn/",
+          "logo": "https://greenievietnam.biz.vn/img/logo.webp",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@greenievietnam.biz.vn",
+            "contactType": "customer service"
+          },
+          "sameAs": [
+            "https://wa.me/84931332198"
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "Greenie Vietnam Export Products",
+          "numberOfItems": 3,
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "url": "https://greenievietnam.biz.vn/products/shan-tuyet-ancient-tea/"},
+            {"@type": "ListItem", "position": 2, "url": "https://greenievietnam.biz.vn/products/vietnamese-qualified-cashews/"},
+            {"@type": "ListItem", "position": 3, "url": "https://greenievietnam.biz.vn/products/vietnamese-artisanal-cane-sugar/"}
+          ]
+        }
       ]
     }
     </script>
@@ -40,16 +62,18 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
     
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" /></noscript>
     
     <!-- CSS -->
     <link href="css/style.css" rel="stylesheet" />
     
     <!-- Translation -->
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -88,6 +112,10 @@
             <p class="manifesto-quote italic">
                 "We don't just export agricultural products. We preserve the connection between the pristine origins of Vietnam and international buyers through transparent processes, fair trade practices, and the purest quality."
             </p>
+            <div class="manifesto-details" style="margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; color: var(--color-charcoal); line-height: 1.6;">
+                <p style="margin-bottom: 1rem;">Greenie Vietnam stands as your premier B2B sourcing partner for authentic Vietnamese agricultural exports. We specialize in ethically sourced, premium-grade commodities that meet stringent European and global compliance standards.</p>
+                <p>From the high-altitude mists of Ha Giang to the rich volcanic soils of Binh Phuoc, our direct-from-farm supply chain ensures complete traceability, exceptional quality control, and sustainable practices. Partner with us for reliable wholesale supply, comprehensive documentation, and a commitment to global excellence.</p>
+            </div>
         </div>
     </section>
 

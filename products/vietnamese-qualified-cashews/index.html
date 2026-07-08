@@ -3,40 +3,64 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Wholesale Binh Phuoc cashew kernels (W240, W320) from Vietnam. 100% single-origin, BRC/IFS compliant with strict Aflatoxin controls. Direct B2B supply.">
+    <meta name="description" content="Wholesale Binh Phuoc cashew kernels (W240, W320) from Vietnam. 100% single-origin with strict Aflatoxin controls. Direct B2B supply.">
     <!-- Open Graph -->
     <meta property="og:title" content="Single-Origin Binh Phuoc Cashew - Greenie Vietnam Wholesale Export">
-    <meta property="og:description" content="Premium Vietnamese cashew kernels from Binh Phuoc for global B2B buyers. W240 & W320 grades, Aflatoxin-free, BRC/IFS compliant, direct wholesale supply.">
+    <meta property="og:description" content="Premium Vietnamese cashew kernels from Binh Phuoc for global B2B buyers. W240 & W320 grades, Aflatoxin-free, direct wholesale supply.">
     <meta property="og:image" content="https://greenievietnam.biz.vn/img/cashew-w180.webp">
     <meta property="og:url" content="https://greenievietnam.biz.vn/products/vietnamese-qualified-cashews/">
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="Greenie Vietnam">
     <meta name="twitter:card" content="summary_large_image">
-    <title>The Single-Origin Cashew - Greenie Vietnam</title>
+    <title>Single-Origin Binh Phuoc Cashew Kernels - Greenie Vietnam</title>
     
     <!-- SEO & Domain config -->
     <link class="canonical-tag" rel="canonical" href="https://greenievietnam.biz.vn/products/vietnamese-qualified-cashews/">
     
-    <!-- Structured Data (JSON-LD Product) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "Bình Phước Cashew Kernels",
-      "image": "https://greenievietnam.biz.vn/img/cashew-w180.webp",
-      "description": "Premium Binh Phuoc cashew kernels. 100% single-origin, BRC/IFS compliant, W240 and W320 grades.",
-      "brand": {
-        "@type": "Brand",
-        "name": "Greenie Vietnam"
-      },
-      "offers": {
-        "@type": "AggregateOffer",
-        "priceCurrency": "USD",
-        "seller": {
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://greenievietnam.biz.vn/products/vietnamese-qualified-cashews/",
+          "url": "https://greenievietnam.biz.vn/products/vietnamese-qualified-cashews/",
+          "name": "Single-Origin Binh Phuoc Cashew Kernels - Greenie Vietnam",
+          "description": "Buy wholesale Binh Phuoc cashew kernels (W240, W320) from Vietnam. 100% single-origin, strict Aflatoxin controls. Direct B2B export supply."
+        },
+        {
+          "@type": "Product",
+          "name": "Bình Phước Cashew Kernels",
+          "image": "https://greenievietnam.biz.vn/img/cashew-w180.webp",
+          "description": "Premium Binh Phuoc cashew kernels. 100% single-origin, W240 and W320 grades.",
+          "brand": {
+            "@type": "Brand",
+            "name": "Greenie Vietnam"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "seller": {
+              "@type": "Organization",
+              "name": "Greenie Vietnam"
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://greenievietnam.biz.vn/"},
+            {"@type": "ListItem", "position": 2, "name": "Products", "item": "https://greenievietnam.biz.vn/#products"},
+            {"@type": "ListItem", "position": 3, "name": "Bình Phước Cashew Kernels"}
+          ]
+        },
+        {
           "@type": "Organization",
-          "name": "Greenie Vietnam"
+          "@id": "https://greenievietnam.biz.vn/#organization",
+          "name": "Greenie Vietnam",
+          "url": "https://greenievietnam.biz.vn/"
         }
-      }
+      ]
     }
     </script>
     <script src="../../js/site-config.js"></script>
@@ -44,10 +68,12 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
     
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" /></noscript>
     
     <!-- CSS -->
     <link href="../../css/style.css" rel="stylesheet" />
@@ -88,7 +114,7 @@
                     <p>Large bamboo trays of cashews are sun-dried naturally under the intense Southeast Vietnamese sun, preserving flavor integrity.</p>
                 </div>
                 <div class="fade-up" style="text-align: right;">
-                    <img src="../../img/Homepage.webp" alt="Cashew processing" style="max-width: 80%; display: inline-block; box-shadow: var(--shadow-soft);">
+                    <img src="../../img/Homepage.webp" alt="Cashew processing" loading="lazy" style="max-width: 80%; display: inline-block; box-shadow: var(--shadow-soft);">
                 </div>
             </div>
         </div>
@@ -98,7 +124,7 @@
     <section id="tech" class="lp-section lp-section-alt">
         <div class="container fade-up">
             <h2 class="text-center font-headline" style="margin-bottom: 2rem;">Technical Specifications (AFI Standards)</h2>
-            <p class="text-center" style="max-width: 800px; margin: 0 auto 3rem;">Strict Aflatoxin controls, bio-secure sterilization, BRC/IFS compliance. We commit to 100% Single-Origin Binh Phuoc cashews, never blended.</p>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 3rem;">Strict Aflatoxin controls and bio-secure sterilization. We commit to 100% Single-Origin Binh Phuoc cashews, never blended.</p>
             
             <table class="tech-table">
                 <tbody>
@@ -120,6 +146,37 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </section>
+
+    <!-- Global Standards Section (SEO Expansion) -->
+    <section id="standards" class="lp-section">
+        <div class="container fade-up">
+            <h2 class="font-headline" style="margin-bottom: 1.5rem;">Why Partner With Greenie's Binh Phuoc Cashews?</h2>
+            <div style="column-count: 2; column-gap: 2rem; color: var(--color-charcoal); margin-bottom: 2rem;">
+                <p style="margin-bottom: 1rem;">Unlike mixed-origin cashews frequently found on the commodity market, Greenie Vietnam exclusively sources from Binh Phuoc province. This region is globally recognized for producing kernels with a denser structure, a slightly sweeter flavor profile, and superior roasting characteristics. This single-origin commitment ensures complete traceability from the farm gate to your warehouse, guaranteeing consistent quality batch after batch.</p>
+                <p>We understand that our B2B partners require absolute reliability in food safety. Our partner facilities employ optical sorting, metal detection, and strict moisture control protocols. Every container is accompanied by comprehensive documentation including Certificates of Analysis (COA), Phytosanitary Certificates, and independent Aflatoxin testing results, ensuring seamless customs clearance and immediate integration into your manufacturing or retail packaging processes.</p>
+            </div>
+            
+            <h3 class="font-headline" style="margin-bottom: 1rem; margin-top: 2rem;">Frequently Asked Questions (B2B)</h3>
+            <div class="faq-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">What is the Minimum Order Quantity (MOQ)?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">Our standard MOQ is 1 FCL (Full Container Load) - approximately 15-16 metric tons for a 20ft container. For smaller trial orders or LCL shipments, please contact our wholesale team.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">What are the standard payment terms?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">We typically operate on T/T (Telegraphic Transfer) with a 30% advance deposit and 70% against the copy of B/L, or 100% Irrevocable L/C at sight for established partners.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">Do you offer private label packaging?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">Yes, in addition to standard 50lbs bulk cartons, we offer OEM/Private Label solutions including retail-ready vacuum pouches and nitrogen-flushed tins.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">How long is the typical lead time?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">From order confirmation to FOB Ho Chi Minh City port, the standard lead time is 14 to 21 days depending on packaging requirements and volume.</p>
+                </div>
+            </div>
         </div>
     </section>
 

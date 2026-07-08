@@ -66,11 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Parallax effect for landing page heroes
     const parallaxImages = document.querySelectorAll('.parallax-img');
+    let ticking = false;
     window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        parallaxImages.forEach(img => {
-            img.style.transform = `translateY(${scrollY * 0.3}px)`;
-        });
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                parallaxImages.forEach(img => {
+                    img.style.transform = `translateY(${scrollY * 0.3}px)`;
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
 
     // 5. Mobile Menu Toggle

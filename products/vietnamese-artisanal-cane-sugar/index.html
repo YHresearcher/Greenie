@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Wholesale artisan unrefined cane sugar from Quang Ngai, Vietnam. Chemical-free, pesticide-free & EU compliant sweetening for cafes & organic brands.">
+    <meta name="description" content="Buy wholesale artisan unrefined cane sugar from Quang Ngai, Vietnam. Pesticide & chemical-free. B2B supply for cafes & organic food brands.">
     <!-- Open Graph -->
     <meta property="og:title" content="Artisan Unrefined Cane Sugar - Greenie Vietnam Wholesale Export">
     <meta property="og:description" content="Premium Quang Ngai artisan cane sugar for global B2B buyers. Natural, unrefined, chemical-free — ideal for specialty cafes, bubble tea networks, and organic food processors.">
@@ -12,31 +12,55 @@
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="Greenie Vietnam">
     <meta name="twitter:card" content="summary_large_image">
-    <title>Artisan Unrefined Cane Sugar - Greenie Vietnam</title>
+    <title>Artisan Unrefined Cane Sugar Wholesale - Greenie Vietnam</title>
     
     <!-- SEO & Domain config -->
     <link class="canonical-tag" rel="canonical" href="https://greenievietnam.biz.vn/products/vietnamese-artisanal-cane-sugar/">
     
-    <!-- Structured Data (JSON-LD Product) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "Artisanal Cane Sugar",
-      "image": "https://greenievietnam.biz.vn/img/artisanal-cane-sugar.webp",
-      "description": "Premium Quang Ngai artisan cane sugar. Natural, unrefined, chemical-free and ideal for organic sweetening.",
-      "brand": {
-        "@type": "Brand",
-        "name": "Greenie Vietnam"
-      },
-      "offers": {
-        "@type": "AggregateOffer",
-        "priceCurrency": "USD",
-        "seller": {
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://greenievietnam.biz.vn/products/vietnamese-artisanal-cane-sugar/",
+          "url": "https://greenievietnam.biz.vn/products/vietnamese-artisanal-cane-sugar/",
+          "name": "Artisan Unrefined Cane Sugar Wholesale - Greenie Vietnam",
+          "description": "Buy wholesale artisan unrefined cane sugar from Quang Ngai, Vietnam. Pesticide & chemical-free. B2B supply for cafes & organic food brands."
+        },
+        {
+          "@type": "Product",
+          "name": "Artisanal Cane Sugar",
+          "image": "https://greenievietnam.biz.vn/img/artisanal-cane-sugar.webp",
+          "description": "Premium Quang Ngai artisan cane sugar. Natural, unrefined, chemical-free and ideal for organic sweetening.",
+          "brand": {
+            "@type": "Brand",
+            "name": "Greenie Vietnam"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "seller": {
+              "@type": "Organization",
+              "name": "Greenie Vietnam"
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://greenievietnam.biz.vn/"},
+            {"@type": "ListItem", "position": 2, "name": "Products", "item": "https://greenievietnam.biz.vn/#products"},
+            {"@type": "ListItem", "position": 3, "name": "Artisanal Cane Sugar"}
+          ]
+        },
+        {
           "@type": "Organization",
-          "name": "Greenie Vietnam"
+          "@id": "https://greenievietnam.biz.vn/#organization",
+          "name": "Greenie Vietnam",
+          "url": "https://greenievietnam.biz.vn/"
         }
-      }
+      ]
     }
     </script>
     <script src="../../js/site-config.js"></script>
@@ -44,10 +68,12 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
     
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" /></noscript>
     
     <!-- CSS -->
     <link href="../../css/style.css" rel="stylesheet" />
@@ -88,7 +114,7 @@
                     <p>Using natural egg whites to clarify impurities, followed by rapid whipping to create a porous, airy structure resembling a leaf of a lung (hence 'Duong Phoi').</p>
                 </div>
                 <div class="fade-up" style="text-align: right;">
-                    <img src="../../img/artisanal-sugar/boilling-sugar.webp" alt="Sugar Process" style="max-width: 80%; display: inline-block; box-shadow: var(--shadow-soft);">
+                    <img src="../../img/artisanal-sugar/boilling-sugar.webp" alt="Sugar Process" loading="lazy" style="max-width: 80%; display: inline-block; box-shadow: var(--shadow-soft);">
                 </div>
             </div>
         </div>
@@ -120,6 +146,37 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </section>
+
+    <!-- Global Standards Section (SEO Expansion) -->
+    <section id="standards" class="lp-section">
+        <div class="container fade-up">
+            <h2 class="font-headline" style="margin-bottom: 1.5rem;">The Artisan Advantage in B2B Sourcing</h2>
+            <div style="column-count: 2; column-gap: 2rem; color: var(--color-charcoal); margin-bottom: 2rem;">
+                <p style="margin-bottom: 1rem;">As the demand for transparent, organic-aligned ingredients rises in Europe and North America, Greenie Vietnam offers a sweetening solution that bypasses the aggressive chemical refining of industrial sugar. Our cane sugar retains its natural amber hue, molasses notes, and trace minerals (like calcium and iron), providing specialty beverage and organic food manufacturers with a clean-label ingredient that elevates their product narrative.</p>
+                <p>We work directly with historic sugar craft villages in Quang Ngai, upholding stringent food safety protocols without compromising the artisan method. Each batch undergoes rigorous testing to guarantee zero pesticide residues, no sulfur dioxide (SO2) bleaching agents, and no synthetic additives. We provide complete documentation for export, ensuring seamless integration into your supply chain with full traceability.</p>
+            </div>
+            
+            <h3 class="font-headline" style="margin-bottom: 1rem; margin-top: 2rem;">Frequently Asked Questions (B2B)</h3>
+            <div class="faq-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">What makes this different from brown sugar?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">Commercial brown sugar is often just refined white sugar sprayed with molasses. Our artisan cane sugar is entirely unrefined, crystallized directly from the cane juice using mechanical and thermal processes, retaining its original molasses content.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">How is it packaged for bulk wholesale?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">We offer 25kg and 50kg moisture-resistant, food-grade Kraft bags for bulk industrial use, as well as customizable glass jars or pouches for retail-ready distribution (OEM).</p>
+                </div>
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">Is this suitable for vegan products?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">Historically, the clarification process utilized egg whites, making it vegetarian but not strictly vegan. However, we offer specific batches clarified using modern mechanical filtration (bone-char free) suitable for vegan certification.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">Can I request a sample before committing to an MOQ?</h4>
+                    <p style="font-size: 0.95rem; color: #555;">Absolutely. We provide 500g samples dispatched via DHL or FedEx so your R&D and QA teams can evaluate the taste profile, solubility, and quality directly.</p>
+                </div>
+            </div>
         </div>
     </section>
 
