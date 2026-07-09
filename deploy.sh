@@ -24,6 +24,21 @@ pm2 delete greenie-app || true
 pm2 start server.js --name "greenie-app"
 pm2 save
 
+echo "=== 4.5. Checking Ghost Blog (Self-hosted) ==="
+if curl -s http://localhost:2368 > /dev/null; then
+    echo "Ghost is already running on port 2368!"
+else
+    echo "WARNING: Ghost is NOT running on port 2368."
+    echo "To run Ghost using Docker, execute these commands on the server:"
+    echo "  sudo apt-get install -y docker.io"
+    echo "  docker run -d --name greenie-ghost \\"
+    echo "    -e url=https://greenievietnam.biz.vn/blog \\"
+    echo "    -p 2368:2368 \\"
+    echo "    -v ~/ghost-content:/var/lib/ghost/content \\"
+    echo "    --restart always \\"
+    echo "    ghost:alpine"
+fi
+
 echo "=== 5. Configuring Nginx reverse proxy ==="
 sudo tee /etc/nginx/sites-available/default > /dev/null <<'EOF'
 server {
@@ -38,6 +53,15 @@ server {
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
         client_max_body_size 20M;
+    }
+
+    location /blog {
+        proxy_pass http://localhost:2368;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        client_max_body_size 50M;
     }
 }
 EOF
