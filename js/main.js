@@ -103,12 +103,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
-
-// 7. Google Translate Initialization - Exposed Globally
-window.googleTranslateElementInit = function() {
-    new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,fr,de,es,it,zh-CN,hi,vi',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'google_translate_element');
-};
