@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install updated dependencies
-        run: npm install --ignore-scripts=false --no-fund
+        run: npm ci --no-fund
       - name: Check JavaScript syntax
         run: npm run check
       - name: Admin security integration tests
