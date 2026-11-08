@@ -1,0 +1,3 @@
+# Cloudflare Pages static redirect definitions.
+# Deliberately empty: do not redirect /blog until the existing Ghost blog
+# is migrated to a confirmed destination, to avoid broken links and SEO loss.
