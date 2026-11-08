@@ -1,0 +1,45 @@
+name: RFQ Worker Preflight (No Production Deploy)
+on:
+  pull_request:
+    paths:
+      - 'wrangler.jsonc'
+      - 'src/worker.js'
+      - 'migrations/**'
+      - 'test/worker-rfq.test.mjs'
+      - '.github/workflows/rfq-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build safe static assets
+        run: npm run build:cloudflare
+      - name: Validate Worker and RFQ tests
+        run: node --test test/worker-rfq.test.mjs
+      - name: Check migration SQL in isolated SQLite
+        run: |
+          python3 - <<'PY'
+          import sqlite3
+          from pathlib import Path
+          db = sqlite3.connect(':memory:')
+          db.executescript(Path('migrations/0001_rfq.sql').read_text())
+          fields = [row[1] for row in db.execute('pragma table_info(rfq)')]
+          assert all(v in fields for v in ('id','company','email','status','created_at'))
+          db.execute("INSERT INTO rfq (id,company,contact,email,country,product) VALUES ('test-id','Buyer Ltd','Buyer','buyer@example.com','UAE','Cashew Kernels')")
+          assert db.execute('select count(*) from rfq').fetchone()[0] == 1
+          print('Migration SQLite test: PASS')
+          PY
+      - name: Validate Wrangler Worker bundle without deploying
+        run: npx --yes wrangler@4 deploy --dry-run --outdir /tmp/greenie-wrangler-dry-run
+      - name: Confirm private files absent from static output
+        run: |
+          for path in server.js admin.html config.json package.json; do
+            test ! -e "dist/$path"
+          done
