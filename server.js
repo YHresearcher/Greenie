@@ -50,7 +50,7 @@ function newConfig(password) {
 }
 // Never create a known default password. Existing legacy hashes require a forced reset.
 let adminConfig;
-const resetPassword = process.env.ADMIN_RESET_PASSWORD;
+const resetPassword = process.env.ADMIN_RESET_PASSWORD || undefined;
 if (resetPassword !== undefined && !strongPassword(resetPassword)) {
   throw new Error('ADMIN_RESET_PASSWORD must contain 14–256 characters.');
 }
