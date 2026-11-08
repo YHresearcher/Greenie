@@ -6,7 +6,19 @@
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
-  "main": "src/worker.js"
+  "main": "src/worker.js",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "greenie-rfq",
+      "database_id": "068e23e8-f44c-48e9-8404-0bf9a44ab622",
+      "migrations_dir": "migrations"
+    }
+  ]
 }
