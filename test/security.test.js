@@ -92,3 +92,22 @@ test('Password-change API enforces CSRF and password strength', async () => {
     method: 'POST', headers: { authorization: auth, origin: base, 'content-type': 'application/json' }, body: payload
   })).status, 400);
 });
+
+
+test('Authentication throttles repeated invalid credentials', async () => {
+  for (let i = 0; i < 6; i++) {
+    const response = await fetch(base + '/admin.html', {
+      headers: { authorization: 'Basic ' + Buffer.from('admin:wrong-password').toString('base64') }
+    });
+    assert.equal(response.status, 401);
+  }
+  const response = await fetch(base + '/admin.html', {
+    headers: { authorization: 'Basic ' + Buffer.from('admin:wrong-password').toString('base64') }
+  });
+  assert.equal(response.status, 429);
+});
+
+test('Server does not expose a remote RFQ backend accidentally', async () => {
+  const response = await fetch(base + '/api/rfq');
+  assert.equal(response.status, 404);
+});
