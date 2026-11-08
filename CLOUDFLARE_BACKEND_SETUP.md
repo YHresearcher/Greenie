@@ -6,20 +6,8 @@ This PR adds **only a public RFQ write endpoint**. It does not expose a dashboar
 
 Production backend requires BOTH Cloudflare D1 and Turnstile. It is **fail-closed**: without configuration, POST /api/rfq returns HTTP 503 and saves nothing. No database ID or secrets are committed.
 
-1. In Cloudflare dashboard create a D1 database named `greenie-rfq`. Copy its database ID.
-2. Add to `wrangler.jsonc` the following top-level property, replacing the ID with your actual Cloudflare D1 ID:
-
-```json
-"d1_databases": [
-  {
-    "binding": "DB",
-    "database_name": "greenie-rfq",
-    "database_id": "YOUR_REAL_D1_DATABASE_ID",
-    "migrations_dir": "migrations"
-  }
-]
-```
-
+1. D1 database `greenie-rfq` has been identified by the owner. Confirm its name matches in Cloudflare dashboard before any remote migration.
+2. The provided D1 database ID is already configured in `wrangler.jsonc` as binding `DB`. The static asset binding `ASSETS` is also configured and the Worker runs first only for `/api/*`.
 3. Apply migrations: `npx wrangler d1 migrations apply greenie-rfq --remote` using an authorized machine or Cloudflare workflow. Do **not** run against the wrong account.
 4. Create a Cloudflare Turnstile widget for the exact production/preview hostname. Obtain site key (public) and secret key (private).
 5. Configure the secret `TURNSTILE_SECRET_KEY` through Workers → Settings → Variables and Secrets or `npx wrangler secret put TURNSTILE_SECRET_KEY`. **Do not paste secrets into GitHub or chat.**
@@ -51,3 +39,10 @@ POST /api/rfq (same-origin JSON only)
 - Never commit actual Turnstile secret, D1 access token, credentials or customer information.
 - Do not merge until deployment owner has configured D1 and Turnstile if expecting live submissions.
 - Do not switch off the mailto fallback before a real integration test.
+
+## Deployment readiness (2026-11-08)
+
+- D1 UUID has been added to `wrangler.jsonc`; this does **not** prove Cloudflare account access, table creation, or a successful remote migration.
+- Worker route setup has explicit `ASSETS` binding and `run_worker_first: ["/api/*"]` to avoid disrupting static website routes.
+- Do not execute `wrangler deploy` or connect production until the migration, Turnstile verification, browser form integration, and end-to-end tests have been completed.
+- Database IDs are resource identifiers, not access tokens. Keep API tokens and Turnstile secrets in Cloudflare secret storage.
