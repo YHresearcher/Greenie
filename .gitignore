@@ -1,0 +1,13 @@
+# Credentials and machine-local state
+config.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Dependency/install artifacts
+node_modules/
+npm-debug.log*
+.DS_Store
+# Never commit user uploads or temporary conversion files
+img/**/*.tmp
