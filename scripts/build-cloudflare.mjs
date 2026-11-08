@@ -4,7 +4,7 @@ import { resolve, join, extname, relative, sep } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const out = resolve(root, 'dist');
 const approvedDirs = ['css', 'js', 'img', 'products'];
-const approvedRootFiles = ['index.html', 'favicon.ico', 'robots.txt', 'sitemap.xml'];
+const approvedRootFiles = ['index.html', '404.html', 'favicon.ico', 'robots.txt', 'sitemap.xml'];
 const allowedExt = new Set(['.html', '.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.gif', '.ico', '.svg', '.avif', '.woff', '.woff2', '.txt', '.xml']);
 const protectedNames = new Set(['admin.html', 'config.json', 'server.js', 'deploy.sh', 'package.json', 'package-lock.json', '.env', '.git', '.github', '.gitignore']);
 
