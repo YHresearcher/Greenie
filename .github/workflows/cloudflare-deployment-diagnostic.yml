@@ -1,0 +1,31 @@
+name: Cloudflare live deployment diagnostic
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cloudflare-deployment-diagnostic.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect live Worker routes and POST RFQ
+        shell: bash
+        env:
+          BASE: https://greenie-vietnam.hlthanh1992.workers.dev
+        run: |
+          set -u
+          for route in / /products/vietnamese-qualified-cashews/ /api/rfq /server.js /admin.html /blog; do
+            echo "=== GET ${route} ==="
+            curl -L -sS --max-time 15 -o /tmp/cf-body -D /tmp/cf-head -w 'http=%{http_code} content_type=%{content_type} final=%{url_effective}\n' "$BASE$route" || true
+            grep -Ei '^(content-type|cf-ray|server|content-security-policy|location|x-frame-options):' /tmp/cf-head || true
+            head -c 180 /tmp/cf-body || true
+            echo
+          done
+          echo "=== POST /api/rfq (empty JSON, no real customer data) ==="
+          curl -sS --max-time 15 -o /tmp/cf-body -D /tmp/cf-head -w 'http=%{http_code} content_type=%{content_type}\n' \
+            -X POST "$BASE/api/rfq" -H "Origin: $BASE" -H "Content-Type: application/json" -d '{}' || true
+          head -c 350 /tmp/cf-body || true
+          echo
