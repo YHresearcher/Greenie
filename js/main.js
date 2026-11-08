@@ -1,105 +1,71 @@
-/*
- * Greenie Vietnam - Main Script
- */
-
+/* Greenie Vietnam — progressive enhancement for the static B2B website. */
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Header Scroll Effect
-    const header = document.querySelector('.header');
-    if (header) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    }
+  const header = document.querySelector('.header');
+  const setHeader = () => header?.classList.toggle('scrolled', window.scrollY > 50);
+  window.addEventListener('scroll', setHeader, { passive: true });
+  setHeader();
 
-    // 2. Intersection Observer for Fade-up Animations
-    const fadeElements = document.querySelectorAll('.fade-up');
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    fadeElements.forEach(el => fadeObserver.observe(el));
-
-    // 3. Counter Animation for Trust Section
-    const counters = document.querySelectorAll('.counter-item .number');
-    const counterObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const endValue = parseInt(target.getAttribute('data-target'));
-                const suffix = target.getAttribute('data-suffix') || '+';
-                if (!isNaN(endValue)) {
-                    animateCounter(target, endValue, suffix, 2000);
-                }
-                observer.unobserve(target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    counters.forEach(counter => counterObserver.observe(counter));
-
-    function animateCounter(el, endValue, suffix, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            el.innerText = Math.floor(progress * endValue) + suffix;
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                el.innerText = endValue + suffix;
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
-
-    // 4. Parallax effect for landing page heroes
-    const parallaxImages = document.querySelectorAll('.parallax-img');
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const scrollY = window.scrollY;
-                parallaxImages.forEach(img => {
-                    img.style.transform = `translateY(${scrollY * 0.3}px)`;
-                });
-                ticking = false;
-            });
-            ticking = true;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fadeElements = document.querySelectorAll('.fade-up');
+  if (reducedMotion || !('IntersectionObserver' in window)) {
+    fadeElements.forEach(el => el.classList.add('visible'));
+  } else {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.08 });
+    fadeElements.forEach(el => observer.observe(el));
+  }
+
+  const menuButton = document.querySelector('.mobile-menu-btn');
+  const menu = document.querySelector('.nav-links');
+  if (menuButton && menu) {
+    const closeMenu = () => {
+      menu.classList.remove('is-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    };
+    menuButton.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('is-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
     });
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 991) closeMenu();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeMenu();
+    });
+  }
 
-    // 5. Mobile Menu Toggle
-    const mobileBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    if (mobileBtn && navLinks) {
-        mobileBtn.addEventListener('click', () => {
-            const isDisplayed = window.getComputedStyle(navLinks).display !== 'none';
-            if (isDisplayed && window.innerWidth <= 991) {
-                navLinks.style.display = 'none';
-            } else {
-                navLinks.style.display = 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '100%';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.backgroundColor = '#FDFBF7';
-                navLinks.style.padding = '2rem';
-                navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-            }
-        });
-    }
-
+  const form = document.getElementById('inquiry-form');
+  if (form) {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = new FormData(form);
+      const fields = [
+        ['Company', 'company'], ['Contact', 'contact'], ['Business email', 'email'],
+        ['Country', 'country'], ['Product', 'product'], ['Grade / specifications', 'grade'],
+        ['Target quantity', 'quantity'], ['Destination port', 'port'],
+        ['Incoterm', 'incoterm'], ['Requirements', 'services'], ['Message', 'message']
+      ];
+      const body = fields.map(([label, key]) =>
+        label + ': ' + (String(data.get(key) || '').trim() || 'Not specified')
+      ).join('\n');
+      const subject = 'Greenie wholesale inquiry - ' + String(data.get('company') || '').trim();
+      const url = 'mailto:hello@greenievietnam.biz.vn?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      const status = document.getElementById('rfq-status');
+      if (url.length > 1900) {
+        if (status) status.textContent = 'Your inquiry is too long for an email link. Please shorten the message or contact us at hello@greenievietnam.biz.vn.';
+        return;
+      }
+      if (status) status.textContent = 'Your email app should open with a draft. Please review and press Send there. Your inquiry has not been submitted by this website.';
+      window.location.href = url;
+    });
+  }
 });
