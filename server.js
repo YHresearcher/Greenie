@@ -11,7 +11,7 @@ const app = express();
 app.disable('x-powered-by');
 const HOST = process.env.HOST || '127.0.0.1';
 const PORT = Number(process.env.PORT || 3000);
-const CONFIG_PATH = path.join(__dirname, 'config.json');
+const CONFIG_PATH = process.env.ADMIN_CONFIG_PATH ? path.resolve(process.env.ADMIN_CONFIG_PATH) : path.join(__dirname, 'config.json');
 const IMAGE_ROOT = path.resolve(__dirname, 'img');
 const PUBLIC_ORIGIN = process.env.PUBLIC_ORIGIN || `http://localhost:${PORT}`;
 const UPLOAD_LIMIT = 5 * 1024 * 1024;
@@ -121,7 +121,12 @@ function sameOrigin(req, res, next) {
   // Reject cross-origin writes even if a browser has cached Basic Auth credentials.
   const origin = req.get('origin');
   const site = req.get('sec-fetch-site');
-  if ((origin && origin !== PUBLIC_ORIGIN) || (site && site === 'cross-site')) {
+  const expected = new Set([PUBLIC_ORIGIN]);
+  if (HOST === '127.0.0.1' || HOST === 'localhost') {
+    expected.add(`http://127.0.0.1:${PORT}`);
+    expected.add(`http://localhost:${PORT}`);
+  }
+  if ((origin && !expected.has(origin)) || (site && site === 'cross-site')) {
     return res.status(403).send('Cross-origin administrative request denied.');
   }
   next();
@@ -185,7 +190,7 @@ app.post('/upload', limitAuth, requireAuth, sameOrigin, (req, res, next) => {
 
 app.post('/change-password', limitAuth, requireAuth, sameOrigin, (req, res) => {
   const { currentPassword, newPassword } = req.body || {};
-  if (!strongPassword(newPassword) || typeof currentPassword !== 'string') {
+  if (!strongPassword(newPassword) || typeof currentPassword !== 'string' || currentPassword.length > 256) {
     return res.status(400).json({ message: 'The new password must be 14–256 characters.' });
   }
   if (!safeEqualHex(passwordHash(currentPassword, adminConfig.salt), adminConfig.passwordHash)) {
