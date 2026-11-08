@@ -39,3 +39,31 @@ jobs:
           if grep -R -l -E 'Greenie2026!|ADMIN_INITIAL_PASSWORD|ADMIN_RESET_PASSWORD' dist; then
             echo "Potential secret reference in public output"; exit 1
           fi
+
+  deployed-workers-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SITE_URL: https://greenie-vietnam.hlthanh1992.workers.dev
+    steps:
+      - name: Inspect Cloudflare Worker HTTP responses
+        shell: bash
+        run: |
+          set +e
+          for route in / /products/vietnamese-qualified-cashews/ /products/vietnamese-artisanal-cane-sugar/ /admin.html /config.json /server.js /blog; do
+            echo "=== ${route} ==="
+            curl -L --max-time 15 --silent --show-error --output /dev/null --dump-header /tmp/greenie-headers --write-out 'HTTP: %{http_code} | type: %{content_type} | final: %{url_effective}\n' "${SITE_URL}${route}"
+            grep -Ei '^(server|content-security-policy|x-content-type-options|x-frame-options|strict-transport-security|location):' /tmp/greenie-headers || true
+          done
+
+      - name: Fail when private endpoints are public
+        shell: bash
+        run: |
+          set -euo pipefail
+          for route in /admin /admin.html /server.js /config.json; do
+            status=$(curl -L --max-time 15 --silent --show-error --output /dev/null --write-out '%{http_code}' "${SITE_URL}${route}")
+            if [ "$status" != "404" ]; then
+              echo "::error::Private endpoint ${route} returned HTTP ${status}; expected 404. Fix Worker deployment to publish dist only."
+              exit 1
+            fi
+          done
