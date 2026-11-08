@@ -56,6 +56,31 @@ jobs:
             grep -Ei '^(server|content-security-policy|x-content-type-options|x-frame-options|strict-transport-security|location):' /tmp/greenie-headers || true
           done
 
+      - name: Diagnose live homepage response
+        shell: bash
+        run: |
+          echo "=== DNS ==="
+          getent hosts greenie-vietnam.hlthanh1992.workers.dev || true
+          echo "=== HTTP homepage raw headers/body (first 1KB) ==="
+          curl --max-time 20 --silent --show-error -D /tmp/cfdiag-headers -o /tmp/cfdiag-body "$SITE_URL/"
+          sed -n '1,30p' /tmp/cfdiag-headers
+          head -c 1024 /tmp/cfdiag-body
+          echo
+          echo "=== Redirect headers ==="
+          curl --max-time 20 --silent --show-error -I "$SITE_URL/" || true
+
+      - name: Fail when public website routes are missing
+        shell: bash
+        run: |
+          set -euo pipefail
+          for route in / /products/vietnamese-qualified-cashews/ /products/vietnamese-artisanal-cane-sugar/; do
+            status=$(curl -L --max-time 15 --silent --show-error --output /dev/null --write-out '%{http_code}' "${SITE_URL}${route}")
+            if [ "$status" != "200" ]; then
+              echo "::error::Public route ${route} returned HTTP ${status}; expected 200"
+              exit 1
+            fi
+          done
+
       - name: Fail when private endpoints are public
         shell: bash
         run: |
