@@ -55,3 +55,15 @@ jobs:
             curl -L --max-time 15 --silent --show-error --output /dev/null --dump-header /tmp/greenie-headers --write-out 'HTTP: %{http_code} | type: %{content_type} | final: %{url_effective}\n' "${SITE_URL}${route}"
             grep -Ei '^(server|content-security-policy|x-content-type-options|x-frame-options|strict-transport-security|location):' /tmp/greenie-headers || true
           done
+
+      - name: Fail when private endpoints are public
+        shell: bash
+        run: |
+          set -euo pipefail
+          for route in /admin /admin.html /server.js /config.json; do
+            status=$(curl -L --max-time 15 --silent --show-error --output /dev/null --write-out '%{http_code}' "${SITE_URL}${route}")
+            if [ "$status" != "404" ]; then
+              echo "::error::Private endpoint ${route} returned HTTP ${status}; expected 404. Fix Worker deployment to publish dist only."
+              exit 1
+            fi
+          done
