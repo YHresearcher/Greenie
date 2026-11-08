@@ -1,0 +1,41 @@
+name: Cloudflare Pages Static Export
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - '404.html'
+      - 'css/**'
+      - 'js/**'
+      - 'img/**'
+      - 'products/**'
+      - 'scripts/build-cloudflare.mjs'
+      - 'cloudflare/**'
+      - 'package.json'
+      - '.github/workflows/cloudflare-preview-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate safe Pages output
+        run: npm run build:cloudflare
+      - name: Verify published assets and protected paths
+        run: |
+          test -s dist/index.html
+          test -s dist/404.html
+          test -s dist/_headers
+          test -s dist/products/vietnamese-qualified-cashews/index.html
+          test -s dist/products/vietnamese-artisanal-cane-sugar/index.html
+          for bad in admin.html server.js config.json package.json package-lock.json deploy.sh; do
+            test ! -e "dist/$bad" || { echo "Sensitive file published: $bad"; exit 1; }
+          done
+          if grep -R -l -E 'Greenie2026!|ADMIN_INITIAL_PASSWORD|ADMIN_RESET_PASSWORD' dist; then
+            echo "Potential secret reference in public output"; exit 1
+          fi
