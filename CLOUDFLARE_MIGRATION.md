@@ -1,3 +1,35 @@
+## IMPORTANT: Live Workers deployment audit (2026-11-08)
+
+URL: https://greenie-vietnam.hlthanh1992.workers.dev
+
+GitHub Actions HTTP smoke test observed:
+- `/` = HTTP 200
+- cashew and cane sugar URLs = HTTP 200
+- `/admin.html` redirects to `/admin` and returns HTTP 200 (unsafe)
+- `/server.js` = HTTP 200 (unsafe: server source accessible)
+- `/config.json` = HTTP 404
+- `/blog` = HTTP 404
+- No custom security headers were observed in the selected header audit output.
+
+**Do not attach the custom domain while admin/server files are exposed.** The deployed Workers site appears to publish the repository root instead of the safe `dist/` output.
+
+### Required Cloudflare Workers settings
+
+This repository now contains `wrangler.jsonc` configuring `assets.directory = "./dist"` and `assets.not_found_handling = "404-page"` per Cloudflare Workers documentation.
+
+In the Worker **Builds** settings, set:
+- Git repository: `YHresearcher/Greenie`
+- Build command: `npm run build:cloudflare`
+- Deploy command: `npx wrangler deploy` (only with confirmed deployment permissions)
+- Root directory: repository root
+- Branch: the reviewed branch / main when approved
+- Asset directory: `dist` (via `wrangler.jsonc`)
+
+Do **not** deploy the repository root (`./`) or use `npx wrangler deploy --assets .`.
+After re-deployment, verify that `/admin`, `/admin.html` and `/server.js` return HTTP 404, and the homepage includes expected security headers.
+
+---
+
 # Greenie Vietnam — Cloudflare Pages migration
 
 ## Deployment decision
