@@ -67,3 +67,22 @@ jobs:
               exit 1
             fi
           done
+
+  backend-api-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      SITE_URL: https://greenie-vietnam.hlthanh1992.workers.dev
+    steps:
+      - name: Inspect publicly reachable backend paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          for route in /admin /admin.html /server.js /config.json /upload /change-password /api/rfq; do
+            status=$(curl -L --silent --show-error --max-time 20 --output /dev/null --write-out '%{http_code}' "${SITE_URL}${route}")
+            echo "${route}: HTTP ${status}"
+            if [ "${status}" != 404 ]; then
+              echo "::error::Unexpected backend path response ${route}: HTTP ${status}"
+              exit 1
+            fi
+          done
