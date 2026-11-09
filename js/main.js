@@ -43,29 +43,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.getElementById('inquiry-form');
   if (form) {
-    form.addEventListener('submit', event => {
+    const status = document.getElementById('rfq-status');
+    const button = form.querySelector('button[type="submit"]');
+    const fields = ['company','contact','email','country','product','grade','quantity','port','incoterm','services','message'];
+    let pending = false;
+    let previousBody = '';
+    let reference = '';
+    form.addEventListener('submit', async event => {
       event.preventDefault();
-      if (!form.reportValidity()) return;
+      if (pending || !form.reportValidity()) return;
       const data = new FormData(form);
-      const fields = [
-        ['Company', 'company'], ['Contact', 'contact'], ['Business email', 'email'],
-        ['Country', 'country'], ['Product', 'product'], ['Grade / specifications', 'grade'],
-        ['Target quantity', 'quantity'], ['Destination port', 'port'],
-        ['Incoterm', 'incoterm'], ['Requirements', 'services'], ['Message', 'message']
-      ];
-      const body = fields.map(([label, key]) =>
-        label + ': ' + (String(data.get(key) || '').trim() || 'Not specified')
-      ).join('\n');
-      const subject = 'Greenie wholesale inquiry - ' + String(data.get('company') || '').trim();
-      const url = 'mailto:hello@greenievietnam.biz.vn?subject=' +
-        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      const status = document.getElementById('rfq-status');
-      if (url.length > 1900) {
-        if (status) status.textContent = 'Your inquiry is too long for an email link. Please shorten the message or contact us at hello@greenievietnam.biz.vn.';
+      const token = String(data.get('cf-turnstile-response') || '');
+      if (!token) {
+        status.textContent = 'Please complete the verification before sending.';
         return;
       }
-      if (status) status.textContent = 'Your email app should open with a draft. Please review and press Send there. Your inquiry has not been submitted by this website.';
-      window.location.href = url;
+      const payload = Object.fromEntries(fields.map(key => [key, String(data.get(key) || '').trim()]));
+      const body = JSON.stringify(payload);
+      if (body !== previousBody || !reference) {
+        reference = 'rfq_' + crypto.randomUUID();
+        previousBody = body;
+      }
+      payload.turnstileToken = token;
+      pending = true;
+      button.disabled = true;
+      status.textContent = 'Sending your inquiry…';
+      try {
+        const response = await fetch('/api/rfq', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'Idempotency-Key': reference},
+          body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(20000)
+        });
+        const result = await response.json();
+        if (!response.ok || result.ok !== true || result.reference !== reference) {
+          throw new Error(result.error || 'Unable to send. Please try again.');
+        }
+        status.textContent = 'Inquiry received. Your reference: ' + result.reference;
+        form.reset();
+        previousBody = '';
+        reference = '';
+      } catch (error) {
+        status.textContent = error.name === 'TimeoutError' || error.name === 'TypeError'
+          ? 'Delivery could not be confirmed. Please verify again and retry without changing the form to avoid duplicates.'
+          : error.message;
+      } finally {
+        pending = false;
+        button.disabled = false;
+        if (window.turnstile) window.turnstile.reset();
+      }
     });
   }
 });

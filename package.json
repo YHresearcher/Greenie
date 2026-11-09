@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check js/main.js && node --check js/site-config.js",
+    "check": "node --check server.js && node --check js/main.js && node --check js/site-config.js && node --check src/worker.js",
     "audit": "npm audit --omit=dev",
-    "test": "node --test test/*.test.js",
+    "test": "node --test test/*.test.js test/*.test.mjs",
     "build:cloudflare": "node scripts/build-cloudflare.mjs"
   },
   "dependencies": {
