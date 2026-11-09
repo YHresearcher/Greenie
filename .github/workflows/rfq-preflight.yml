@@ -43,3 +43,4 @@ jobs:
           for path in server.js admin.html config.json package.json; do
             test ! -e "dist/$path"
           done
+# Post-merge validation run: 2026-11-09 (no deployment)
