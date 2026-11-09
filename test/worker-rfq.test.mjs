@@ -21,6 +21,7 @@ function environment() {
     inserted,
     env:{
       TURNSTILE_SECRET_KEY:'test-secret',
+      RFQ_RATE_LIMIT:{async limit() {return {success:true};}},
       DB:{prepare(sql) { assert.match(sql, /ON CONFLICT\(id\) DO NOTHING/);
         return {bind(...args) {return {async run() {
           if (!inserted.some(row => row[0] === args[0])) inserted.push(args);
@@ -29,7 +30,7 @@ function environment() {
     }
   };
 }
-const verify = async () => new Response(JSON.stringify({success:true}), {status:200});
+const verify = async () => new Response(JSON.stringify({success:true, hostname:'greenie-vietnam.example.workers.dev', action:'rfq'}), {status:200});
 test('unconfigured storage always fails closed', async () => {
   const r = await handleRfq(request(), {}, verify);
   assert.equal(r.status,503);
@@ -46,7 +47,7 @@ test('rejects invalid buyer contact fields', async () => {
 });
 test('rejects missing or unsuccessful Turnstile', async () => {
   const {env}=environment();
-  const r=await handleRfq(request(accepted),env,async()=>new Response(JSON.stringify({success:false}),{status:200}));
+  const r=await handleRfq(request(accepted),env,async()=>new Response(JSON.stringify({success:false, hostname:'greenie-vietnam.example.workers.dev', action:'rfq'}),{status:200}));
   assert.equal(r.status,403);
 });
 test('inserts inquiry and deduplicates replays', async () => {
@@ -67,4 +68,39 @@ test('rejects invalid JSON types, unsupported products and large messages', asyn
   assert.equal((await handleRfq(request({...accepted,company:42}),env,verify)).status,422);
   assert.equal((await handleRfq(request({...accepted,product:'Unapproved'}),env,verify)).status,422);
   assert.equal((await handleRfq(request({...accepted,message:'x'.repeat(3000)}),env,verify)).status,422);
+});
+
+test('rejects a valid Turnstile token issued for another hostname', async () => {
+  const {env, inserted} = environment();
+  const wrongHost = async () => new Response(JSON.stringify({success:true, hostname:'evil.invalid', action:'rfq'}));
+  assert.equal((await handleRfq(request(), env, wrongHost)).status, 403);
+  assert.equal(inserted.length, 0);
+});
+test('rejects valid Turnstile token for an unrelated action', async () => {
+  const {env,inserted} = environment();
+  const wrongAction = async () => new Response(JSON.stringify({success:true, hostname:'greenie-vietnam.example.workers.dev', action:'login'}));
+  assert.equal((await handleRfq(request(), env, wrongAction)).status, 403);
+  assert.equal(inserted.length, 0);
+});
+test('rejects RFQ when rate-limit quota is exceeded before Siteverify', async () => {
+  const {env,inserted}=environment();
+  env.RFQ_RATE_LIMIT = {async limit() { return {success:false}; }};
+  let called = false;
+  const verifySpy = async () => {called=true; return verify();};
+  const r=await handleRfq(request(), env, verifySpy);
+  assert.equal(r.status,429);
+  assert.equal(called,false);
+  assert.equal(inserted.length,0);
+});
+test('does not signal successful RFQ if D1 reports unsuccessful result', async () => {
+  const {env}=environment();
+  env.DB={prepare() {return {bind() {return {async run() {return {success:false};}};}};}};
+  assert.equal((await handleRfq(request(),env,verify)).status,503);
+});
+test('rejects rate limiter missing and failing bindings without verification', async () => {
+  const {env}=environment();
+  delete env.RFQ_RATE_LIMIT;
+  assert.equal((await handleRfq(request(),env,verify)).status,503);
+  env.RFQ_RATE_LIMIT={async limit() {throw new Error('service unavailable');}};
+  assert.equal((await handleRfq(request(),env,verify)).status,503);
 });

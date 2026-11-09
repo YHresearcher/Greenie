@@ -26,7 +26,7 @@ function corsPolicy(request, url) {
   const origin = request.headers.get('origin');
   return origin === url.origin && request.headers.get('sec-fetch-site') !== 'cross-site';
 }
-async function verifyCaptcha(token, secret, ip, fetcher) {
+async function verifyCaptcha(token, secret, ip, expectedHostname, fetcher) {
   if (!token || token.length > 2048 || !secret) return false;
   const params = new URLSearchParams({ secret, response: token });
   if (ip) params.set('remoteip', ip);
@@ -36,14 +36,14 @@ async function verifyCaptcha(token, secret, ip, fetcher) {
     });
     if (!response.ok) return false;
     const data = await response.json();
-    return data.success === true;
+    return data.success === true && data.hostname === expectedHostname && data.action === 'rfq';
   } catch { return false; }
 }
 export async function handleRfq(request, env, fetcher = fetch) {
   if (request.method !== 'POST') return result({ error: 'Method not allowed' }, 405, { allow: 'POST' });
   const url = new URL(request.url);
   if (!corsPolicy(request, url)) return result({ error: 'Origin not allowed' }, 403);
-  if (!env?.DB || !env?.TURNSTILE_SECRET_KEY) return result({ error: 'RFQ service not configured' }, 503, { 'retry-after': '300' });
+  if (!env?.DB || !env?.TURNSTILE_SECRET_KEY || !env?.RFQ_RATE_LIMIT) return result({ error: 'RFQ service not configured' }, 503, { 'retry-after': '300' });
   if (!(request.headers.get('content-type') || '').toLowerCase().startsWith('application/json')) return result({ error: 'JSON required' }, 415);
   if (Number(request.headers.get('content-length') || 0) > 10000) return result({ error: 'Request too large' }, 413);
   let payload;
@@ -60,16 +60,25 @@ export async function handleRfq(request, env, fetcher = fetch) {
   const key = request.headers.get('idempotency-key');
   if (!key || !/^[a-zA-Z0-9_-]{16,100}$/.test(key)) return result({ error: 'Idempotency key required' }, 400);
 
-  const verified = await verifyCaptcha(payload.turnstileToken, env.TURNSTILE_SECRET_KEY, request.headers.get('cf-connecting-ip'), fetcher);
+  // This limiter is best-effort per Cloudflare location. Pair with WAF/monitoring.
+  try {
+    const rate = await env.RFQ_RATE_LIMIT.limit({ key: request.headers.get('cf-connecting-ip') || 'unknown' });
+    if (!rate?.success) return result({ error: 'Too many requests. Please try later.' }, 429, { 'retry-after': '60' });
+  } catch {
+    return result({ error: 'RFQ temporarily unavailable' }, 503);
+  }
+  const verified = await verifyCaptcha(payload.turnstileToken, env.TURNSTILE_SECRET_KEY,
+    request.headers.get('cf-connecting-ip'), url.hostname, fetcher);
   if (!verified) return result({ error: 'Verification failed. Please try again.' }, 403);
 
   // D1 UNIQUE idempotency key prevents duplicate leads if client retries after a timeout.
   try {
-    await env.DB.prepare(
+    const dbResult = await env.DB.prepare(
       `INSERT INTO rfq (id, company, contact, email, country, product, grade, quantity, port, incoterm, services, message, status)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new')
        ON CONFLICT(id) DO NOTHING`
     ).bind(key, ...KEYS.map(name => fields[name])).run();
+    if (dbResult?.success !== true) throw new Error('D1 did not acknowledge write');
     return result({ ok: true, reference: key }, 201);
   } catch {
     return result({ error: 'Unable to save inquiry. Please try again later.' }, 503);
