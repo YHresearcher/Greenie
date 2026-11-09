@@ -1,0 +1,29 @@
+name: RFQ post-merge live diagnostic
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/rfq-post-merge-diagnostic.yml'
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect public RFQ endpoints without submitting buyer information
+        shell: bash
+        env:
+          BASE: https://greenie-vietnam.hlthanh1992.workers.dev
+        run: |
+          set -euo pipefail
+          for route in / /products/vietnamese-qualified-cashews/ /api/rfq /server.js /admin.html; do
+            echo "=== GET ${route} ==="
+            curl -sS --max-time 15 -o /tmp/body -D /tmp/head -w 'http=%{http_code} content_type=%{content_type}\n' "$BASE$route"
+            head -c 200 /tmp/body; echo
+          done
+          echo "=== POST /api/rfq (empty request, NO customer data) ==="
+          curl -sS --max-time 15 -o /tmp/body -D /tmp/head -w 'http=%{http_code} content_type=%{content_type}\n' \
+            -X POST "$BASE/api/rfq" \
+            -H "Origin: $BASE" -H "Content-Type: application/json" \
+            -d '{}'
+          head -c 400 /tmp/body; echo
