@@ -5,6 +5,8 @@ on:
       - 'wrangler.jsonc'
       - 'src/worker.js'
       - 'migrations/**'
+      - 'src/rfq-notifications.js'
+      - 'test/rfq-notifications.test.mjs'
       - 'test/worker-rfq.test.mjs'
       - '.github/workflows/rfq-preflight.yml'
   workflow_dispatch:
@@ -22,18 +24,24 @@ jobs:
       - name: Build safe static assets
         run: npm run build:cloudflare
       - name: Validate Worker and RFQ tests
-        run: node --test test/worker-rfq.test.mjs
+        run: node --test test/worker-rfq.test.mjs test/rfq-notifications.test.mjs
       - name: Check migration SQL in isolated SQLite
         run: |
           python3 - <<'PY'
           import sqlite3
           from pathlib import Path
           db = sqlite3.connect(':memory:')
+          db.execute('PRAGMA foreign_keys=ON')
           db.executescript(Path('migrations/0001_rfq.sql').read_text())
+          db.executescript(Path('migrations/0002_rfq_notifications.sql').read_text())
           fields = [row[1] for row in db.execute('pragma table_info(rfq)')]
           assert all(v in fields for v in ('id','company','email','status','created_at'))
           db.execute("INSERT INTO rfq (id,company,contact,email,country,product) VALUES ('test-id','Buyer Ltd','Buyer','buyer@example.com','UAE','Cashew Kernels')")
           assert db.execute('select count(*) from rfq').fetchone()[0] == 1
+          assert db.execute('select count(*) from rfq_notifications').fetchone()[0] == 1
+          db.execute("INSERT INTO rfq (id,company,contact,email,country,product) VALUES ('test-id','Buyer Ltd','Buyer','buyer@example.com','UAE','Cashew Kernels') ON CONFLICT(id) DO NOTHING")
+          assert db.execute('select count(*) from rfq_notifications').fetchone()[0] == 1
+          print('Outbox trigger and duplicate protection: PASS')
           print('Migration SQLite test: PASS')
           PY
       - name: Validate Wrangler Worker bundle without deploying
