@@ -104,7 +104,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for route in /admin /admin.html /server.js /config.json /upload /change-password /api/rfq; do
+          for route in /admin /admin.html /server.js /config.json /upload /change-password; do
             status=$(curl -L --silent --show-error --max-time 20 --output /dev/null --write-out '%{http_code}' "${SITE_URL}${route}")
             echo "${route}: HTTP ${status}"
             if [ "${status}" != 404 ]; then
@@ -112,3 +112,10 @@ jobs:
               exit 1
             fi
           done
+          # The RFQ endpoint is now deployed and must reject GET requests.
+          status=$(curl -L --silent --show-error --max-time 20 --output /dev/null --write-out '%{http_code}' "${SITE_URL}/api/rfq")
+          echo "/api/rfq GET: HTTP ${status}"
+          if [ "${status}" != 405 ]; then
+            echo "::error::RFQ GET unexpectedly returned HTTP ${status}; expected 405"
+            exit 1
+          fi
