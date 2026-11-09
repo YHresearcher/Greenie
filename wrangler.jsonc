@@ -20,5 +20,15 @@
       "database_id": "068e23e8-f44c-48e9-8404-0bf9a44ab622",
       "migrations_dir": "migrations"
     }
+  ],
+  "ratelimits": [
+    {
+      "name": "RFQ_RATE_LIMIT",
+      "namespace_id": "490031",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
   ]
 }
