@@ -30,5 +30,16 @@
         "period": 60
       }
     }
+  ],
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "destination_address": "hello@greenievietnam.biz.vn"
+    }
   ]
 }

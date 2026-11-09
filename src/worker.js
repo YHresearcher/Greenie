@@ -1,3 +1,4 @@
+import { deliverPendingRfqNotifications } from './rfq-notifications.js';
 const PRODUCT_OPTIONS = new Set(['Cashew Kernels', 'Artisan Cane Sugar', 'Shan Tuyet Ancient Tea', 'Other / OEM']);
 const TERM_OPTIONS = new Set(['', 'FOB', 'CIF']);
 const SERVICE_OPTIONS = new Set(['', 'None specified', 'OEM / Private Label', 'Halal documentation', 'Independent inspection', 'Multiple requirements (describe below)']);
@@ -89,5 +90,8 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/api/rfq') return handleRfq(request, env);
     return env.ASSETS.fetch(request);
+  },
+  async scheduled(_event, env, ctx) {
+    ctx.waitUntil(deliverPendingRfqNotifications(env));
   }
 };
