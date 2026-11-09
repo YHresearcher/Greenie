@@ -35,3 +35,4 @@ jobs:
             echo "A credential file is tracked!" >&2
             exit 1
           fi
+# Post-merge validation run: 2026-11-09 (no deployment)
