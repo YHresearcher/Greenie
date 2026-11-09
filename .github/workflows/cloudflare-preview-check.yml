@@ -119,3 +119,14 @@ jobs:
             echo "::error::RFQ GET unexpectedly returned HTTP ${status}; expected 405"
             exit 1
           fi
+          # Read-only negative probes: invalid requests cannot insert RFQ records.
+          response=$(curl --silent --show-error --max-time 20 --output /dev/null --write-out '%{http_code}' \
+            -X POST "${SITE_URL}/api/rfq" \
+            -H "Origin: ${SITE_URL}" -H "Content-Type: application/json" -d '{}')
+          echo "/api/rfq invalid POST: HTTP ${response}"
+          test "${response}" = 422
+          response=$(curl --silent --show-error --max-time 20 --output /dev/null --write-out '%{http_code}' \
+            -X POST "${SITE_URL}/api/rfq" \
+            -H "Origin: https://untrusted.invalid" -H "Content-Type: application/json" -d '{}')
+          echo "/api/rfq cross-site POST: HTTP ${response}"
+          test "${response}" = 403
